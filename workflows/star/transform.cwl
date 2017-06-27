@@ -9,6 +9,8 @@ inputs:
     type: File
   - id: run_uuid
     type: string
+  - id: thread_count
+    type: int
 
 requirements:
   - class: ScatterFeatureRequirement
@@ -77,3 +79,49 @@ steps:
     out:
       - id: log
       - id: output_sqlite
+
+  - id: fastqc1
+    run: ../../tools/fastqc.cwl
+    scatter: INPUT
+    in:
+      - id: INPUT
+        source: biobambam_bamtofastq/output_fastq1
+      - id: threads
+        source: thread_count
+    out:
+      - id: OUTPUT
+
+  - id: fastqc2
+    run: ../../tools/fastqc.cwl
+    scatter: INPUT
+    in:
+      - id: INPUT
+        source: biobambam_bamtofastq/output_fastq2
+      - id: threads
+        source: thread_count
+    out:
+      - id: OUTPUT
+
+  - id: fastqc_db1
+    run: ../../tools/fastqc_db.cwl
+    scatter: INPUT
+    in:
+      - id: INPUT
+        source: fastqc1/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: LOG
+      - id: OUTPUT
+
+  - id: fastqc_db2
+    run: ../../tools/fastqc_db.cwl
+    scatter: INPUT
+    in:
+      - id: INPUT
+        source: fastqc2/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: LOG
+      - id: OUTPUT

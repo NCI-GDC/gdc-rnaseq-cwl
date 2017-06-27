@@ -194,3 +194,58 @@ steps:
     out:
       - id: LOG
       - id: OUTPUT
+
+  - id: merge_fastqc_db1_sqlite
+    run: ../../tools/merge_sqlite.cwl
+    in:
+      - id: source_sqlite
+        source: fastqc_db1/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: destination_sqlite
+      - id: log
+
+  - id: merge_fastqc_db2_sqlite
+    run: ../../tools/merge_sqlite.cwl
+    in:
+      - id: source_sqlite
+        source: fastqc_db2/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: destination_sqlite
+      - id: log
+
+  - id: merge_fastqc_db_s_sqlite
+    run: ../../tools/merge_sqlite.cwl
+    in:
+      - id: source_sqlite
+        source: fastqc_db_s/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: destination_sqlite
+      - id: log
+
+  - id: merge_fastqc_db_o1_sqlite
+    run: ../../tools/merge_sqlite.cwl
+    in:
+      - id: source_sqlite
+        source: fastqc_db_o1/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: destination_sqlite
+      - id: log
+
+  - id: merge_fastqc_db_o2_sqlite
+    run: ../../tools/merge_sqlite.cwl
+    in:
+      - id: source_sqlite
+        source: fastqc_db_o2/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: destination_sqlite
+      - id: log

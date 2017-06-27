@@ -249,3 +249,49 @@ steps:
     out:
       - id: destination_sqlite
       - id: log
+
+  - id: fastqvalidator1
+    run: ../../tools/fastqvalidator.cwl
+    scatter: file
+    in:
+      - id: file
+        source: biobambam_bamtofastq/output_fastq1
+    out:
+      - id: OUTPUT
+
+  - id: fastqvalidator2
+    run: ../../tools/fastqvalidator.cwl
+    scatter: file
+    in:
+      - id: file
+        source: biobambam_bamtofastq/output_fastq2
+    out:
+      - id: OUTPUT
+
+  - id: fastqvalidator_s
+    run: ../../tools/fastqvalidator.cwl
+    scatter: file
+    in:
+      - id: file
+        source: biobambam_bamtofastq/output_fastq_o1
+    out:
+      - id: OUTPUT
+
+  - id: fastqvalidator_o1
+    run: ../../tools/fastqvalidator.cwl
+    scatter: file
+    in:
+      - id: file
+        source: biobambam_bamtofastq/output_fastq_o2
+    out:
+      - id: OUTPUT
+
+  - id: fastqvalidator_o2
+    run: ../../tools/fastqvalidator.cwl
+    scatter: file
+    in:
+      - id: file
+        source: biobambam_bamtofastq/output_fastq_s
+    out:
+      - id: OUTPUT
+

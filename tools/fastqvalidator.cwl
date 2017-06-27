@@ -71,7 +71,7 @@ inputs:
 
   - id: params
     type: boolean
-    default: true
+    default: false
     inputBinding:
       prefix: --params
 

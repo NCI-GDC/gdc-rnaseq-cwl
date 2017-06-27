@@ -102,6 +102,39 @@ steps:
     out:
       - id: OUTPUT
 
+  - id: fastqc_s
+    run: ../../tools/fastqc.cwl
+    scatter: INPUT
+    in:
+      - id: INPUT
+        source: biobambam_bamtofastq/output_fastq_o1
+      - id: threads
+        source: thread_count
+    out:
+      - id: OUTPUT
+
+  - id: fastqc_o1
+    run: ../../tools/fastqc.cwl
+    scatter: INPUT
+    in:
+      - id: INPUT
+        source: biobambam_bamtofastq/output_fastq_o2
+      - id: threads
+        source: thread_count
+    out:
+      - id: OUTPUT
+
+  - id: fastqc_o2
+    run: ../../tools/fastqc.cwl
+    scatter: INPUT
+    in:
+      - id: INPUT
+        source: biobambam_bamtofastq/output_fastq_s
+      - id: threads
+        source: thread_count
+    out:
+      - id: OUTPUT
+
   - id: fastqc_db1
     run: ../../tools/fastqc_db.cwl
     scatter: INPUT
@@ -120,6 +153,42 @@ steps:
     in:
       - id: INPUT
         source: fastqc2/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: LOG
+      - id: OUTPUT
+
+  - id: fastqc_db_s
+    run: ../../tools/fastqc_db.cwl
+    scatter: INPUT
+    in:
+      - id: INPUT
+        source: fastqc_s/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: LOG
+      - id: OUTPUT
+
+  - id: fastqc_db_o1
+    run: ../../tools/fastqc_db.cwl
+    scatter: INPUT
+    in:
+      - id: INPUT
+        source: fastqc_o1/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: LOG
+      - id: OUTPUT
+
+  - id: fastqc_db_o2
+    run: ../../tools/fastqc_db.cwl
+    scatter: INPUT
+    in:
+      - id: INPUT
+        source: fastqc_o2/OUTPUT
       - id: uuid
         source: run_uuid
     out:

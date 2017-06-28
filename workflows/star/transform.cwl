@@ -295,3 +295,118 @@ steps:
     out:
       - id: OUTPUT
 
+  - id: fastqvalidator_db1
+    run: ../../tools/fastqvalidator_db.cwl
+    scatter: metric_path
+    in:
+      - id: metric_path
+        source: fastqvalidator1/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: LOG
+      - id: OUTPUT
+
+  - id: fastqvalidator_db2
+    run: ../../tools/fastqvalidator_db.cwl
+    scatter: metric_path
+    in:
+      - id: metric_path
+        source: fastqvalidator2/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: LOG
+      - id: OUTPUT
+
+  - id: fastqvalidator_db_s
+    run: ../../tools/fastqvalidator_db.cwl
+    scatter: metric_path
+    in:
+      - id: metric_path
+        source: fastqvalidator_s/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: LOG
+      - id: OUTPUT
+
+  - id: fastqvalidator_db_o1
+    run: ../../tools/fastqvalidator_db.cwl
+    scatter: metric_path
+    in:
+      - id: metric_path
+        source: fastqvalidator_o1/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: LOG
+      - id: OUTPUT
+
+  - id: fastqvalidator_db_o2
+    run: ../../tools/fastqvalidator_db.cwl
+    scatter: metric_path
+    in:
+      - id: metric_path
+        source: fastqvalidator_o2/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: LOG
+      - id: OUTPUT
+
+  - id: merge_fastqvalidator_db1_sqlite
+    run: ../../tools/merge_sqlite.cwl
+    in:
+      - id: source_sqlite
+        source: fastqvalidator_db1/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: destination_sqlite
+      - id: log
+
+  - id: merge_fastqvalidator_db2_sqlite
+    run: ../../tools/merge_sqlite.cwl
+    in:
+      - id: source_sqlite
+        source: fastqvalidator_db2/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: destination_sqlite
+      - id: log
+
+  - id: merge_fastqvalidator_db_s_sqlite
+    run: ../../tools/merge_sqlite.cwl
+    in:
+      - id: source_sqlite
+        source: fastqvalidator_db_s/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: destination_sqlite
+      - id: log
+
+  - id: merge_fastqvalidator_db_o1_sqlite
+    run: ../../tools/merge_sqlite.cwl
+    in:
+      - id: source_sqlite
+        source: fastqvalidator_db_o1/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: destination_sqlite
+      - id: log
+
+  - id: merge_fastqvalidator_db_o2_sqlite
+    run: ../../tools/merge_sqlite.cwl
+    in:
+      - id: source_sqlite
+        source: fastqvalidator_db_o2/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: destination_sqlite
+      - id: log
+

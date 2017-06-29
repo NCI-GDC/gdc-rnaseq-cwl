@@ -13,11 +13,15 @@ inputs:
     type: int
 
 requirements:
+  - class: MultipleInputFeatureRequirement
   - class: ScatterFeatureRequirement
   - class: StepInputExpressionRequirement
+  - class: SubworkflowFeatureRequirement
 
 outputs:
-  []
+  - id: merge_all_sqlite_destination_sqlite
+    type: File
+    outputSource: merge_all_sqlite/destination_sqlite
 
 steps:
   - id: picard_validatesamfile_original
@@ -58,6 +62,26 @@ steps:
       - id: output_fastq_o2
       - id: output_fastq_s
 
+  - id: fastq_metrics
+    run: fastq_metrics.cwl
+    in:
+      - id: fastq1
+        source: biobambam_bamtofastq/output_fastq1
+      - id: fastq2
+        source: biobambam_bamtofastq/output_fastq2
+      - id: fastq_o1
+        source: biobambam_bamtofastq/output_fastq_o1
+      - id: fastq_o2
+        source: biobambam_bamtofastq/output_fastq_o2
+      - id: fastq_s
+        source: biobambam_bamtofastq/output_fastq_s
+      - id: run_uuid
+        source: run_uuid
+      - id: thread_count
+        source: thread_count
+    out:
+      - id: merge_fastq_metrics_destination_sqlite
+        
   - id: bam_readgroup_to_json
     run: ../../tools/bam_readgroup_to_json.cwl
     in:
@@ -80,333 +104,32 @@ steps:
       - id: log
       - id: output_sqlite
 
-  - id: fastqc1
-    run: ../../tools/fastqc.cwl
-    scatter: INPUT
-    in:
-      - id: INPUT
-        source: biobambam_bamtofastq/output_fastq1
-      - id: threads
-        source: thread_count
-    out:
-      - id: OUTPUT
-
-  - id: fastqc2
-    run: ../../tools/fastqc.cwl
-    scatter: INPUT
-    in:
-      - id: INPUT
-        source: biobambam_bamtofastq/output_fastq2
-      - id: threads
-        source: thread_count
-    out:
-      - id: OUTPUT
-
-  - id: fastqc_s
-    run: ../../tools/fastqc.cwl
-    scatter: INPUT
-    in:
-      - id: INPUT
-        source: biobambam_bamtofastq/output_fastq_o1
-      - id: threads
-        source: thread_count
-    out:
-      - id: OUTPUT
-
-  - id: fastqc_o1
-    run: ../../tools/fastqc.cwl
-    scatter: INPUT
-    in:
-      - id: INPUT
-        source: biobambam_bamtofastq/output_fastq_o2
-      - id: threads
-        source: thread_count
-    out:
-      - id: OUTPUT
-
-  - id: fastqc_o2
-    run: ../../tools/fastqc.cwl
-    scatter: INPUT
-    in:
-      - id: INPUT
-        source: biobambam_bamtofastq/output_fastq_s
-      - id: threads
-        source: thread_count
-    out:
-      - id: OUTPUT
-
-  - id: fastqc_db1
-    run: ../../tools/fastqc_db.cwl
-    scatter: INPUT
-    in:
-      - id: INPUT
-        source: fastqc1/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: LOG
-      - id: OUTPUT
-
-  - id: fastqc_db2
-    run: ../../tools/fastqc_db.cwl
-    scatter: INPUT
-    in:
-      - id: INPUT
-        source: fastqc2/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: LOG
-      - id: OUTPUT
-
-  - id: fastqc_db_s
-    run: ../../tools/fastqc_db.cwl
-    scatter: INPUT
-    in:
-      - id: INPUT
-        source: fastqc_s/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: LOG
-      - id: OUTPUT
-
-  - id: fastqc_db_o1
-    run: ../../tools/fastqc_db.cwl
-    scatter: INPUT
-    in:
-      - id: INPUT
-        source: fastqc_o1/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: LOG
-      - id: OUTPUT
-
-  - id: fastqc_db_o2
-    run: ../../tools/fastqc_db.cwl
-    scatter: INPUT
-    in:
-      - id: INPUT
-        source: fastqc_o2/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: LOG
-      - id: OUTPUT
-
-  - id: merge_fastqc_db1_sqlite
+  - id: merge_readgroup_json_db
     run: ../../tools/merge_sqlite.cwl
     in:
       - id: source_sqlite
-        source: fastqc_db1/OUTPUT
+        source: readgroup_json_db/output_sqlite
       - id: uuid
         source: run_uuid
     out:
       - id: destination_sqlite
       - id: log
 
-  - id: merge_fastqc_db2_sqlite
+
+  # - id: star_pass_1
+
+
+  - id: merge_all_sqlite
     run: ../../tools/merge_sqlite.cwl
     in:
       - id: source_sqlite
-        source: fastqc_db2/OUTPUT
+        source: [
+          picard_validatesamfile_original_to_sqlite/sqlite,
+          merge_readgroup_json_db/destination_sqlite,
+          fastq_metrics/merge_fastq_metrics_destination_sqlite
+        ]
       - id: uuid
         source: run_uuid
     out:
       - id: destination_sqlite
       - id: log
-
-  - id: merge_fastqc_db_s_sqlite
-    run: ../../tools/merge_sqlite.cwl
-    in:
-      - id: source_sqlite
-        source: fastqc_db_s/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: destination_sqlite
-      - id: log
-
-  - id: merge_fastqc_db_o1_sqlite
-    run: ../../tools/merge_sqlite.cwl
-    in:
-      - id: source_sqlite
-        source: fastqc_db_o1/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: destination_sqlite
-      - id: log
-
-  - id: merge_fastqc_db_o2_sqlite
-    run: ../../tools/merge_sqlite.cwl
-    in:
-      - id: source_sqlite
-        source: fastqc_db_o2/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: destination_sqlite
-      - id: log
-
-  - id: fastqvalidator1
-    run: ../../tools/fastqvalidator.cwl
-    scatter: file
-    in:
-      - id: file
-        source: biobambam_bamtofastq/output_fastq1
-    out:
-      - id: OUTPUT
-
-  - id: fastqvalidator2
-    run: ../../tools/fastqvalidator.cwl
-    scatter: file
-    in:
-      - id: file
-        source: biobambam_bamtofastq/output_fastq2
-    out:
-      - id: OUTPUT
-
-  - id: fastqvalidator_s
-    run: ../../tools/fastqvalidator.cwl
-    scatter: file
-    in:
-      - id: file
-        source: biobambam_bamtofastq/output_fastq_o1
-    out:
-      - id: OUTPUT
-
-  - id: fastqvalidator_o1
-    run: ../../tools/fastqvalidator.cwl
-    scatter: file
-    in:
-      - id: file
-        source: biobambam_bamtofastq/output_fastq_o2
-    out:
-      - id: OUTPUT
-
-  - id: fastqvalidator_o2
-    run: ../../tools/fastqvalidator.cwl
-    scatter: file
-    in:
-      - id: file
-        source: biobambam_bamtofastq/output_fastq_s
-    out:
-      - id: OUTPUT
-
-  - id: fastqvalidator_db1
-    run: ../../tools/fastqvalidator_db.cwl
-    scatter: metric_path
-    in:
-      - id: metric_path
-        source: fastqvalidator1/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: LOG
-      - id: OUTPUT
-
-  - id: fastqvalidator_db2
-    run: ../../tools/fastqvalidator_db.cwl
-    scatter: metric_path
-    in:
-      - id: metric_path
-        source: fastqvalidator2/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: LOG
-      - id: OUTPUT
-
-  - id: fastqvalidator_db_s
-    run: ../../tools/fastqvalidator_db.cwl
-    scatter: metric_path
-    in:
-      - id: metric_path
-        source: fastqvalidator_s/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: LOG
-      - id: OUTPUT
-
-  - id: fastqvalidator_db_o1
-    run: ../../tools/fastqvalidator_db.cwl
-    scatter: metric_path
-    in:
-      - id: metric_path
-        source: fastqvalidator_o1/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: LOG
-      - id: OUTPUT
-
-  - id: fastqvalidator_db_o2
-    run: ../../tools/fastqvalidator_db.cwl
-    scatter: metric_path
-    in:
-      - id: metric_path
-        source: fastqvalidator_o2/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: LOG
-      - id: OUTPUT
-
-  - id: merge_fastqvalidator_db1_sqlite
-    run: ../../tools/merge_sqlite.cwl
-    in:
-      - id: source_sqlite
-        source: fastqvalidator_db1/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: destination_sqlite
-      - id: log
-
-  - id: merge_fastqvalidator_db2_sqlite
-    run: ../../tools/merge_sqlite.cwl
-    in:
-      - id: source_sqlite
-        source: fastqvalidator_db2/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: destination_sqlite
-      - id: log
-
-  - id: merge_fastqvalidator_db_s_sqlite
-    run: ../../tools/merge_sqlite.cwl
-    in:
-      - id: source_sqlite
-        source: fastqvalidator_db_s/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: destination_sqlite
-      - id: log
-
-  - id: merge_fastqvalidator_db_o1_sqlite
-    run: ../../tools/merge_sqlite.cwl
-    in:
-      - id: source_sqlite
-        source: fastqvalidator_db_o1/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: destination_sqlite
-      - id: log
-
-  - id: merge_fastqvalidator_db_o2_sqlite
-    run: ../../tools/merge_sqlite.cwl
-    in:
-      - id: source_sqlite
-        source: fastqvalidator_db_o2/OUTPUT
-      - id: uuid
-        source: run_uuid
-    out:
-      - id: destination_sqlite
-      - id: log
-

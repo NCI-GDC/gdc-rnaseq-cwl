@@ -42,6 +42,7 @@ inputs:
   - id: runRNGseed
     type: int
     default: 777
+    inputBinding:
       prefix: --runRNGseed
 
   - id: genomeDir
@@ -121,7 +122,7 @@ inputs:
       prefix: --sjdbGTFtagExonParentTranscript
 
   - id: sjdbGTFtagExonParentGene
-    type: string:
+    type: string
     inputBinding:
       prefix: --sjdbGTFtagExonParentGene
 
@@ -276,7 +277,7 @@ inputs:
 
   - id: outQSconversionAdd
     type: int
-    defualt: 0
+    default: 0
     inputBinding:
       prefix: --outQSconversionAdd
 
@@ -743,7 +744,7 @@ inputs:
 
   - id: alignSoftClipAtReferenceEnds
     type: string
-    items: "Yes"
+    default: "Yes"
     inputBinding:
       prefix: --alignSoftClipAtReferenceEnds
 

@@ -1,0 +1,14 @@
+{
+    "gtf": {
+        "class": "File",
+        "path": "/mnt/scratch/dl/gencode.v22.annotation.gtf.gz"
+    },
+    "fasta": {
+        "class": "File",
+        "path": "/mnt/scratch/dl/GRCh38.d1.vd1.fa"
+    },
+    "run_uuid": "71c61885-e97f-4a4e-ad11-50c4d0a7b835",
+    "star_runMode_value": "genomeGenerate",
+    "star_sjdbOverhang_value": 100,
+    "thread_count": 8
+}

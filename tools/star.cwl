@@ -46,7 +46,7 @@ inputs:
       prefix: --runRNGseed
 
   - id: genomeDir
-    type: Directory
+    type: string
     inputBinding:
       prefix: --genomeDir
 
@@ -86,7 +86,7 @@ inputs:
       prefix: --genomeSuffixLengthMax
 
   - id: genomeChainFiles
-    type: File
+    type: ["null", File]
     inputBinding:
       prefix: --genomeChainFiles
 
@@ -97,7 +97,7 @@ inputs:
       prefix: --genomeFileSizes
 
   - id: sjdbFileChrStartEnd
-    type: File
+    type: ["null", File]
     inputBinding:
       prefix: --sjdbFileChrStartEnd
 
@@ -108,21 +108,25 @@ inputs:
 
   - id: sjdbGTFchrPrefix
     type: string
+    default: "-"
     inputBinding:
       prefix: --sjdbGTFchrPrefix
 
   - id: sjdbGTFfeatureExon
     type: string
+    default: "exon"
     inputBinding:
       prefix: --sjdbGTFfeatureExon
 
   - id: sjdbGTFtagExonParentTranscript
     type: string
+    default: "transcript_id"
     inputBinding:
       prefix: --sjdbGTFtagExonParentTranscript
 
   - id: sjdbGTFtagExonParentGene
     type: string
+    default: "gene_id"
     inputBinding:
       prefix: --sjdbGTFtagExonParentGene
 
@@ -145,22 +149,24 @@ inputs:
       prefix: --sjdbInsertSave
 
   - id: inputBAMfile
-    type: File
+    type: [ "null", File]
     inputBinding:
       prefix: --inputBAMfile
 
   - id: readFilesIn
-    type: File
+    type: ["null", File]
     inputBinding:
       prefix: --readFilesIn
 
   - id: readFilesCommand
     type: string
+    default: "-"
     inputBinding:
       prefix: --readFilesCommand
 
   - id: readMapNumber
     type: int
+    default: -1
     inputBinding:
       prefix: --readMapNumber
 
@@ -190,6 +196,7 @@ inputs:
 
   - id: clip3pAdapterSeq
     type: string
+    default: "-"
     inputBinding:
       prefix: --clip3pAdapterSeq
 
@@ -254,12 +261,14 @@ inputs:
       prefix: --outFileNamePrefix
 
   - id: outTmpDir
-    type: Directory
+    type: string
+    default: "-"
     inputBinding:
       prefix: --outTmpDir
 
   - id: outTmpKeep
     type: string
+    default: "None"
     inputBinding:
       prefix: --outTmpKeep
 
@@ -361,21 +370,24 @@ inputs:
 
   - id: outSAMattrRGline
     type: string
+    default: "-"
     inputBinding:
       prefix: --outSAMattrRGline
 
   - id: outSAMheaderHD
     type: string
+    default: "-"
     inputBinding:
       prefix: --outSAMheaderHD
 
   - id: outSAMheaderPG
     type: string
+    default: "-"
     inputBinding:
       prefix: --outSAMheaderPG
 
   - id: outSAMheaderCommentFile
-    type: File
+    type: ["null", File]
     inputBinding:
       prefix: --outSAMheaderCommentFile
 
@@ -772,7 +784,6 @@ inputs:
     inputBinding:
       prefix: --winFlankNbins
 
-
   - id: winReadCoverageRelativeMin
     type: float
     default: 0.5
@@ -874,9 +885,87 @@ inputs:
     default: -1
     inputBinding:
       prefix: --twopass1readsN
-      
-    
+
+
 outputs:
-  []
+  - id: chrLength.txt
+    type: File
+    outputBinding:
+      glob: chrLength.txt
+
+  - id: chrNameLength.txt
+    type: File
+    outputBinding:
+      glob: chrNameLength.txt
+
+  - id: chrName.txt
+    type: File
+    outputBinding:
+      glob: chrName.txt
+
+  - id: chrStart.txt
+    type: File
+    outputBinding:
+      glob: chrStart.txt
+
+  - id: exonGeTrInfo.tab
+    type: File
+    outputBinding:
+      glob: exonGeTrInfo.tab
+
+  - id: exonInfo.tab
+    type: File
+    outputBinding:
+      glob: exonInfo.tab
+
+  - id: geneInfo.tab
+    type: File
+    outputBinding:
+      glob: geneInfo.tab
+
+  - id: Genome
+    type: File
+    outputBinding:
+      glob: Genome
+
+  - id: genomeParameters.txt
+    type: File
+    outputBinding:
+      glob: genomeParameters.txt
+
+  - id: Log.out
+    type: File
+    outputBinding:
+      glob: Log.out
+
+  - id: SA
+    type: File
+    outputBinding:
+      glob: SA
+
+  - id: SAindex
+    type: File
+    outputBinding:
+      glob: SAindex
+
+  - id: sjdbInfo.txt
+    type: File
+    outputBinding:
+      glob: sjdbInfo.txt
+
+  - id: sjdbList.fromGTF.out.tab
+    type: File
+    outputBinding:
+      glob: sjdbList.fromGTF.out.tab
+
+  - id: sjdbList.out.tab
+    type: File
+    outputBinding:
+      glob: sjdbList.out.tab
+
+  - id: transcriptInfo.tab
+    type: File
+    outputBinding:
+      glob: transcriptInfo.tab
 
 baseCommand: [/usr/local/bin/STAR]

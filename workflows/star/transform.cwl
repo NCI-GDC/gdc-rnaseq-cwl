@@ -135,7 +135,7 @@ steps:
   #     - id: log
 
   - id: decider_pass_1
-    run: ../../tools/decider_star_expression.cwl
+    run: ../../tools/decider_star_pass_1.cwl
     in:
       - id: fastq1_paths
         source: biobambam_bamtofastq/output_fastq1
@@ -207,6 +207,18 @@ steps:
       - id: sjdbInfo.txt
       - id: sjdbList.out.tab
 
+  - id: decider_pass_2
+    run: ../../tools/decider_star_pass_2.cwl
+    in:
+      - id: fastq1_paths
+        source: biobambam_bamtofastq/output_fastq1
+      - id: fastq2_paths
+        source: biobambam_bamtofastq/output_fastq2
+      - id: readgroup_paths
+        source: bam_readgroup_to_json/OUTPUT
+    out:
+      - id: output_fastq_paths
+      - id: output_readgroup_str
 
 
   # - id: merge_all_sqlite

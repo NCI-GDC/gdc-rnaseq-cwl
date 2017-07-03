@@ -242,7 +242,7 @@ steps:
         source: star_generate_intermediate_index/sjdbInfo.txt
       - id: outFileNamePrefix
         source: input_bam
-        valueFrom: $(self.basename.slice(0,-4) + "_gdc_realn.")
+        valueFrom: $(self.basename.slice(0,-4))_gdc_realn.
       - id: outSAMattrRGline
         source: decider_pass_2/output_readgroup_str
       - id: readFilesIn

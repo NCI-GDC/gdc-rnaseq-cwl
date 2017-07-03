@@ -225,21 +225,21 @@ steps:
     run: ../../tools/star_pass_2.cwl
     in:
       - id: genome_chrLength_txt
-        source: genome_chrLength_txt
+        source: star_generate_intermediate_index/chrLength.txt
       - id: genome_chrName_txt
-        source: genome_chrName_txt
+        source: star_generate_intermediate_index/chrName.txt
       - id: genome_chrStart_txt
-        source: genome_chrStart_txt
+        source: star_generate_intermediate_index/chrStart.txt
       - id: genome_Genome
-        source: genome_Genome
+        source: star_generate_intermediate_index/Genome
       - id: genome_genomeParameters_txt
-        source: genome_genomeParameters_txt
+        source: star_generate_intermediate_index/genomeParameters.txt
       - id: genome_SA
-        source: genome_SA
+        source: star_generate_intermediate_index/SA
       - id: genome_SAindex
-        source: genome_SAindex
+        source: star_generate_intermediate_index/SAindex
       - id: genome_sjdbInfo_txt
-        source: genome_sjdbInfo_txt
+        source: star_generate_intermediate_index/sjdbInfo.txt
       - id: outFileNamePrefix
         source: input_bam
         valueFrom: $(self.basename.slice(0,-4) + "_gdc_realn.")

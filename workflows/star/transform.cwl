@@ -5,8 +5,24 @@ cwlVersion: v1.0
 class: Workflow
 
 inputs:
-  - id: genome_dir
-    type: Directory
+  - id: fasta
+    type: File
+  - id: genome_chrLength_txt
+    type: File
+  - id: genome_chrName_txt
+    type: File
+  - id: genome_chrStart_txt
+    type: File
+  - id: genome_Genome
+    type: File
+  - id: genome_genomeParameters_txt
+    type: File
+  - id: genome_SA
+    type: File
+  - id: genome_SAindex
+    type: File
+  - id: genome_sjdbInfo_txt
+    type: File
   - id: input_bam
     type: File
   - id: run_uuid
@@ -133,13 +149,64 @@ steps:
     in:
       - id: readFilesIn
         source: decider_pass_1/output_fastq_paths
-      - id: genomeDir
-        source: genome_dir
+      - id: genome_chrLength_txt
+        source: genome_chrLength_txt
+      - id: genome_chrName_txt
+        source: genome_chrName_txt
+      - id: genome_chrStart_txt
+        source: genome_chrStart_txt
+      - id: genome_Genome
+        source: genome_Genome
+      - id: genome_genomeParameters_txt
+        source: genome_genomeParameters_txt
+      - id: genome_SA
+        source: genome_SA
+      - id: genome_SAindex
+        source: genome_SAindex
+      - id: genome_sjdbInfo_txt
+        source: genome_sjdbInfo_txt
     out:
       - id: Log.final.out
       - id: Log.out
       - id: Log.progress.out
       - id: SJ.out.tab
+
+  - id: star_generate_intermediate_index
+    run: ../../tools/star_generate_intermediate_index.cwl
+    in:
+      - id: genomeFastaFiles
+        source: fasta
+      - id: genome_chrLength_txt
+        source: genome_chrLength_txt
+      - id: genome_chrName_txt
+        source: genome_chrName_txt
+      - id: genome_chrStart_txt
+        source: genome_chrStart_txt
+      - id: genome_Genome
+        source: genome_Genome
+      - id: genome_genomeParameters_txt
+        source: genome_genomeParameters_txt
+      - id: genome_SA
+        source: genome_SA
+      - id: genome_SAindex
+        source: genome_SAindex
+      - id: genome_sjdbInfo_txt
+        source: genome_sjdbInfo_txt
+      - id: sjdbFileChrStartEnd
+        source: star_pass_1/SJ.out.tab
+    out:
+      - id: chrLength.txt
+      - id: chrNameLength.txt
+      - id: chrName.txt
+      - id: chrStart.txt
+      - id: Genome
+      - id: genomeParameters.txt
+      - id: Log.out
+      - id: SA
+      - id: SAindex
+      - id: sjdbInfo.txt
+      - id: sjdbList.out.tab
+
 
 
   # - id: merge_all_sqlite

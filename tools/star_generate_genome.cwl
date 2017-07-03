@@ -12,7 +12,7 @@ class: CommandLineTool
 inputs:
   - id: runMode
     type: string
-    default: "alignReads"
+    default: "genomeGenerate"
     inputBinding:
       prefix: --runMode
 

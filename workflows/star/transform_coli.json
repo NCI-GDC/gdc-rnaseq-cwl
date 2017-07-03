@@ -1,0 +1,44 @@
+{
+    "fasta": {
+        "class": "File",
+        "path": "/mnt/scratch/genome/Escherichia_coli_etec_h10407.ASM21047v1.dna.chromosome.Chromosome.fa"
+    },
+    "genome_chrLength_txt": {
+        "class": "File",
+        "path": "/mnt/scratch/dl/coli/chrLength.txt"
+    },
+    "genome_chrName_txt": {
+        "class": "File",
+        "path": "/mnt/scratch/dl/coli/chrName.txt"
+    },
+    "genome_chrStart_txt": {
+        "class": "File",
+        "path": "/mnt/scratch/dl/coli/chrStart.txt"
+    },
+    "genome_Genome": {
+        "class": "File",
+        "path": "/mnt/scratch/dl/coli/Genome"
+    },
+    "genome_genomeParameters_txt": {
+        "class": "File",
+        "path": "/mnt/scratch/dl/coli/genomeParameters.txt"
+    },
+    "genome_SA": {
+        "class": "File",
+        "path": "/mnt/scratch/dl/coli/SA"
+    },
+    "genome_SAindex": {
+        "class": "File",
+        "path": "/mnt/scratch/dl/coli/SAindex"
+    },
+    "genome_sjdbInfo_txt": {
+        "class": "File",
+        "path": "/mnt/scratch/dl/coli/sjdbInfo.txt"
+    },
+    "input_bam": {
+        "class": "File",
+        "path": "/mnt/scratch/dl/SRR1186262.bam"
+    },
+    "run_uuid": "71c61885-e97f-4a4e-ad11-50c4d0a7b835",
+    "thread_count": 8
+}

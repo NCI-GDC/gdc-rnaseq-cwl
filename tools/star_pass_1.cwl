@@ -5,6 +5,25 @@ cwlVersion: v1.0
 requirements:
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/star2
+  - class: InitialWorkDirRequirement
+    listing:
+      - entryname: $(inputs.genome_chrLength_txt.basename)
+        entry: $(inputs.genome_chrLength_txt)
+      - entryname: $(inputs.genome_chrName_txt.basename)
+        entry: $(inputs.genome_chrName_txt)
+      - entryname: $(inputs.genome_chrStart_txt.basename)
+        entry: $(inputs.genome_chrStart_txt)
+      - entryname: $(inputs.genome_Genome.basename)
+        entry: $(inputs.genome_Genome)
+      - entryname: $(inputs.genome_genomeParameters_txt.basename)
+        entry: $(inputs.genome_genomeParameters_txt)
+      - entryname: $(inputs.genome_SA.basename)
+        entry: $(inputs.genome_SA)
+      - entryname: $(inputs.genome_SAindex.basename)
+        entry: $(inputs.genome_SAindex)
+      - entryname: $(inputs.genome_sjdbInfo_txt.basename)
+        entry: $(inputs.genome_sjdbInfo_txt)
+
   - class: InlineJavascriptRequirement
 
 class: CommandLineTool
@@ -28,8 +47,33 @@ inputs:
     inputBinding:
       prefix: --alignSJDBoverhangMin
 
+  - id: genome_chrLength_txt
+    type: File
+
+  - id: genome_chrName_txt
+    type: File
+
+  - id: genome_chrStart_txt
+    type: File
+
+  - id: genome_Genome
+    type: File
+
+  - id: genome_genomeParameters_txt
+    type: File
+
+  - id: genome_SA
+    type: File
+
+  - id: genome_SAindex
+    type: File
+
+  - id: genome_sjdbInfo_txt
+    type: File
+
   - id: genomeDir
-    type: Directory
+    type: string
+    default: "."
     inputBinding:
       prefix: --genomeDir
 

@@ -118,11 +118,28 @@ steps:
   #     - id: destination_sqlite
   #     - id: log
 
+  - id: decider_pass_1
+    run: ../../tools/decider_star_expression.cwl
+    in:
+      - id: fastq1_paths
+        source: biobambam_bamtofastq/output_fastq1
+      - id: fastq2_paths
+        source: biobambam_bamtofastq/output_fastq2
+    out:
+      - id: output_fastq_paths
 
   - id: star_pass_1
     run: ../../tools/star_pass_1.cwl
     in:
-      - id: 
+      - id: readFilesIn
+        source: decider_pass_1/output_fastq_paths
+      - id: genomeDir
+        source: genome_dir
+    out:
+      - id: Log.final.out
+      - id: Log.out
+      - id: Log.progress.out
+      - id: SJ.out.tab
 
 
   # - id: merge_all_sqlite

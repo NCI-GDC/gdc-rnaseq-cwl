@@ -220,6 +220,35 @@ steps:
       - id: output_fastq_paths
       - id: output_readgroup_str
 
+  - id: star_pass_2
+    run: ../../tools/star_pass_2.cwl
+    in:
+      - id: genome_chrLength_txt
+        source: genome_chrLength_txt
+      - id: genome_chrName_txt
+        source: genome_chrName_txt
+      - id: genome_chrStart_txt
+        source: genome_chrStart_txt
+      - id: genome_Genome
+        source: genome_Genome
+      - id: genome_genomeParameters_txt
+        source: genome_genomeParameters_txt
+      - id: genome_SA
+        source: genome_SA
+      - id: genome_SAindex
+        source: genome_SAindex
+      - id: genome_sjdbInfo_txt
+        source: genome_sjdbInfo_txt
+      - id: outSAMattrRGline
+        source: decider_pass_2/output_readgroup_str
+      - id: readFilesIn
+        source: decider_pass_2/output_fastq_paths
+    out:
+      - id: Log.final.out
+      - id: Log.out
+      - id: Log.progress.out
+      - id: SJ.out.tab
+
 
   # - id: merge_all_sqlite
   #   run: ../../tools/merge_sqlite.cwl

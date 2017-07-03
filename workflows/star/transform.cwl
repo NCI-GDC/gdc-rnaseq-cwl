@@ -31,6 +31,7 @@ inputs:
     type: int
 
 requirements:
+  - class: InlineJavascriptRequirement
   - class: MultipleInputFeatureRequirement
   - class: ScatterFeatureRequirement
   - class: StepInputExpressionRequirement
@@ -239,6 +240,9 @@ steps:
         source: genome_SAindex
       - id: genome_sjdbInfo_txt
         source: genome_sjdbInfo_txt
+      - id: outFileNamePrefix
+        source: input_bam
+        valueFrom: $(self.basename.slice(0,-4) + "_gdc_realn.")
       - id: outSAMattrRGline
         source: decider_pass_2/output_readgroup_str
       - id: readFilesIn
@@ -247,6 +251,7 @@ steps:
       - id: Log.final.out
       - id: Log.out
       - id: Log.progress.out
+      - id: output_bam
       - id: SJ.out.tab
 
 

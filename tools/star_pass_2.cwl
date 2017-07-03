@@ -24,7 +24,6 @@ requirements:
       - entryname: $(inputs.genome_sjdbInfo_txt.basename)
         entry: $(inputs.genome_sjdbInfo_txt)
   - class: InlineJavascriptRequirement
-  - class: ShellCommandRequirement
 
 class: CommandLineTool
 
@@ -89,6 +88,11 @@ inputs:
     inputBinding:
       prefix: --limitBAMsortRAM
 
+  - id: outFileNamePrefix
+    type: string
+    inputBinding:
+      prefix: --outFileNamePrefix
+
   - id: outFilterMatchNminOverLread
     type: float
     default: 0.33
@@ -125,23 +129,18 @@ inputs:
       prefix: --outSAMattrRGline
 
   - id: outSAMattributes
-    type: string
-    default: NH HI NM MD AS XS
+    type:
+      type: array
+      items: string
+    default: ["NH", "HI", "NM", "MD", "AS", "XS"]
     inputBinding:
       prefix: --outSAMattributes
-      shellQuote: false
 
   - id: outSAMheaderHD
     type: string
     default: "@HD VN:1.4"
     inputBinding:
       prefix: --outSAMheaderHD
-
-  - id: outSAMmode
-    type: string
-    default: "None"
-    inputBinding:
-      prefix: --outSAMmode
 
   - id: outSAMstrandField
     type: string
@@ -150,8 +149,10 @@ inputs:
       prefix: --outSAMstrandField
 
   - id: outSAMtype
-    type: string
-    default: "BAM SortedByCoordinate"
+    type:
+      type: array
+      items: string
+    default: ["BAM", "SortedByCoordinate"]
     inputBinding:
       prefix: --outSAMtype
 
@@ -203,21 +204,26 @@ outputs:
   - id: Log.final.out
     type: File
     outputBinding:
-      glob: Log.final.out
+      glob: $(inputs.outFileNamePrefix)Log.final.out
 
   - id: Log.out
     type: File
     outputBinding:
-      glob: Log.out
+      glob: $(inputs.outFileNamePrefix)Log.out
 
   - id: Log.progress.out
     type: File
     outputBinding:
-      glob: Log.progress.out
+      glob: $(inputs.outFileNamePrefix)Log.progress.out
 
   - id: SJ.out.tab
     type: File
     outputBinding:
-      glob: SJ.out.tab
+      glob: $(inputs.outFileNamePrefix)SJ.out.tab
+
+  - id: output_bam
+    type: File
+    outputBinding:
+      glob: $(inputs.outFileNamePrefix)Aligned.sortedByCoord.out.bam
 
 baseCommand: [/usr/local/bin/STAR]

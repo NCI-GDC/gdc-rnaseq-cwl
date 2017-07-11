@@ -212,8 +212,23 @@ steps:
     run: ../../tools/star_generate_intermediate_index_to_sqlite.cwl
     in:
       - id: chrlength_txt_path
-        source: star_pass_1/
-        
+        source: star_generate_intermediate_index/chrLength_txt
+      - id: chrnamelength_txt_path
+        source: star_generate_intermediate_index/chrNameLength_txt
+      - id: chrname_txt_path
+        source: star_generate_intermediate_index/chrName_txt
+      - id: chrstart_txt_path
+        source: star_generate_intermediate_index/chrStart_txt
+      - id: genomeparameters_txt_path
+        source: star_generate_intermediate_index/genomeParameters_txt
+      - id: log_out_path
+        source: star_generate_intermediate_index/Log_out
+      - id: sjdb_info_txt_path
+        source: star_generate_intermediate_index/sjdbInfo_txt
+      - id: sjdblist_out_tab_path
+        source: star_generate_intermediate_index/sjdbList_out_tab
+      - id: run_uuid
+        source: run_uuid
 
   - id: decider_pass_2
     run: ../../tools/decider_star_pass_2.cwl

@@ -96,22 +96,22 @@ inputs:
 
 
 outputs:
-  - id: chrLength.txt
+  - id: chrLength_txt
     type: File
     outputBinding:
       glob: chrLength.txt
 
-  - id: chrNameLength.txt
+  - id: chrNameLength_txt
     type: File
     outputBinding:
       glob: chrNameLength.txt
 
-  - id: chrName.txt
+  - id: chrName_txt
     type: File
     outputBinding:
       glob: chrName.txt
 
-  - id: chrStart.txt
+  - id: chrStart_txt
     type: File
     outputBinding:
       glob: chrStart.txt
@@ -121,12 +121,12 @@ outputs:
     outputBinding:
       glob: Genome
 
-  - id: genomeParameters.txt
+  - id: genomeParameters_txt
     type: File
     outputBinding:
       glob: genomeParameters.txt
 
-  - id: Log.out
+  - id: Log_out
     type: File
     outputBinding:
       glob: Log.out
@@ -141,12 +141,12 @@ outputs:
     outputBinding:
       glob: SAindex
 
-  - id: sjdbInfo.txt
+  - id: sjdbInfo_txt
     type: File
     outputBinding:
       glob: sjdbInfo.txt
 
-  - id: sjdbList.out.tab
+  - id: sjdbList_out_tab
     type: File
     outputBinding:
       glob: sjdbList.out.tab

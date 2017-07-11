@@ -167,11 +167,11 @@ steps:
       - id: genome_sjdbInfo_txt
         source: genome_sjdbInfo_txt
     out:
-      - id: Log.final.out
-      - id: Log.out
-      - id: Log.progress.out
-      - id: SJ.out.tab
-
+      - id: Log_final_out
+      - id: Log_out
+      - id: Log_progress_out
+      - id: SJ_out_tab
+        
   - id: star_generate_intermediate_index
     run: ../../tools/star_generate_intermediate_index.cwl
     in:
@@ -194,19 +194,26 @@ steps:
       - id: genome_sjdbInfo_txt
         source: genome_sjdbInfo_txt
       - id: sjdbFileChrStartEnd
-        source: star_pass_1/SJ.out.tab
+        source: star_pass_1/SJ_out_tab
     out:
-      - id: chrLength.txt
-      - id: chrNameLength.txt
-      - id: chrName.txt
-      - id: chrStart.txt
+      - id: chrLength_txt
+      - id: chrNameLength_txt
+      - id: chrName_txt
+      - id: chrStart_txt
       - id: Genome
-      - id: genomeParameters.txt
-      - id: Log.out
+      - id: genomeParameters_txt
+      - id: Log_out
       - id: SA
       - id: SAindex
-      - id: sjdbInfo.txt
-      - id: sjdbList.out.tab
+      - id: sjdbInfo_txt
+      - id: sjdbList_out_tab
+
+  - id: star_generate_intermediate_index_to_sqlite
+    run: ../../tools/star_generate_intermediate_index_to_sqlite.cwl
+    in:
+      - id: chrlength_txt_path
+        source: star_pass_1/
+        
 
   - id: decider_pass_2
     run: ../../tools/decider_star_pass_2.cwl
@@ -225,21 +232,21 @@ steps:
     run: ../../tools/star_pass_2.cwl
     in:
       - id: genome_chrLength_txt
-        source: star_generate_intermediate_index/chrLength.txt
+        source: star_generate_intermediate_index/chrLength_txt
       - id: genome_chrName_txt
-        source: star_generate_intermediate_index/chrName.txt
+        source: star_generate_intermediate_index/chrName_txt
       - id: genome_chrStart_txt
-        source: star_generate_intermediate_index/chrStart.txt
+        source: star_generate_intermediate_index/chrStart_txt
       - id: genome_Genome
         source: star_generate_intermediate_index/Genome
       - id: genome_genomeParameters_txt
-        source: star_generate_intermediate_index/genomeParameters.txt
+        source: star_generate_intermediate_index/genomeParameters_txt
       - id: genome_SA
         source: star_generate_intermediate_index/SA
       - id: genome_SAindex
         source: star_generate_intermediate_index/SAindex
       - id: genome_sjdbInfo_txt
-        source: star_generate_intermediate_index/sjdbInfo.txt
+        source: star_generate_intermediate_index/sjdbInfo_txt
       - id: outFileNamePrefix
         source: input_bam
         valueFrom: $(self.basename.slice(0,-4) + "_gdc_realn.")
@@ -248,11 +255,11 @@ steps:
       - id: readFilesIn
         source: decider_pass_2/output_fastq_paths
     out:
-      - id: Log.final.out
-      - id: Log.out
-      - id: Log.progress.out
+      - id: Log_final_out
+      - id: Log_out
+      - id: Log_progress_out
       - id: output_bam
-      - id: SJ.out.tab
+      - id: SJ_out_tab
 
 
   # - id: merge_all_sqlite

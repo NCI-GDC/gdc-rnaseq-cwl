@@ -170,22 +170,22 @@ inputs:
 
 
 outputs:
-  - id: Log.final.out
+  - id: Log_final_out
     type: File
     outputBinding:
       glob: Log.final.out
 
-  - id: Log.out
+  - id: Log_out
     type: File
     outputBinding:
       glob: Log.out
 
-  - id: Log.progress.out
+  - id: Log_progress_out
     type: File
     outputBinding:
       glob: Log.progress.out
 
-  - id: SJ.out.tab
+  - id: SJ_out_tab
     type: File
     outputBinding:
       glob: SJ.out.tab

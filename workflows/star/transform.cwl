@@ -38,10 +38,12 @@ requirements:
   - class: SubworkflowFeatureRequirement
 
 outputs:
-  []
-  # - id: merge_all_sqlite_destination_sqlite
-  #   type: File
-  #   outputSource: merge_all_sqlite/destination_sqlite
+  - id: star_pass_2_output_bam
+    type: File
+    outputSource: star_pass_2/output_bam
+  - id: merge_all_sqlite_destination_sqlite
+    type: File
+    outputSource: merge_all_sqlite/destination_sqlite
 
 steps:
   - id: picard_validatesamfile_original
@@ -308,7 +310,6 @@ steps:
     out:
       - id: log
       - id: sqlite
-
 
   - id: merge_all_sqlite
     run: ../../tools/merge_sqlite.cwl

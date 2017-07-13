@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/star-metrics-sqlite
+    dockerPull: quay.io/ncigdc/star-metrics-sqlite:latest
   - class: InlineJavascriptRequirement
 
 class: CommandLineTool
@@ -65,12 +65,12 @@ outputs:
   - id: log
     type: File
     outputBinding:
-      glob: $(inputs.uuid + "_" + metric_name + ".log")
+      glob: $(inputs.run_uuid + "_" + inputs.metric_name + ".log")
 
   - id: sqlite
     type: File
     format: "edam:format_3621"
     outputBinding:
-      glob: $(inputs.uuid + ".db")
+      glob: $(inputs.run_uuid + ".db")
 
 baseCommand: [/usr/local/bin/star_metrics_sqlite]

@@ -82,25 +82,25 @@ steps:
       - id: output_fastq_o2
       - id: output_fastq_s
 
-  # - id: fastq_metrics
-  #   run: fastq_metrics.cwl
-  #   in:
-  #     - id: fastq1
-  #       source: biobambam_bamtofastq/output_fastq1
-  #     - id: fastq2
-  #       source: biobambam_bamtofastq/output_fastq2
-  #     - id: fastq_o1
-  #       source: biobambam_bamtofastq/output_fastq_o1
-  #     - id: fastq_o2
-  #       source: biobambam_bamtofastq/output_fastq_o2
-  #     - id: fastq_s
-  #       source: biobambam_bamtofastq/output_fastq_s
-  #     - id: run_uuid
-  #       source: run_uuid
-  #     - id: thread_count
-  #       source: thread_count
-  #   out:
-  #     - id: merge_fastq_metrics_destination_sqlite
+  - id: fastq_metrics
+    run: fastq_metrics.cwl
+    in:
+      - id: fastq1
+        source: biobambam_bamtofastq/output_fastq1
+      - id: fastq2
+        source: biobambam_bamtofastq/output_fastq2
+      - id: fastq_o1
+        source: biobambam_bamtofastq/output_fastq_o1
+      - id: fastq_o2
+        source: biobambam_bamtofastq/output_fastq_o2
+      - id: fastq_s
+        source: biobambam_bamtofastq/output_fastq_s
+      - id: run_uuid
+        source: run_uuid
+      - id: thread_count
+        source: thread_count
+    out:
+      - id: merge_fastq_metrics_destination_sqlite
         
   - id: bam_readgroup_to_json
     run: ../../tools/bam_readgroup_to_json.cwl
@@ -112,28 +112,28 @@ steps:
     out:
       - id: OUTPUT
 
-  # - id: readgroup_json_db
-  #   run: ../../tools/readgroup_json_db.cwl
-  #   scatter: json_path
-  #   in:
-  #     - id: json_path
-  #       source: bam_readgroup_to_json/OUTPUT
-  #     - id: uuid
-  #       source: run_uuid
-  #   out:
-  #     - id: log
-  #     - id: output_sqlite
+  - id: readgroup_json_db
+    run: ../../tools/readgroup_json_db.cwl
+    scatter: json_path
+    in:
+      - id: json_path
+        source: bam_readgroup_to_json/OUTPUT
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: log
+      - id: output_sqlite
 
-  # - id: merge_readgroup_json_db
-  #   run: ../../tools/merge_sqlite.cwl
-  #   in:
-  #     - id: source_sqlite
-  #       source: readgroup_json_db/output_sqlite
-  #     - id: uuid
-  #       source: run_uuid
-  #   out:
-  #     - id: destination_sqlite
-  #     - id: log
+  - id: merge_readgroup_json_db
+    run: ../../tools/merge_sqlite.cwl
+    in:
+      - id: source_sqlite
+        source: readgroup_json_db/output_sqlite
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: destination_sqlite
+      - id: log
 
   - id: decider_pass_1
     run: ../../tools/decider_star_pass_1.cwl
@@ -171,7 +171,22 @@ steps:
       - id: Log_out
       - id: Log_progress_out
       - id: SJ_out_tab
-        
+
+  - id: star_pass_1_to_sqlite
+    run: ../../tools/star_pass_1_to_sqlite.cwl
+    in:
+      - id: log_final_out_path
+        source: star_pass_1/Log_final_out
+      - id: log_out_path
+        source: star_pass_1/Log_out
+      - id: sj_out_tab_path
+        source: star_pass_1/SJ_out_tab
+      - id: run_uuid
+        source: run_uuid
+    out:
+      - id: log
+      - id: sqlite
+
   - id: star_generate_intermediate_index
     run: ../../tools/star_generate_intermediate_index.cwl
     in:
@@ -229,6 +244,9 @@ steps:
         source: star_generate_intermediate_index/sjdbList_out_tab
       - id: run_uuid
         source: run_uuid
+    out:
+      - id: log
+      - id: sqlite
 
   - id: decider_pass_2
     run: ../../tools/decider_star_pass_2.cwl
@@ -276,18 +294,36 @@ steps:
       - id: output_bam
       - id: SJ_out_tab
 
+  - id: star_pass_2_to_sqlite
+    run: ../../tools/star_pass_2_to_sqlite.cwl
+    in:
+      - id: log_final_out_path
+        source: star_pass_2/Log_final_out
+      - id: log_out_path
+        source: star_pass_2/Log_out
+      - id: sj_out_tab_path
+        source: star_pass_2/SJ_out_tab
+      - id: run_uuid
+        source: run_uuid
+    out:
+      - id: log
+      - id: sqlite
 
-  # - id: merge_all_sqlite
-  #   run: ../../tools/merge_sqlite.cwl
-  #   in:
-  #     - id: source_sqlite
-  #       source: [
-  #         picard_validatesamfile_original_to_sqlite/sqlite,
-  #         merge_readgroup_json_db/destination_sqlite,
-  #         fastq_metrics/merge_fastq_metrics_destination_sqlite
-  #       ]
-  #     - id: uuid
-  #       source: run_uuid
-  #   out:
-  #     - id: destination_sqlite
-  #     - id: log
+
+  - id: merge_all_sqlite
+    run: ../../tools/merge_sqlite.cwl
+    in:
+      - id: source_sqlite
+        source: [
+          picard_validatesamfile_original_to_sqlite/sqlite,
+          merge_readgroup_json_db/destination_sqlite,
+          fastq_metrics/merge_fastq_metrics_destination_sqlite,
+          star_pass_1_to_sqlite/sqlite,
+          star_generate_intermediate_index_to_sqlite/sqlite,
+          star_pass_2_to_sqlite/sqlite
+        ]
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: destination_sqlite
+      - id: log

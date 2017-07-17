@@ -24,6 +24,7 @@ requirements:
       - entryname: $(inputs.genome_sjdbInfo_txt.basename)
         entry: $(inputs.genome_sjdbInfo_txt)
   - class: InlineJavascriptRequirement
+  - class: ShellCommandRequirement
 
 class: CommandLineTool
 
@@ -126,6 +127,7 @@ inputs:
   - id: outSAMattrRGline
     type: string
     inputBinding:
+      shellQuote: false
       prefix: --outSAMattrRGline
 
   - id: outSAMattributes
@@ -134,12 +136,16 @@ inputs:
       items: string
     default: ["NH", "HI", "NM", "MD", "AS", "XS"]
     inputBinding:
+      shellQuote: false
       prefix: --outSAMattributes
 
   - id: outSAMheaderHD
-    type: string
-    default: "@HD VN:1.4"
+    type:
+      type: array
+      items: string
+    default: ["@HD", "VN:1.4"]
     inputBinding:
+      shellQuote: false
       prefix: --outSAMheaderHD
 
   - id: outSAMstrandField
@@ -154,6 +160,7 @@ inputs:
       items: string
     default: ["BAM", "SortedByCoordinate"]
     inputBinding:
+      shellQuote: false
       prefix: --outSAMtype
 
   - id: outSAMunmapped

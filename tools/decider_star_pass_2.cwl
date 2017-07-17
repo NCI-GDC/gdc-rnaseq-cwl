@@ -65,10 +65,10 @@ expression: |
             this_readgroup = this_readgroup + key + ":" + value + " ";
           }
         }
-        readgroup_str = readgroup_str + this_readgroup + " , "
+        this_readgroup = this_readgroup.substring(0, this_readgroup.length-1);
+        readgroup_str = readgroup_str + this_readgroup + " , ";
       }
       readgroup_str = readgroup_str.substring(0, readgroup_str.length-3);
-
 
       return {'output_fastq_paths': fastq_array, "output_readgroup_str": readgroup_str};
     }

@@ -107,6 +107,4 @@ arguments:
     prefix: CHART_OUTPUT=
     separate: false
 
-successCodes: [0, 1]
-
 baseCommand: [java, -jar, /usr/local/bin/picard.jar, CollectRnaSeqMetrics]

@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/fastqc_db:47f49053034376e7d76ff884ef858a7b1d0c3d682fedbe523e20fb55ccb36024
+    dockerPull: quay.io/ncigdc/fastqc_db:latest
   - class: InlineJavascriptRequirement
 
 class: CommandLineTool
@@ -15,11 +15,10 @@ inputs:
     inputBinding:
       prefix: --INPUT
 
-  - id: uuid
+  - id: run_uuid
     type: string
     inputBinding:
-      prefix: --uuid
-
+      prefix: --run_uuid
 outputs:
   - id: LOG
     type: File

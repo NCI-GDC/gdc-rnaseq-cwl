@@ -100,7 +100,7 @@ steps:
     in:
       - id: INPUT
         source: fastqc1/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: LOG
@@ -112,7 +112,7 @@ steps:
     in:
       - id: INPUT
         source: fastqc2/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: LOG
@@ -124,7 +124,7 @@ steps:
     in:
       - id: INPUT
         source: fastqc_s/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: LOG
@@ -136,7 +136,7 @@ steps:
     in:
       - id: INPUT
         source: fastqc_o1/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: LOG
@@ -148,7 +148,7 @@ steps:
     in:
       - id: INPUT
         source: fastqc_o2/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: LOG
@@ -159,7 +159,7 @@ steps:
     in:
       - id: source_sqlite
         source: fastqc_db1/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: destination_sqlite
@@ -170,7 +170,7 @@ steps:
     in:
       - id: source_sqlite
         source: fastqc_db2/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: destination_sqlite
@@ -181,7 +181,7 @@ steps:
     in:
       - id: source_sqlite
         source: fastqc_db_s/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: destination_sqlite
@@ -192,7 +192,7 @@ steps:
     in:
       - id: source_sqlite
         source: fastqc_db_o1/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: destination_sqlite
@@ -203,7 +203,7 @@ steps:
     in:
       - id: source_sqlite
         source: fastqc_db_o2/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: destination_sqlite
@@ -260,7 +260,7 @@ steps:
     in:
       - id: metric_path
         source: fastqvalidator1/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: LOG
@@ -272,7 +272,7 @@ steps:
     in:
       - id: metric_path
         source: fastqvalidator2/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: LOG
@@ -284,7 +284,7 @@ steps:
     in:
       - id: metric_path
         source: fastqvalidator_s/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: LOG
@@ -296,7 +296,7 @@ steps:
     in:
       - id: metric_path
         source: fastqvalidator_o1/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: LOG
@@ -308,7 +308,7 @@ steps:
     in:
       - id: metric_path
         source: fastqvalidator_o2/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: LOG
@@ -319,7 +319,7 @@ steps:
     in:
       - id: source_sqlite
         source: fastqvalidator_db1/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: destination_sqlite
@@ -330,7 +330,7 @@ steps:
     in:
       - id: source_sqlite
         source: fastqvalidator_db2/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: destination_sqlite
@@ -341,7 +341,7 @@ steps:
     in:
       - id: source_sqlite
         source: fastqvalidator_db_s/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: destination_sqlite
@@ -352,7 +352,7 @@ steps:
     in:
       - id: source_sqlite
         source: fastqvalidator_db_o1/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: destination_sqlite
@@ -363,7 +363,7 @@ steps:
     in:
       - id: source_sqlite
         source: fastqvalidator_db_o2/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: destination_sqlite
@@ -385,7 +385,7 @@ steps:
           merge_fastqvalidator_db1_sqlite/destination_sqlite,
           merge_fastqvalidator_db1_sqlite/destination_sqlite
         ]
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: destination_sqlite

@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/fastqvalidator-sqlite
+    dockerPull: quay.io/ncigdc/fastqvalidator-sqlite:latest
   - class: InlineJavascriptRequirement
 
 class: CommandLineTool
@@ -15,10 +15,10 @@ inputs:
     inputBinding:
       prefix: --metric_path
 
-  - id: uuid
+  - id: run_uuid
     type: string
     inputBinding:
-      prefix: --uuid
+      prefix: --run_uuid
 
 outputs:
   - id: LOG

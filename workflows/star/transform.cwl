@@ -25,9 +25,12 @@ inputs:
     type: File
   - id: input_bam
     type: File
+  - id: known_snp
+    type: File
   - id: ref_flat
     type: File
   - id: ribosomal_intervals
+    type: File
   - id: run_uuid
     type: string
   - id: thread_count
@@ -331,11 +334,14 @@ steps:
         source: picard_buildbamindex/OUTPUT
       - id: fasta
         source: fasta
-        valueFrom: $(self.basename)
+      - id: known_snp
+        source: known_snp
       - id: ref_flat
         source: ref_flat
       - id: ribosomal_intervals
         source: ribosomal_intervals
+      - id: input_state
+        valueFrom: "pass_2"
       - id: run_uuid
         source: run_uuid
     out:

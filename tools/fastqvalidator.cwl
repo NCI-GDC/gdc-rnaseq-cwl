@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/fastqvalidator
+    dockerPull: quay.io/ncigdc/fastqvalidator:latest
   - class: InlineJavascriptRequirement
 
 class: CommandLineTool

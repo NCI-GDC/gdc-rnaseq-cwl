@@ -10,6 +10,8 @@ requirements:
 inputs:
   - id: bam
     type: File
+  - id: fasta
+    type: string
   - id: ref_flat
     type: File
   - id: ribosomal_intervals
@@ -43,12 +45,16 @@ steps:
     in:
       - id: bam
         source: bam
+        valueFrom: $(self.basename)
       - id: fasta
         source: fasta
+        valueFrom: $(self.basename)
       - id: ref_flat
         source: ref_flat
+        valueFrom: $(self.basename)
       - id: ribosomal_intervals
         source: ribosomal_intervals
+        valueFrom: $(self.basename)
       - id: metric_path
         source: picard_collectrnaseqmetrics/OUTPUT
       - id: input_state

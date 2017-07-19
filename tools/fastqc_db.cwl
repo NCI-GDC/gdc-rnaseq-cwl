@@ -23,7 +23,7 @@ outputs:
   - id: LOG
     type: File
     outputBinding:
-      glob: $(inputs.uuid + ".log")
+      glob: $(inputs.run_uuid + ".log")
 
   - id: OUTPUT
     type: File

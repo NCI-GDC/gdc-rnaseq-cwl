@@ -40,21 +40,21 @@ inputs:
     inputBinding:
       prefix: --metric_path
 
-  - id: run_uuid
+  - id: run.run_uuid
     type: string
     inputBinding:
-      prefix: --run_uuid
+      prefix: --run.run_uuid
 
 outputs:
   - id: log
     type: File
     outputBinding:
-      glob: $(inputs.uuid+"_picard_CollectRnaSeqMetrics.log")
+      glob: $(inputs.run_uuid+"_picard_CollectRnaSeqMetrics.log")
 
   - id: sqlite
     type: File
     format: "edam:format_3621"
     outputBinding:
-      glob: $(inputs.uuid + ".db")
+      glob: $(inputs.run_uuid + ".db")
 
 baseCommand: [/usr/local/bin/picard_metrics_sqlite, --metric_name, CollectRnaSeqMetrics]

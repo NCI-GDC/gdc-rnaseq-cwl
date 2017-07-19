@@ -73,7 +73,7 @@ steps:
         valueFrom: "original"
       - id: metric_path
         source: picard_validatesamfile_original/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: sqlite
@@ -126,7 +126,7 @@ steps:
     in:
       - id: json_path
         source: bam_readgroup_to_json/OUTPUT
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: log
@@ -137,7 +137,7 @@ steps:
     in:
       - id: source_sqlite
         source: readgroup_json_db/output_sqlite
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: destination_sqlite
@@ -402,7 +402,7 @@ steps:
           star_pass_2_to_sqlite/sqlite,
           integrity/merge_sqlite_destination_sqlite
         ]
-      - id: uuid
+      - id: run_uuid
         source: run_uuid
     out:
       - id: destination_sqlite

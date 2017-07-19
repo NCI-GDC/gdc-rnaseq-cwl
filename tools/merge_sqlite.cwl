@@ -28,11 +28,11 @@ outputs:
     format: "edam:format_3621"
     type: File
     outputBinding:
-      glob: $(inputs.uuid + ".db")
+      glob: $(inputs.run_uuid + ".db")
 
   - id: log
     type: File
     outputBinding:
-      glob: $(inputs.uuid + ".log")
+      glob: $(inputs.run_uuid + ".log")
 
 baseCommand: [/usr/local/bin/merge_sqlite]

@@ -30,20 +30,20 @@ inputs:
     inputBinding:
       prefix: "--sha256sum_path"
 
-  - id: run_uuid
+  - id: run.run_uuid
     type: string
     inputBinding:
-      prefix: "--run_uuid"
+      prefix: "--run.run_uuid"
 
 outputs:
   - id: LOG
     type: File
     outputBinding:
-      glob: $(inputs.uuid + ".log")
+      glob: $(inputs.run_uuid + ".log")
 
   - id: OUTPUT
     type: File
     outputBinding:
-      glob: $(inputs.uuid + ".db")
+      glob: $(inputs.run_uuid + ".db")
 
 baseCommand: [/usr/local/bin/integrity_to_sqlite]

@@ -24,12 +24,12 @@ outputs:
   - id: LOG
     type: File
     outputBinding:
-      glob: $(inputs.uuid)_fastqvalidator_sqlite.log
+      glob: $(inputs.run_uuid)_fastqvalidator_sqlite.log
 
   - id: OUTPUT
     type: File
     outputBinding:
-      glob: $(inputs.uuid).db
+      glob: $(inputs.run_uuid).db
 
           
 baseCommand: [/usr/local/bin/fastqvalidator_sqlite]

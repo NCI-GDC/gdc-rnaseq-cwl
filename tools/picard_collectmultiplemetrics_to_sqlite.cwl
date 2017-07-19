@@ -25,10 +25,10 @@ inputs:
     inputBinding:
       prefix: --input_state
 
-  - id: run_uuid
+  - id: run.run_uuid
     type: string
     inputBinding:
-      prefix: --run_uuid
+      prefix: --run.run_uuid
 
   - id: vcf
     type: string
@@ -99,11 +99,11 @@ outputs:
   - id: log
     type: File
     outputBinding:
-      glob: $(inputs.uuid+"_picard_CollectMultipleMetrics.log")
+      glob: $(inputs.run_uuid+"_picard_CollectMultipleMetrics.log")
 
   - id: sqlite
     type: File
     outputBinding:
-      glob: $(inputs.uuid + ".db")
+      glob: $(inputs.run_uuid + ".db")
 
 baseCommand: [/usr/local/bin/picard_metrics_sqlite, --metric_name, CollectMultipleMetrics]

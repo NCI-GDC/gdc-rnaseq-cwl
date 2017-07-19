@@ -25,6 +25,9 @@ inputs:
     type: File
   - id: input_bam
     type: File
+  - id: ref_flat
+    type: File
+  - id: ribosomal_intervals
   - id: run_uuid
     type: string
   - id: thread_count
@@ -311,17 +314,84 @@ steps:
       - id: log
       - id: sqlite
 
+  - id: picard_buildbamindex
+    run: ../../tools/picard_buildbamindex.cwl
+    in:
+      - id: INPUT
+        source: input_bam
+      - id: VALIDATION_STRINGENCY
+        valueFrom: "STRICT"
+    out:
+      - id: OUTPUT
+
+  - id: bam_metrics
+    run: bam_metrics.cwl
+    in:
+      - id: bam
+        source: picard_buildbamindex/OUTPUT
+      - id: ref_flat
+        source: ref_flat
+      - id: ribosomal_intervals
+        source: ribosomal_intervals
+      - id: run_uuid
+        source: run_uuid
+    out:
+      - id: merge_fastq_metrics_destination_sqlite
+
+  - id: picard_validatesamfile_pass_2
+    run: ../../tools/picard_validatesamfile.cwl
+    in:
+      - id: INPUT
+        source: picard_buildbamindex/OUTPUT
+      - id: VALIDATION_STRINGENCY
+        valueFrom: "STRICT"
+    out:
+      - id: OUTPUT
+
+  # need eof and dup QNAME detection
+  - id: picard_validatesamfile_pass_2_to_sqlite
+    run: ../../tools/picard_validatesamfile_to_sqlite.cwl
+    in:
+      - id: bam
+        source: input_bam
+        valueFrom: $(self.basename)
+      - id: input_state
+        valueFrom: "original"
+      - id: metric_path
+        source: picard_validatesamfile_pass_2/OUTPUT
+      - id: run_uuid
+        source: run_uuid
+    out:
+      - id: sqlite
+
+  - id: integrity
+    run: integrity.cwl
+    in:
+      - id: bai
+        source: picard_buildbamindex/OUTPUT
+        valueFrom: $(self.secondaryFiles[0])
+      - id: bam
+        source: picard_buildbamindex/OUTPUT
+      - id: input_state
+        valueFrom: ""
+      - id: run_uuid
+        source: run_uuid
+    out:
+      - id: merge_sqlite_destination_sqlite
+
   - id: merge_all_sqlite
     run: ../../tools/merge_sqlite.cwl
     in:
       - id: source_sqlite
         source: [
           picard_validatesamfile_original_to_sqlite/sqlite,
+          picard_validatesamfile_pass_2_to_sqlite/sqlite,
           merge_readgroup_json_db/destination_sqlite,
           fastq_metrics/merge_fastq_metrics_destination_sqlite,
           star_pass_1_to_sqlite/sqlite,
           star_generate_intermediate_index_to_sqlite/sqlite,
-          star_pass_2_to_sqlite/sqlite
+          star_pass_2_to_sqlite/sqlite,
+          integrity/merge_sqlite_destination_sqlite
         ]
       - id: uuid
         source: run_uuid

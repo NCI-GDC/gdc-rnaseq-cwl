@@ -147,7 +147,6 @@ arguments:
   - valueFrom: "PROGRAM=CollectSequencingArtifactMetrics"
   - valueFrom: "PROGRAM=MeanQualityByCycle"
   - valueFrom: "PROGRAM=QualityScoreDistribution"
-  - valueFrom: "PROGRAM=RnaSeqMetrics"
 
   - valueFrom: $(inputs.INPUT.nameroot)
     prefix: OUTPUT=

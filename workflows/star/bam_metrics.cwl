@@ -29,41 +29,41 @@ outputs:
     outputSource: merge_fastq_metrics/destination_sqlite
 
 steps:
-  # - id: picard_collectrnaseqmetrics
-  #   run: ../../tools/picard_collectrnaseqmetrics.cwl
-  #   in:
-  #     - id: INPUT
-  #       source: bam
-  #     - id: REF_FLAT
-  #       source: ref_flat
-  #     - id: RIBOSOMAL_INTERVALS
-  #       source: ribosomal_intervals
-  #   out:
-  #     - id: OUTPUT
+  - id: picard_collectrnaseqmetrics
+    run: ../../tools/picard_collectrnaseqmetrics.cwl
+    in:
+      - id: INPUT
+        source: bam
+      - id: REF_FLAT
+        source: ref_flat
+      - id: RIBOSOMAL_INTERVALS
+        source: ribosomal_intervals
+    out:
+      - id: OUTPUT
 
-  # - id: picard_collectrnaseqmetrics_to_sqlite
-  #   run: ../../tools/picard_collectrnaseqmetrics_to_sqlite.cwl
-  #   in:
-  #     - id: bam
-  #       source: bam
-  #       valueFrom: $(self.basename)
-  #     - id: fasta
-  #       source: fasta
-  #       valueFrom: $(self.basename)
-  #     - id: ref_flat
-  #       source: ref_flat
-  #       valueFrom: $(self.basename)
-  #     - id: ribosomal_intervals
-  #       source: ribosomal_intervals
-  #       valueFrom: $(self.basename)
-  #     - id: metric_path
-  #       source: picard_collectrnaseqmetrics/OUTPUT
-  #     - id: input_state
-  #       valueFrom: "pass_2"
-  #     - id: run_uuid
-  #       source: run_uuid
-  #   out:
-  #     - id: sqlite
+  - id: picard_collectrnaseqmetrics_to_sqlite
+    run: ../../tools/picard_collectrnaseqmetrics_to_sqlite.cwl
+    in:
+      - id: bam
+        source: bam
+        valueFrom: $(self.basename)
+      - id: fasta
+        source: fasta
+        valueFrom: $(self.basename)
+      - id: ref_flat
+        source: ref_flat
+        valueFrom: $(self.basename)
+      - id: ribosomal_intervals
+        source: ribosomal_intervals
+        valueFrom: $(self.basename)
+      - id: metric_path
+        source: picard_collectrnaseqmetrics/OUTPUT
+      - id: input_state
+        valueFrom: "pass_2"
+      - id: run_uuid
+        source: run_uuid
+    out:
+      - id: sqlite
 
   - id: picard_collectmultiplemetrics
     run: ../../tools/picard_collectmultiplemetrics.cwl
@@ -74,11 +74,6 @@ steps:
         source: bam
       - id: REFERENCE_SEQUENCE
         source: fasta
-      - id: REF_FLAT
-        source: ref_flat
-      - id: RIBOSOMAL_INTERVALS
-        source: ribosomal_intervals
-
     out:
       - id: alignment_summary_metrics
       - id: bait_bias_detail_metrics
@@ -177,7 +172,8 @@ steps:
       - id: source_sqlite
         source: [
           picard_collectmultiplemetrics_to_sqlite/sqlite,
-          picard_collectoxogmetrics_to_sqlite/sqlite
+          picard_collectoxogmetrics_to_sqlite/sqlite,
+          picard_collectrnaseqmetrics_to_sqlite/sqlite
         ]
       - id: run_uuid
         source: run_uuid

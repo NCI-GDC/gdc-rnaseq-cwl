@@ -20,12 +20,9 @@ inputs:
     type: string
 
 outputs:
-  - id: picard_collectrnaseqmetrics_to_sqlite_sqlite
+  - id: merge_fastq_metrics_destination_sqlite
     type: File
-    outputSource: picard_collectrnaseqmetrics_to_sqlite/sqlite
-  # - id: merge_fastq_metrics_destination_sqlite
-  #   type: File
-  #   outputSource: merge_fastq_metrics/destination_sqlite
+    outputSource: merge_fastq_metrics/destination_sqlite
 
 steps:
   - id: picard_collectrnaseqmetrics
@@ -64,15 +61,15 @@ steps:
     out:
       - id: sqlite
 
-  # - id: merge_fastq_metrics
-  #   run: ../../tools/merge_sqlite.cwl
-  #   in:
-  #     - id: source_sqlite
-  #       source: [
-  #         picard_collectrnaseqmetrics_to_sqlite/sqlite,
-  #       ]
-  #     - id: uuid
-  #       source: run_uuid
-  #   out:
-  #     - id: destination_sqlite
-  #     - id: log
+  - id: merge_fastq_metrics
+    run: ../../tools/merge_sqlite.cwl
+    in:
+      - id: source_sqlite
+        source: [
+          picard_collectrnaseqmetrics_to_sqlite/sqlite
+        ]
+      - id: uuid
+        source: run_uuid
+    out:
+      - id: destination_sqlite
+      - id: log

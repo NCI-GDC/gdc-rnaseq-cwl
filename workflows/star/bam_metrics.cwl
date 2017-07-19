@@ -41,8 +41,18 @@ steps:
   - id: picard_collectrnaseqmetrics_to_sqlite
     run: ../../tools/picard_collectrnaseqmetrics_to_sqlite.cwl
     in:
-      - id: INPUT
+      - id: bam
+        source: bam
+      - id: fasta
+        source: fasta
+      - id: ref_flat
+        source: ref_flat
+      - id: ribosomal_intervals
+        source: ribosomal_intervals
+      - id: metric_path
         source: picard_collectrnaseqmetrics/OUTPUT
+      - id: input_state
+        valueFrom: "pass_2"
       - id: run_uuid
         source: run_uuid
     out:

@@ -25,10 +25,10 @@ inputs:
     inputBinding:
       prefix: --input_state
 
-  - id: run.run_uuid
+  - id: run_uuid
     type: string
     inputBinding:
-      prefix: --run.run_uuid
+      prefix: --run_uuid
 
   - id: vcf
     type: string

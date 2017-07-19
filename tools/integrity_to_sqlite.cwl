@@ -30,10 +30,10 @@ inputs:
     inputBinding:
       prefix: "--sha256sum_path"
 
-  - id: run.run_uuid
+  - id: run_uuid
     type: string
     inputBinding:
-      prefix: "--run.run_uuid"
+      prefix: "--run_uuid"
 
 outputs:
   - id: LOG

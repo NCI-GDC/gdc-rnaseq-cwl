@@ -321,7 +321,7 @@ steps:
     run: ../../tools/picard_buildbamindex.cwl
     in:
       - id: INPUT
-        source: input_bam
+        source: star_pass_2/output_bam
       - id: VALIDATION_STRINGENCY
         valueFrom: "STRICT"
     out:

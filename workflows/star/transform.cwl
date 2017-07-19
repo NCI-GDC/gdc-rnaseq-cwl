@@ -329,6 +329,9 @@ steps:
     in:
       - id: bam
         source: picard_buildbamindex/OUTPUT
+      - id: fasta
+        source: fasta
+        valueFrom: $(self.basename)
       - id: ref_flat
         source: ref_flat
       - id: ribosomal_intervals

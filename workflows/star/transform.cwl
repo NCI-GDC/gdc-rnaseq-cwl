@@ -150,6 +150,8 @@ steps:
         source: biobambam_bamtofastq/output_fastq1
       - id: fastq2_paths
         source: biobambam_bamtofastq/output_fastq2
+      - id: fastq_s_paths
+        source: biobambam_bamtofastq/output_fastq_s
     out:
       - id: output_fastq_paths
 

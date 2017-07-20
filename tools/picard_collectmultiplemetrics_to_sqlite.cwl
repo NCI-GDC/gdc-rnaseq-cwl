@@ -15,11 +15,6 @@ inputs:
     inputBinding:
       prefix: --bam
 
-  - id: fasta
-    type: string
-    inputBinding:
-      prefix: --fasta
-
   - id: input_state
     type: string
     inputBinding:
@@ -29,11 +24,6 @@ inputs:
     type: string
     inputBinding:
       prefix: --run_uuid
-
-  - id: vcf
-    type: string
-    inputBinding:
-      prefix: --vcf
 
   - id: alignment_summary_metrics
     type: File

@@ -47,15 +47,6 @@ steps:
       - id: bam
         source: bam
         valueFrom: $(self.basename)
-      - id: fasta
-        source: fasta
-        valueFrom: $(self.basename)
-      - id: ref_flat
-        source: ref_flat
-        valueFrom: $(self.basename)
-      - id: ribosomal_intervals
-        source: ribosomal_intervals
-        valueFrom: $(self.basename)
       - id: metric_path
         source: picard_collectrnaseqmetrics/OUTPUT
       - id: input_state
@@ -94,16 +85,10 @@ steps:
       - id: bam
         source: bam
         valueFrom: $(self.basename)
-      - id: fasta
-        source: fasta
-        valueFrom: $(self.basename)
       - id: input_state
         source: input_state
       - id: run_uuid
         source: run_uuid
-      - id: vcf
-        source: known_snp
-        valueFrom: $(self.basename)
       - id: alignment_summary_metrics
         source: picard_collectmultiplemetrics/alignment_summary_metrics
       - id: bait_bias_detail_metrics
@@ -150,18 +135,12 @@ steps:
       - id: bam
         source: bam
         valueFrom: $(self.basename)
-      - id: fasta
-        source: fasta
-        valueFrom: $(self.basename)
       - id: input_state
         source: input_state
       - id: metric_path
         source: picard_collectoxogmetrics/OUTPUT
       - id: run_uuid
         source: run_uuid
-      - id: vcf
-        source: known_snp
-        valueFrom: $(self.basename)
     out:
       - id: log
       - id: sqlite

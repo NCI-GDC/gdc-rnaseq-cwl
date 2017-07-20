@@ -15,21 +15,6 @@ inputs:
     inputBinding:
       prefix: --bam
 
-  - id: fasta
-    type: string
-    inputBinding:
-      prefix: --fasta
-
-  - id: ref_flat
-    type: string
-    inputBinding:
-      prefix: --ref_flat
-
-  - id: ribosomal_intervals
-    type: string
-    inputBinding:
-      prefix: --ribosomal_intervals
-
   - id: input_state
     type: string
     inputBinding:

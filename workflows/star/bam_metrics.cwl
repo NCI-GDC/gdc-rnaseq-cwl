@@ -184,8 +184,8 @@ steps:
         source: input_state
       - id: metric_path
         source: samtools_flagstat/OUTPUT
-      - id: uuid
-        source: uuid
+      - id: run_uuid
+        source: run_uuid
     out:
       - id: sqlite
 
@@ -207,8 +207,8 @@ steps:
         source: input_state
       - id: metric_path
         source: samtools_idxstats/OUTPUT
-      - id: uuid
-        source: uuid
+      - id: run_uuid
+        source: run_uuid
     out:
       - id: sqlite
 
@@ -230,8 +230,8 @@ steps:
         source: input_state
       - id: metric_path
         source: samtools_stats/OUTPUT
-      - id: uuid
-        source: uuid
+      - id: run_uuid
+        source: run_uuid
     out:
       - id: sqlite
 

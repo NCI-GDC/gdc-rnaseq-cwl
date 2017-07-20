@@ -400,6 +400,7 @@ steps:
           star_pass_1_to_sqlite/sqlite,
           star_generate_intermediate_index_to_sqlite/sqlite,
           star_pass_2_to_sqlite/sqlite,
+          bam_metrics/merge_fastq_metrics_destination_sqlite,
           integrity/merge_sqlite_destination_sqlite
         ]
       - id: run_uuid

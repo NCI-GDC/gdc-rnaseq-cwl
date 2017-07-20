@@ -166,6 +166,75 @@ steps:
       - id: log
       - id: sqlite
 
+  - id: samtools_flagstat
+    run: ../../tools/samtools_flagstat.cwl
+    in:
+      - id: INPUT
+        source: bam
+    out:
+      - id: OUTPUT
+
+  - id: samtools_flagstat_to_sqlite
+    run: ../../tools/samtools_flagstat_to_sqlite.cwl
+    in:
+      - id: bam
+        source: bam
+        valueFrom: $(self.basename)
+      - id: input_state
+        source: input_state
+      - id: metric_path
+        source: samtools_flagstat/OUTPUT
+      - id: uuid
+        source: uuid
+    out:
+      - id: sqlite
+
+  - id: samtools_idxstats
+    run: ../../tools/samtools_idxstats.cwl
+    in:
+      - id: INPUT
+        source: bam
+    out:
+      - id: OUTPUT
+
+  - id: samtools_idxstats_to_sqlite
+    run: ../../tools/samtools_idxstats_to_sqlite.cwl
+    in:
+      - id: bam
+        source: bam
+        valueFrom: $(self.basename)
+      - id: input_state
+        source: input_state
+      - id: metric_path
+        source: samtools_idxstats/OUTPUT
+      - id: uuid
+        source: uuid
+    out:
+      - id: sqlite
+
+  - id: samtools_stats
+    run: ../../tools/samtools_stats.cwl
+    in:
+      - id: INPUT
+        source: bam
+    out:
+      - id: OUTPUT
+
+  - id: samtools_stats_to_sqlite
+    run: ../../tools/samtools_stats_to_sqlite.cwl
+    in:
+      - id: bam
+        source: bam
+        valueFrom: $(self.basename)
+      - id: input_state
+        source: input_state
+      - id: metric_path
+        source: samtools_stats/OUTPUT
+      - id: uuid
+        source: uuid
+    out:
+      - id: sqlite
+
   - id: merge_fastq_metrics
     run: ../../tools/merge_sqlite.cwl
     in:
@@ -173,7 +242,10 @@ steps:
         source: [
           picard_collectmultiplemetrics_to_sqlite/sqlite,
           picard_collectoxogmetrics_to_sqlite/sqlite,
-          picard_collectrnaseqmetrics_to_sqlite/sqlite
+          picard_collectrnaseqmetrics_to_sqlite/sqlite,
+          samtools_flagstat_to_sqlite/sqlite,
+          samtools_idxstats_to_sqlite/sqlite,
+          samtools_stats_to_sqlite/sqlite
         ]
       - id: run_uuid
         source: run_uuid

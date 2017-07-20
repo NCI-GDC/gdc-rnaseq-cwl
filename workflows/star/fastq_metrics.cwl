@@ -380,10 +380,10 @@ steps:
           merge_fastqc_db_o1_sqlite/destination_sqlite,
           merge_fastqc_db_o2_sqlite/destination_sqlite,
           merge_fastqvalidator_db1_sqlite/destination_sqlite,
-          merge_fastqvalidator_db1_sqlite/destination_sqlite,
-          merge_fastqvalidator_db1_sqlite/destination_sqlite,
-          merge_fastqvalidator_db1_sqlite/destination_sqlite,
-          merge_fastqvalidator_db1_sqlite/destination_sqlite
+          merge_fastqvalidator_db2_sqlite/destination_sqlite,
+          merge_fastqvalidator_db_s_sqlite/destination_sqlite,
+          merge_fastqvalidator_db_o1_sqlite/destination_sqlite,
+          merge_fastqvalidator_db_o2_sqlite/destination_sqlite
         ]
       - id: run_uuid
         source: run_uuid

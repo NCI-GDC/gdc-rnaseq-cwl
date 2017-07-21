@@ -58,12 +58,6 @@ inputs:
       prefix: CREATE_INDEX=
       separate: false
 
-  - id: REFERENCE_SEQUENCE
-    type: File
-    inputBinding:
-      prefix: REFERENCE_SEQUENCE=
-      separate: false
-
 outputs:
   - id: OUTPUT
     type: File

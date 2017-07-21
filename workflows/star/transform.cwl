@@ -44,9 +44,9 @@ requirements:
   - class: SubworkflowFeatureRequirement
 
 outputs:
-  - id: star_pass_2_output_bam
+  - id: picard_fixmateinformation_output
     type: File
-    outputSource: star_pass_2/output_bam
+    outputSource: picard_fixmateinformation/OUTPUT
   - id: merge_all_sqlite_destination_sqlite
     type: File
     outputSource: merge_all_sqlite/destination_sqlite
@@ -328,8 +328,6 @@ steps:
         source: star_pass_2/output_bam
       - id: VALIDATION_STRINGENCY
         valueFrom: "STRICT"
-      - id: REFERENCE_SEQUENCE
-        source: fasta
     out:
       - id: OUTPUT
 

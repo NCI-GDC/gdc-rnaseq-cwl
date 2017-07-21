@@ -55,8 +55,8 @@ expression: |
         return basename
       }
 
-      function local_dirname(path) {
-        return path.replace(/\\/g,'/').replace(/\/[^\/]*$/, '');
+      function include(arr,obj) {
+        return (arr.indexOf(obj) != -1)
       }
 
       if (inputs.fastq1_paths.length > 0 && inputs.fastq1_paths.length == inputs.fastq2_paths.length) {
@@ -64,7 +64,7 @@ expression: |
           fastq_array.push(inputs.fastq1_paths[i]);
           fastq_array.push(inputs.fastq2_paths[i]);
 
-          var fastq1_name = local_basename(fastq1_paths[i]);
+          var fastq1_name = local_basename(inputs.fastq1_paths[i].location);
           var predicted_rg_name = fastq1_name.slice(0,-8) + ".json";
           readgroup_basename_array.push(predicted_rg_name);
         }
@@ -73,19 +73,26 @@ expression: |
         for (var i = 0; i < inputs.fastq_s_paths.length; i++) {
           fastq_array.push(inputs.fastq_s_paths[i]);
 
-          var fastq_s_name = local_basename(fastq_s_paths[i]);
+          var fastq_s_name = local_basename(inputs.fastq_s_paths[i].location);
           var predicted_rg_name = fastq_s_name.slice(0,-8) + ".json";
           readgroup_basename_array.push(predicted_rg_name);
         }
       }
 
+      // get needed readgroup objects
+      var use_readgroup_array = [];
+      for (var i = 0; i < inputs.readgroup_paths.length; i++) {
+        var this_readgroup_object = inputs.readgroup_paths[i];
+        var this_readgroup_basename = local_basename(this_readgroup_object.location);
+        if (include(readgroup_basename_array, this_readgroup_basename)) {
+          use_readgroup_array.push(this_readgroup_object)
+        }
+      }
+
       // generate readgroup string
       var readgroup_str = "";
-      readgroup_dirname = local_dirname(inputs.readgroup_paths[0].location)
-      for (var i = 0; i < inputs.readgroup_basename_array.length; i++) {
-        var this_readgroup_name = inputs.readgroup_basename_array[i];
-        var this_readgroup_path = readgroup_dirname + this_readgroup_name;
-        var readgroup_json = JSON.parse(this_readgroup_path.contents);
+      for (var i = 0; i < use_readgroup_array.length; i++) {
+        var readgroup_json = JSON.parse(use_readgroup_array[i].contents);
         var this_readgroup = "";
         this_readgroup = "ID:" + readgroup_json["ID"] + " ";
         var keys = Object.keys(readgroup_json).sort();

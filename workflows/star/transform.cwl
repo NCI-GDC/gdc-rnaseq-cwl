@@ -265,6 +265,8 @@ steps:
         source: biobambam_bamtofastq/output_fastq1
       - id: fastq2_paths
         source: biobambam_bamtofastq/output_fastq2
+      - id: fastq_s_paths
+        source: biobambam_bamtofastq/output_fastq_s
       - id: readgroup_paths
         source: bam_readgroup_to_json/OUTPUT
     out:
@@ -319,13 +321,15 @@ steps:
       - id: log
       - id: sqlite
 
-  - id: picard_buildbamindex
-    run: ../../tools/picard_buildbamindex.cwl
+  - id: picard_fixmateinformation
+    run: ../../tools/picard_fixmateinformation.cwl
     in:
       - id: INPUT
         source: star_pass_2/output_bam
       - id: VALIDATION_STRINGENCY
         valueFrom: "STRICT"
+      - id: REFERENCE_SEQUENCE
+        source: fasta
     out:
       - id: OUTPUT
 
@@ -333,7 +337,7 @@ steps:
     run: bam_metrics.cwl
     in:
       - id: bam
-        source: picard_buildbamindex/OUTPUT
+        source: picard_fixmateinformation/OUTPUT
       - id: fasta
         source: fasta
       - id: known_snp
@@ -353,7 +357,7 @@ steps:
     run: ../../tools/picard_validatesamfile.cwl
     in:
       - id: INPUT
-        source: picard_buildbamindex/OUTPUT
+        source: picard_fixmateinformation/OUTPUT
       - id: VALIDATION_STRINGENCY
         valueFrom: "STRICT"
     out:
@@ -379,10 +383,10 @@ steps:
     run: integrity.cwl
     in:
       - id: bai
-        source: picard_buildbamindex/OUTPUT
+        source: picard_fixmateinformation/OUTPUT
         valueFrom: $(self.secondaryFiles[0])
       - id: bam
-        source: picard_buildbamindex/OUTPUT
+        source: picard_fixmateinformation/OUTPUT
       - id: input_state
         valueFrom: ""
       - id: run_uuid

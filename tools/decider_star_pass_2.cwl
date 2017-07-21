@@ -59,7 +59,7 @@ expression: |
         return path.replace(/\\/g,'/').replace(/\/[^\/]*$/, '');
       }
 
-      if (inputs.fastq1_paths.length > 0 and inputs.fastq1_paths.length == inputs.fastq2_paths.length) {
+      if (inputs.fastq1_paths.length > 0 && inputs.fastq1_paths.length == inputs.fastq2_paths.length) {
         for (var i = 0; i < inputs.fastq1_paths.length; i++) {
           fastq_array.push(inputs.fastq1_paths[i]);
           fastq_array.push(inputs.fastq2_paths[i]);

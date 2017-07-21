@@ -1,0 +1,18 @@
+{
+    "genomeDir": {
+        "class": "Directory",
+        "path": "/mnt/scratch/dl/coli"
+    },
+    "readFilesIn": [
+        {
+            "class": "File",
+            "path": "/mnt/scratch/dl/SRR1186262_1.fastq.gz"
+        },
+        {
+            "class": "File",
+            "path": "/mnt/scratch/dl/SRR1186262_2.fastq.gz"
+        }
+    ],
+    "run_uuid": "71c61885-e97f-4a4e-ad11-50c4d0a7b835",
+    "runThreadN": 16
+}

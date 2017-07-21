@@ -1,0 +1,13 @@
+{
+    "gtf": {
+        "class": "File",
+        "path": "Escherichia_coli.HUSEC2011CHR1.32.gtf"
+    },
+    "fasta": {
+        "class": "File",
+        "path": "Escherichia_coli.HUSEC2011CHR1.dna.chromosome.Chromosome.fa"
+    },
+    "ribo_rna_pattern": "gene_biotype \"rRNA\";",
+    "species": "Escherichia coli",
+    "transcript_pattern": "{if ($3 == \"transcript\") print $0;}"
+}

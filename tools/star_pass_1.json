@@ -1,0 +1,15 @@
+{
+    "gtf": {
+        "class": "File",
+        "path": "/mnt/scratch/genome/Escherichia_coli.HUSEC2011CHR1.32.gtf"
+    },
+    "fasta": {
+        "class": "File",
+        "path": "/mnt/scratch/genome/Escherichia_coli.HUSEC2011CHR1.dna.chromosome.Chromosome.fa"
+    },
+    "run_uuid": "71c61885-e97f-4a4e-ad11-50c4d0a7b835",
+    "star_genomeDir_value": ".",
+    "star_runMode_value": "genomeGenerate",
+    "star_sjdbOverhang_value": 100,
+    "thread_count": 16
+}

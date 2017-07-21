@@ -1,0 +1,12 @@
+{
+    "genomeDir": ".",
+    "genomeFastaFiles": {
+        "class": "File",
+        "path": "Escherichia_coli.HUSEC2011CHR1.dna.chromosome.Chromosome.fa"
+    },
+    "runThreadN": 8,
+    "sjdbGTFfile": {
+        "class": "File",
+        "path": "Escherichia_coli.HUSEC2011CHR1.32.gtf"
+    }
+}

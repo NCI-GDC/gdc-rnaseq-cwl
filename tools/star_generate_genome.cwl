@@ -24,6 +24,7 @@ inputs:
 
   - id: genomeDir
     type: string
+    default: "."
     inputBinding:
       prefix: --genomeDir
 

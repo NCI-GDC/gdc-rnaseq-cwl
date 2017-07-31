@@ -44,10 +44,10 @@ inputs:
     type: string
   - id: start_token
     type: File
-  - id: thread_count
-    type: int
   - id: run_uuid
     type: string
+  - id: thread_count
+    type: int
 
 outputs:
   - id: token

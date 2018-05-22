@@ -4,8 +4,17 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/biobambam:latest
+    dockerPull: quay.io/ncigdc/biobambam:d4b3d1218df6d120aa4e04068e58efbdd4c9b3551f550744805b52eaa145bfbf
   - class: InlineJavascriptRequirement
+  - class: ResourceRequirement
+    coresMin: 1
+    coresMax: 1
+    ramMin: 2000
+    ramMax: 2000
+    tmpdirMin: $(Math.ceil(0.9 * inputs.filename.size / 1048576))
+    tmpdirMax: $(Math.ceil(0.9 * inputs.filename.size / 1048576))
+    outdirMin: $(Math.ceil(0.9 * inputs.filename.size / 1048576))
+    outdirMax: $(Math.ceil(0.9 * inputs.filename.size / 1048576))
 
 class: CommandLineTool
 
@@ -25,7 +34,6 @@ inputs:
       separate: false
 
   - id: filename
-    format: "edam:format_2572"
     type: File
     inputBinding:
       prefix: filename=
@@ -117,7 +125,6 @@ inputs:
 
 outputs:
   - id: output_fastq1
-    format: "edam:format_2182"
     type:
       type: array
       items: File
@@ -127,7 +134,6 @@ outputs:
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
   - id: output_fastq2
-    format: "edam:format_2182"
     type:
       type: array
       items: File
@@ -137,7 +143,6 @@ outputs:
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
   - id: output_fastq_o1
-    format: "edam:format_2182"
     type:
       type: array
       items: File
@@ -147,7 +152,6 @@ outputs:
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
   - id: output_fastq_o2
-    format: "edam:format_2182"
     type:
       type: array
       items: File
@@ -157,7 +161,6 @@ outputs:
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
   - id: output_fastq_s
-    format: "edam:format_2182"
     type:
       type: array
       items: File

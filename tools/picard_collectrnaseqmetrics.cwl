@@ -10,90 +10,84 @@ requirements:
 class: CommandLineTool
 
 inputs:
-  - id: INPUT
+  INPUT:
     type: File
-    format: "edam:format_2572"
     inputBinding:
       prefix: INPUT=
       separate: false
+    secondaryFiles:
+      - ".bai"
 
-  - id: REF_FLAT
+  REF_FLAT:
     type: File
     inputBinding:
       prefix: REF_FLAT=
       separate: false
 
-  - id: RIBOSOMAL_INTERVALS
-    type: ["null", File]
+  RIBOSOMAL_INTERVALS:
+    type: File? 
     inputBinding:
       prefix: RIBOSOMAL_INTERVALS=
       separate: false
 
-  - id: STRAND_SPECIFICITY
-    type: string
+  STRAND_SPECIFICITY:
+    type: string?
     default: "NONE"
     inputBinding:
       prefix: STRAND_SPECIFICITY=
       separate: false
 
-  - id: MINIMUM_LENGTH
-    type: int
+  MINIMUM_LENGTH:
+    type: int?
     default: 500
     inputBinding:
       prefix: MINIMUM_LENGTH=
       separate: false
 
-  - id: IGNORE_SEQUENCE
-    default: ["null"]
-    type:
-      type: array
-      items: string
-      inputBinding:
-        prefix: IGNORE_SEQUENCE=
-        separate: false
-
-  - id: RRNA_FRAGMENT_PERCENTAGE
-    type: double
+  RRNA_FRAGMENT_PERCENTAGE:
+    type: double?
     default: 0.8
     inputBinding:
       prefix: RRNA_FRAGMENT_PERCENTAGE=
       separate: false
 
-  - id: METRIC_ACCUMULATION_LEVEL
-    type: string
-    default: "ALL_READS"
-    inputBinding:
-      prefix: METRIC_ACCUMULATION_LEVEL=
-      separate: false
+  METRIC_ACCUMULATION_LEVEL:
+    type:
+      type: array
+      items: string
+      inputBinding:
+        prefix: METRIC_ACCUMULATION_LEVEL=
+        separate: false 
+    default: ["ALL_READS"]
 
-  - id: ASSUME_SORTED
-    type: string
+  ASSUME_SORTED:
+    type: string?
     default: "true"
     inputBinding:
       prefix: ASSUME_SORTED=
       separate: false
 
-  - id: STOP_AFTER
-    type: long
+  STOP_AFTER:
+    type: int?
     default: 0
     inputBinding:
       prefix: STOP_AFTER=
       separate: false
 
-  - id: TMP_DIR
-    type: string
+  TMP_DIR:
+    type: string?
     default: "."
     inputBinding:
       prefix: TMP_DIR=
       separate: false
 
 outputs:
-  - id: OUTPUT
+  OUTPUT:
     type: File
     outputBinding:
       glob: $(inputs.INPUT.nameroot).metrics
 
-  - id: CHART_OUTPUT
+  CHART_OUTPUT:
     type: File
     outputBinding:
       glob: $(inputs.INPUT.nameroot).pdf

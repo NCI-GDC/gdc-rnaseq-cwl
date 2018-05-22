@@ -4,128 +4,100 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/fastqc:latest
+    dockerPull: quay.io/ncigdc/fastqc:a285d4ab748fa11e6029ad1019ea645ed2b1657e5d49c850a322fdf4b402c1b9 
   - class: InlineJavascriptRequirement
 
 class: CommandLineTool
 
 inputs:
-  - id: adapters
-    type: ["null", File]
+  adapters:
+    type: File?
     inputBinding:
       prefix: --adapters
 
-  - id: casava
-    type: boolean
-    default: false
+  casava:
+    type: boolean?
     inputBinding:
       prefix: --casava
 
-  - id: contaminants
-    type: ["null", File]
+  contaminants:
+    type: File? 
     inputBinding:
       prefix: --contaminants
 
-  - id: dir
+  dir:
     type: string
     default: .
     inputBinding:
       prefix: --dir
 
-  - id: extract
-    type: boolean
-    default: false
+  extract:
+    type: boolean?
     inputBinding:
       prefix: --extract
 
-  - id: format
+  format:
     type: string
     default: fastq
     inputBinding:
       prefix: --format
 
-  - id: INPUT
-    type: File
-    format: "edam:format_2182"
+  INPUT:
+    type: File[]
     inputBinding:
       position: 99
 
-  - id: kmers
-    type: ["null", File]
+  kmers:
+    type: File?
     inputBinding:
       prefix: --kmers
 
-  - id: limits
-    type: ["null", File]
+  limits:
+    type: File?
     inputBinding:
       prefix: --limits
 
-  - id: nano
-    type: boolean
-    default: false
+  nano:
+    type: boolean?
     inputBinding:
       prefix: --nano
 
-  - id: noextract
+  noextract:
     type: boolean
     default: true
     inputBinding:
       prefix: --noextract
 
-  - id: nofilter
-    type: boolean
-    default: false
+  nofilter:
+    type: boolean?
     inputBinding:
       prefix: --nofilter
 
-  - id: nogroup
-    type: boolean
-    default: false
+  nogroup:
+    type: boolean?
     inputBinding:
       prefix: --nogroup
 
-  - id: outdir
+  outdir:
     type: string
     default: .
     inputBinding:
       prefix: --outdir
 
-  - id: quiet
-    type: boolean
-    default: false
+  quiet:
+    type: boolean?
     inputBinding:
       prefix: --quiet
 
-  - id: threads
-    type: int
-    default: 1
+  threads:
+    type: int?
     inputBinding:
       prefix: --threads
 
 outputs:
-  - id: OUTPUT
-    type: File
+  OUTPUT:
+    type: File[]
     outputBinding:
-      glob: |
-        ${
-          function endsWith(str, suffix) {
-            return str.indexOf(suffix, str.length - suffix.length) !== -1;
-          }
+      glob: $('*_fastqc.zip') 
 
-          var filename = inputs.INPUT.nameroot;
-
-          if ( endsWith(filename, '.fq') ) {
-            var nameroot = filename.slice(0,-3);
-          }
-          else if ( endsWith(nameroot, '.fastq') ) {
-            var nameroot = filename.slice(0,-6);
-          }
-          else {
-            var nameroot = filename;
-          }
-
-          var output = nameroot +"_fastqc.zip";
-          return output
-        }
-          
 baseCommand: [/usr/local/FastQC/fastqc]

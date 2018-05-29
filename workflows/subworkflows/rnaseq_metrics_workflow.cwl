@@ -16,6 +16,7 @@ inputs:
   ribosome_intervals: File?
   fastqc_files: File[]
   genome_bam: File
+  threads: int?
   star_results:
     type: 
       type: array
@@ -101,6 +102,44 @@ steps:
            }
     out: [ db ]
 
+  samtools_flagstats:
+    run: ../../tools/samtools_flagstat.cwl
+    in:
+      bam: genome_bam
+      threads: threads
+    out: [ output ]
+
+  flagstat_db:
+    run: ../../tools/gdc_qc_tool.samtools_flagstat.cwl
+    in:
+      input:
+        source: samtools_flagstats/output 
+        valueFrom: $([self])
+      job_uuid: job_uuid
+      input_db: star_db/db 
+      bam: genome_bam
+    out: [ db ]
+
+  samtools_idxstats:
+    run: ../../tools/samtools_idxstat.cwl
+    in:
+      bam: genome_bam
+      bam_index:
+        source: genome_bam
+        valueFrom: $(self.secondaryFiles[0])
+    out: [ output ]
+
+  idxstat_db:
+    run: ../../tools/gdc_qc_tool.samtools_idxstat.cwl
+    in:
+      input:
+        source: samtools_idxstats/output 
+        valueFrom: $([self])
+      job_uuid: job_uuid
+      input_db: flagstat_db/db 
+      bam: genome_bam
+    out: [ db ]
+
   picard_rnaseq_metrics:
     run: ../../tools/picard_collectrnaseqmetrics.cwl
     in:
@@ -118,6 +157,6 @@ steps:
         source: picard_rnaseq_metrics/OUTPUT
         valueFrom: $([self])
       job_uuid: job_uuid
-      input_db: star_db/db 
+      input_db: idxstat_db/db 
       bam: genome_bam
     out: [ db ]

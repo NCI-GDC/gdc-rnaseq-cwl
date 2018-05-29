@@ -6,8 +6,8 @@ class: CommandLineTool
 requirements:
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
-    coresMin: $(inputs.threads) 
-    coresMax: $(inputs.threads) 
+    coresMin: "$(inputs.threads ? inputs.threads : 1)"
+    coresMax: "$(inputs.threads ? inputs.threads : 1)"
     ramMin: 2000
     ramMax: 2000
   - class: SchemaDefRequirement
@@ -16,7 +16,7 @@ requirements:
 
 inputs:
   threads:
-    type: int
+    type: int?
     inputBinding:
       prefix: -threads
       position: 1
@@ -40,11 +40,19 @@ outputs:
 
            for(var i = 0; i < self.length; i++) {
              var fdat = self[i]
-             if(fdat.basename == fbase + '_1P.fq.gz') {
-               rec.forward_fastq = fdat
-             } 
-             else if( fdat.basename == fbase + '_2P.fq.gz' ) {
-               rec.reverse_fastq = fdat
+             if( inputs.readgroup_fastq_file.reverse_fastq !== null) {
+                 if(fdat.basename == fbase + '_1P.fq.gz') {
+                   rec.forward_fastq = fdat
+                 } 
+                 else if( fdat.basename == fbase + '_2P.fq.gz' ) {
+                   rec.reverse_fastq = fdat
+                 }
+             } else {
+                 var idx = inputs.readgroup_fastq_file.forward_fastq.nameroot.lastIndexOf('.')
+                 var ofil = inputs.readgroup_fastq_file.forward_fastq.nameroot.slice(0, idx) + '_SE.fq.gz' 
+                 if( fdat.basename == ofil ) {
+                   rec.forward_fastq = fdat
+                 }
              }
            }
            return rec
@@ -63,6 +71,8 @@ arguments:
       ${
          if( inputs.readgroup_fastq_file.reverse_fastq !== null ) {
            return inputs.readgroup_fastq_file.readgroup_meta.ID + '.fq.gz'
+         } else {
+           return null
          }
        }
     prefix: -baseout
@@ -90,5 +100,17 @@ arguments:
        }
     position: 4
 
-  - valueFrom: "TOPHRED33"
+  - valueFrom: |
+      ${
+         if( inputs.readgroup_fastq_file.reverse_fastq === null) {
+           var idx = inputs.readgroup_fastq_file.forward_fastq.nameroot.lastIndexOf('.')
+           var ofil = inputs.readgroup_fastq_file.forward_fastq.nameroot.slice(0, idx) + '_SE.fq.gz' 
+           return ofil
+         } else {
+           return null
+         }
+       }
     position: 5
+
+  - valueFrom: "TOPHRED33"
+    position: 6

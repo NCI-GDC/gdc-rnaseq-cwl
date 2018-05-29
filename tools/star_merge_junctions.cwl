@@ -4,6 +4,8 @@ cwlVersion: v1.0
 
 requirements:
   - class: InlineJavascriptRequirement
+  - class: DockerRequirement
+    dockerPull: quay.io/ncigdc/gdc-rnaseq-tool:17481d6377170bd3d5aab8209cce586145465be9
   - class: ResourceRequirement
     coresMin: 1
     coresMax: 1
@@ -35,4 +37,4 @@ outputs:
     outputBinding:
       glob: $(inputs.outfile)
 
-baseCommand: [python3, /home/ubuntu/Programming/cri-bio-376-gdc/workflow_dev/gdc-rnaseq-tool/automation/utils/merge_star_junctions.py]
+baseCommand: [python3, /opt/gdc-rnaseq-tool/merge_star_junctions.py]

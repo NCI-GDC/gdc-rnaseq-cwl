@@ -8,7 +8,8 @@ requirements:
     listing:
       - entry: $(inputs.input_db)
         writable: true
-
+  - class: DockerRequirement
+    dockerPull: quay.io/ncigdc/bio-qcmetrics-tool:b06eec26aa9f9763c1a25bf2e5e15193e27973ba
   - class: ResourceRequirement
     coresMin: 1
     coresMax: 1
@@ -37,8 +38,14 @@ inputs:
   input_db:
     type: File
     inputBinding:
-      prefix: --output_sqlite
+      prefix: --output
       valueFrom: $(self.basename)
+
+  export_format:
+    type: string?
+    default: "sqlite"
+    inputBinding:
+      prefix: --export_format
 
 outputs:
   db: 
@@ -47,6 +54,6 @@ outputs:
       glob: $(inputs.input_db.basename)
 
 baseCommand:
-  - /home/ubuntu/Programming/cri-bio-376-gdc/tool_dev/gdc-qc-tool/venv/bin/python
-  - /home/ubuntu/Programming/cri-bio-376-gdc/tool_dev/gdc-qc-tool/quick.py 
-  - fastqcmodule 
+  - bio-qcmetrics-tool 
+  - export
+  - fastqc

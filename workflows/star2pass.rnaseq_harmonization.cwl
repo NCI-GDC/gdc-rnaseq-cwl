@@ -24,19 +24,11 @@ inputs:
     type:
       type: array
       items: ../tools/readgroup.cwl#readgroup_bam_file
-  readgroup_fastq_pe_file_list:
+  readgroup_fastq_file_list:
     type:
       type: array
       items: ../tools/readgroup.cwl#readgroup_fastq_file
-  readgroup_fastq_se_file_list:
-    type:
-      type: array
-      items: ../tools/readgroup.cwl#readgroup_fastq_file
-  #readgroup_fastq_pe_uuid_list:
-  #  type:
-  #    type: array
-  #    items: ../tools/readgroup.cwl#readgroup_fastq_uuid
-  #readgroup_fastq_se_uuid_list:
+  #readgroup_fastq_uuid_list:
   #  type:
   #    type: array
   #    items: ../tools/readgroup.cwl#readgroup_fastq_uuid
@@ -86,20 +78,6 @@ outputs:
     type: string
     outputSource: determine_outputs/archive_uuid
 
-  #final_fastq_arrays:
-  #  type:
-  #    type: array
-  #    items:
-  #      type: array
-  #      items: ../tools/readgroup.cwl#readgroup_fastq_file
-  #  outputSource: make_fastq_array/output
-
-  #star_outputs:
-  #  type:
-  #    type: array
-  #    items: ../tools/star_results.cwl$star_results
-  #  outputSource: run_star2pass/star_outputs
-
 steps:
   #extract_readgroup_fastq_pe:
   #  run: ./subworkflows/extract_readgroup_fastq_pe.cwl
@@ -108,7 +86,6 @@ steps:
   #    readgroup_fastq_pe_uuid: readgroup_fastq_pe_uuid_list
   #    bioclient_config: bioclient_config
   #  out: [ output ] 
-
   process_bam_files:
     run: ./subworkflows/input_bam_processing_workflow.cwl
     scatter: readgroups_bam_file
@@ -117,7 +94,7 @@ steps:
     out: [ pe_file_list, se_file_list, o1_file_list, o2_file_list ]
 
   run_merge_fastq_array_workflow:
-    run: ./subworkflows/merge_fastq_arrays_workflow.cwl 
+    run: ./subworkflows/merge_fastq_arrays_workflow.cwl
     in:
       bam_pe_fastqs:
         linkMerge: merge_flattened
@@ -139,38 +116,35 @@ steps:
         source:
           - process_bam_files/o2_file_list
         valueFrom: $(self)
-      pe_fastqs: readgroup_fastq_pe_file_list
-      se_fastqs: readgroup_fastq_se_file_list
-    out: [ pe_fastq_array, se_fastq_array ]
+      fastqs: readgroup_fastq_file_list
+    out: [ fastq_array ]
 
   process_fastq_files:
     run: ./subworkflows/fastq_processing_workflow.cwl
     in:
       threads: threads
       job_uuid: job_uuid
-      readgroup_fastq_pe_file_list: run_merge_fastq_array_workflow/pe_fastq_array 
-      readgroup_fastq_se_file_list: run_merge_fastq_array_workflow/se_fastq_array 
-    out: [ output_pe, output_se, fastqc_pe, fastqc_se ]
+      readgroup_fastq_file_list: run_merge_fastq_array_workflow/fastq_array
+    out: [ output_fq, output_fastqc ]
 
-  make_processed_fastq_array:
-    run: ../tools/make_fastq_array.cwl
+  split_fastq_array:
+    run: ../tools/split_fastq_array.cwl
     in:
-      pe_fastq_list: process_fastq_files/output_pe
-      se_fastq_list: process_fastq_files/output_se
+      fastq_list: process_fastq_files/output_fq
     out: [ output ]
 
   run_star2pass:
     run: ./subworkflows/star_align_workflow.cwl
     scatter: readgroup_fastq_file_list
     in:
-      readgroup_fastq_file_list: make_processed_fastq_array/output 
+      readgroup_fastq_file_list: split_fastq_array/output
       genomeDir: genomeDir
       threads: threads
-      job_uuid: job_uuid 
+      job_uuid: job_uuid
     out: [ star_outputs ]
 
   run_merge_genome_bams:
-    run: ./subworkflows/merge_and_index_workflow.cwl 
+    run: ./subworkflows/merge_and_index_workflow.cwl
     in:
       input_bam:
         source: run_star2pass/star_outputs
@@ -181,7 +155,7 @@ steps:
                  res.push(self[i].star_genome_bam);
              }
              return res;
-           } 
+           }
       output_bam_name:
         source: job_uuid
         valueFrom: $(self + '.rna_seq.gdc_realn.bam')
@@ -191,13 +165,11 @@ steps:
   run_collect_metrics:
     run: ./subworkflows/rnaseq_metrics_workflow.cwl
     in:
+      threads: threads
       ref_flat: ref_flat
       ribosome_intervals: ribosome_intervals
       fastqc_files:
-        linkMerge: merge_flattened
-        source: 
-          - process_fastq_files/fastqc_pe
-          - process_fastq_files/fastqc_se
+        source: process_fastq_files/output_fastqc
         valueFrom: |
           ${
              var res = [];
@@ -207,7 +179,7 @@ steps:
                  }
              }
              return res;
-           } 
+           }
       genome_bam: run_merge_genome_bams/merged_bam
       star_results: run_star2pass/star_outputs
       job_uuid: job_uuid
@@ -232,5 +204,4 @@ steps:
       - chimeric_tsv_uuid
       - gene_counts_uuid
       - junctions_tsv_uuid
-      - archive_uuid 
-
+      - archive_uuid

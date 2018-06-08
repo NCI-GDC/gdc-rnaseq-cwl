@@ -16,7 +16,7 @@ inputs:
   bioclient_config: File
   upload_bucket: string
   threads: int?
-  genomeDir: Directory
+  star_genome_dir: Directory
   ribosome_intervals: File?
   ref_flat: File
   job_uuid: string
@@ -28,6 +28,9 @@ inputs:
     type:
       type: array
       items: ../tools/readgroup.cwl#readgroup_fastq_file
+  #ribosome_intervals_uuid: string
+  #ref_flat_uuid: string
+  #star_index_archive_uuid: string
   #readgroup_fastq_uuid_list:
   #  type:
   #    type: array
@@ -79,6 +82,23 @@ outputs:
     outputSource: determine_outputs/archive_uuid
 
 steps:
+  #extract_references:
+  #  run: ./subworkflows/extract_reference_files.cwl
+  #  in:
+  #    ribosome_intervals_uuid: ribosome_intervals_uuid 
+  #    ref_flat_uuid: ref_flat_uuid 
+  #    star_index_archive_uuid: star_index_archive_uuid 
+  #    bioclient_config: bioclient_config
+  #  out: [ ribosome_intervals, ref_flat, star_genome_dir ]
+
+  #extract_fastq_files:
+  #  run: ./subworkflows/extract_readgroup_fastq.cwl
+  #  scatter: readgroup_fastq_uuid_list
+  #  in:
+  #    readgroup_fastq_uuid: readgroup_fastq_uuid_list
+  #    bioclient_config: bioclient_config
+  #  out: [ output ]
+
   #extract_readgroup_fastq_pe:
   #  run: ./subworkflows/extract_readgroup_fastq_pe.cwl
   #  scatter: readgroup_fastq_pe_uuid_list
@@ -138,7 +158,7 @@ steps:
     scatter: readgroup_fastq_file_list
     in:
       readgroup_fastq_file_list: split_fastq_array/output
-      genomeDir: genomeDir
+      genomeDir: star_genome_dir
       threads: threads
       job_uuid: job_uuid
     out: [ star_outputs ]

@@ -4,15 +4,39 @@ cwlVersion: v1.0
 
 class: CommandLineTool
 requirements:
-  - class: InlineJavascriptRequirement
-  - class: ResourceRequirement
-    coresMin: "$(inputs.threads ? inputs.threads : 1)"
-    coresMax: "$(inputs.threads ? inputs.threads : 1)"
-    ramMin: 2000
-    ramMax: 2000
   - class: SchemaDefRequirement
     types:
       - $import: readgroup.cwl
+  - class: InlineJavascriptRequirement
+    expressionLib:
+      $import: ./util_lib.cwl
+  - class: ResourceRequirement
+    coresMin: "$(inputs.threads ? inputs.threads : 1)"
+    ramMin: 4500 
+    tmpdirMin: |
+      ${
+         var dat = [];
+         for(var i = 0; i<inputs.readgroup_fastq_file.length; i++) {
+           var curr = inputs.readgroup_fastq_file[i];
+           dat.push(curr.forward_fastq)
+           if(curr.reverse_fastq !== null) {
+             dat.push(curr.reverse_fastq)
+           }
+         }
+         return sum_file_array_size(dat)
+       }
+    outdirMin: |
+      ${
+         var dat = [];
+         for(var i = 0; i<inputs.readgroup_fastq_file.length; i++) {
+           var curr = inputs.readgroup_fastq_file[i];
+           dat.push(curr.forward_fastq)
+           if(curr.reverse_fastq !== null) {
+             dat.push(curr.reverse_fastq)
+           }
+         }
+         return sum_file_array_size(dat)
+       }
 
 inputs:
   threads:
@@ -58,7 +82,7 @@ outputs:
            return rec
          }
  
-baseCommand: [java, -jar, /mnt/SCRATCH/software/trimmomatic/Trimmomatic-0.36/trimmomatic-0.36.jar]
+baseCommand: [java, -Xmx4G, -jar, /mnt/SCRATCH/software/trimmomatic/Trimmomatic-0.36/trimmomatic-0.36.jar]
 
 arguments:
   - valueFrom: |

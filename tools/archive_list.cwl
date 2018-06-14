@@ -10,8 +10,15 @@ requirements:
   - class: DockerRequirement
     dockerPull: alpine:latest
   - class: InlineJavascriptRequirement
+    expressionLib:
+      $import: ./util_lib.cwl
   - class: InitialWorkDirRequirement
     listing: $(inputs.input_files)
+  - class: ResourceRequirement
+    coresMin: 1
+    ramMin: 1000
+    tmpdirMin: $(sum_file_array_size(inputs.input_files))
+    outdirMin: $(sum_file_array_size(inputs.input_files))
 
 inputs:
   input_files:

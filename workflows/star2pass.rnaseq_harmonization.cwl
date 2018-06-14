@@ -16,29 +16,18 @@ inputs:
   bioclient_config: File
   upload_bucket: string
   threads: int?
-  star_genome_dir: Directory
-  ribosome_intervals: File?
-  ref_flat: File
   job_uuid: string
-  readgroup_bam_file_list:
+  ribosome_intervals_uuid: string
+  ref_flat_uuid: string
+  star_index_archive_uuid: string
+  readgroup_fastq_uuid_list:
     type:
       type: array
-      items: ../tools/readgroup.cwl#readgroup_bam_file
-  readgroup_fastq_file_list:
+      items: ../tools/readgroup.cwl#readgroup_fastq_uuid
+  readgroup_bam_uuid_list:
     type:
       type: array
-      items: ../tools/readgroup.cwl#readgroup_fastq_file
-  #ribosome_intervals_uuid: string
-  #ref_flat_uuid: string
-  #star_index_archive_uuid: string
-  #readgroup_fastq_uuid_list:
-  #  type:
-  #    type: array
-  #    items: ../tools/readgroup.cwl#readgroup_fastq_uuid
-  #readgroup_bam_uuid_list:
-  #  type:
-  #    type: array
-  #    items: ../tools/readgroup.cwl#readgroup_fastq_uuid
+      items: ../tools/readgroup.cwl#readgroup_bam_uuid
 
 outputs:
   harmonization_metrics_uuid:
@@ -82,35 +71,22 @@ outputs:
     outputSource: determine_outputs/archive_uuid
 
 steps:
-  #extract_references:
-  #  run: ./subworkflows/extract_reference_files.cwl
-  #  in:
-  #    ribosome_intervals_uuid: ribosome_intervals_uuid 
-  #    ref_flat_uuid: ref_flat_uuid 
-  #    star_index_archive_uuid: star_index_archive_uuid 
-  #    bioclient_config: bioclient_config
-  #  out: [ ribosome_intervals, ref_flat, star_genome_dir ]
-
-  #extract_fastq_files:
-  #  run: ./subworkflows/extract_readgroup_fastq.cwl
-  #  scatter: readgroup_fastq_uuid_list
-  #  in:
-  #    readgroup_fastq_uuid: readgroup_fastq_uuid_list
-  #    bioclient_config: bioclient_config
-  #  out: [ output ]
-
-  #extract_readgroup_fastq_pe:
-  #  run: ./subworkflows/extract_readgroup_fastq_pe.cwl
-  #  scatter: readgroup_fastq_pe_uuid_list
-  #  in:
-  #    readgroup_fastq_pe_uuid: readgroup_fastq_pe_uuid_list
-  #    bioclient_config: bioclient_config
-  #  out: [ output ] 
+  stage_data:
+    run: ./subworkflows/stage_data_workflow.cwl
+    in:
+      bioclient_config: bioclient_config
+      readgroup_fastq_uuid_list: readgroup_fastq_uuid_list
+      readgroup_bam_uuid_list: readgroup_bam_uuid_list
+      ribosome_intervals_uuid: ribosome_intervals_uuid
+      ref_flat_uuid: ref_flat_uuid
+      star_index_archive_uuid: star_index_archive_uuid
+    out: [ ribosome_intervals, ref_flat, star_genome_dir, readgroup_fastq_file_list, readgroup_bam_file_list ]
+    
   process_bam_files:
     run: ./subworkflows/input_bam_processing_workflow.cwl
     scatter: readgroups_bam_file
     in:
-      readgroups_bam_file: readgroup_bam_file_list
+      readgroups_bam_file: stage_data/readgroup_bam_file_list
     out: [ pe_file_list, se_file_list, o1_file_list, o2_file_list ]
 
   run_merge_fastq_array_workflow:
@@ -136,7 +112,7 @@ steps:
         source:
           - process_bam_files/o2_file_list
         valueFrom: $(self)
-      fastqs: readgroup_fastq_file_list
+      fastqs: stage_data/readgroup_fastq_file_list
     out: [ fastq_array ]
 
   process_fastq_files:
@@ -158,7 +134,7 @@ steps:
     scatter: readgroup_fastq_file_list
     in:
       readgroup_fastq_file_list: split_fastq_array/output
-      genomeDir: star_genome_dir
+      genomeDir: stage_data/star_genome_dir
       threads: threads
       job_uuid: job_uuid
     out: [ star_outputs ]
@@ -186,8 +162,8 @@ steps:
     run: ./subworkflows/rnaseq_metrics_workflow.cwl
     in:
       threads: threads
-      ref_flat: ref_flat
-      ribosome_intervals: ribosome_intervals
+      ref_flat: stage_data/ref_flat
+      ribosome_intervals: stage_data/ribosome_intervals
       fastqc_files:
         source: process_fastq_files/output_fastqc
         valueFrom: |

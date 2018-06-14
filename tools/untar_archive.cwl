@@ -8,9 +8,13 @@ requirements:
   - class: DockerRequirement
     dockerPull: alpine
   - class: InlineJavascriptRequirement
+    expressionLib:
+      $import: ./util_lib.cwl
   - class: ResourceRequirement
-    coresMin: 1
-    ramMin: 1024
+    coresMin: 1 
+    ramMin: 1000
+    tmpdirMin: $(file_size_multiplier(inputs.input_tar, 1.8))
+    outdirMin: $(file_size_multiplier(inputs.input_tar, 1.8))
 
 class: CommandLineTool
 

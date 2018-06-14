@@ -3,9 +3,16 @@
 cwlVersion: v1.0
 
 requirements:
-  - class: InlineJavascriptRequirement
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/samtools:147bd4cc606a63c7435907d97fea6e94e9ea9ed58c18f390cab8bc40b1992df7 
+  - class: InlineJavascriptRequirement
+    expressionLib:
+      $import: ./util_lib.cwl
+  - class: ResourceRequirement
+    coresMin: "$(inputs.threads ? inputs.threads : 1)"
+    ramMin: 1000
+    tmpdirMin: $(sum_file_array_size(inputs.input_bam))
+    outdirMin: $(sum_file_array_size(inputs.input_bam))
 
 class: CommandLineTool
 

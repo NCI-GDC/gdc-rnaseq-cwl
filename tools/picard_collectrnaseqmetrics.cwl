@@ -4,8 +4,15 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/picard:latest
+    dockerPull: quay.io/ncigdc/picard@sha256:ae136ea7771a13cae6a19e944a714ce4d0fe98cec6b62dc1d05f81c912bc0251
   - class: InlineJavascriptRequirement
+    expressionLib:
+      $import: ./util_lib.cwl
+  - class: ResourceRequirement
+    coresMin: 1
+    ramMin: 4000
+    tmpdirMin: $(sum_file_array_size([inputs.INPUT, inputs.REF_FLAT]))
+    outdirMin: $(sum_file_array_size([inputs.INPUT, inputs.REF_FLAT]))
 
 class: CommandLineTool
 
@@ -101,4 +108,4 @@ arguments:
     prefix: CHART_OUTPUT=
     separate: false
 
-baseCommand: [java, -jar, /usr/local/bin/picard.jar, CollectRnaSeqMetrics]
+baseCommand: [java, =Xmx4G, -jar, /usr/local/bin/picard.jar, CollectRnaSeqMetrics]

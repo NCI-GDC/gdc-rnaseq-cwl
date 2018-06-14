@@ -3,13 +3,20 @@
 cwlVersion: v1.0
 
 requirements:
-  - class: InlineJavascriptRequirement
   - class: ShellCommandRequirement
   - class: DockerRequirement
-    dockerPull: quay.io/kmhernan/rsem-tool:0.1
+    dockerPull: quay.io/ncigdc/star2@sha256:4fae62143d57ce66b768b4f654b4d5cf28dc116fa969974191eb75d43450ef0c
   - class: SchemaDefRequirement
     types:
       - $import: readgroup.cwl
+  - class: InlineJavascriptRequirement
+    expressionLib:
+      $import: ./util_lib.cwl
+  - class: ResourceRequirement
+    coresMin: "$(inputs.runThreadN ? inputs.runThreadN : 1)"
+    ramMin: 60000
+    tmpdirMin: $(star_size_est(inputs))
+    outdirMin: $(star_size_est(inputs))
 
 class: CommandLineTool
 
@@ -181,7 +188,7 @@ inputs:
 
   chimOutType:
     type: string[]?
-    default: [WithinBAM, SoftClip]
+    default: [Junctions, SeparateSAMold, WithinBAM, SoftClip]
     inputBinding:
       prefix: --chimOutType
 

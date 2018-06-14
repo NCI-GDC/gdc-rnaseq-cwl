@@ -6,15 +6,15 @@ requirements:
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/biobambam:d4b3d1218df6d120aa4e04068e58efbdd4c9b3551f550744805b52eaa145bfbf
   - class: InlineJavascriptRequirement
+    expressionLib:
+      $import: ./util_lib.cwl
   - class: ResourceRequirement
     coresMin: 1
     coresMax: 1
     ramMin: 2000
     ramMax: 2000
-    tmpdirMin: $(Math.ceil(0.9 * inputs.filename.size / 1048576))
-    tmpdirMax: $(Math.ceil(0.9 * inputs.filename.size / 1048576))
-    outdirMin: $(Math.ceil(0.9 * inputs.filename.size / 1048576))
-    outdirMax: $(Math.ceil(0.9 * inputs.filename.size / 1048576))
+    tmpdirMin: $(file_size_multiplier(inputs.filename))
+    outdirMin: $(file_size_multiplier(inputs.filename))
 
 class: CommandLineTool
 

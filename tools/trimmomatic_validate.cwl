@@ -7,6 +7,8 @@ requirements:
   - class: SchemaDefRequirement
     types:
       - $import: readgroup.cwl
+  - class: DockerRequirement
+    dockerPull: quay.io/ncigdc/gdc-rnaseq-tool:8624027d35439737af7e6e001d6dafcab1cbf781
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
@@ -82,7 +84,7 @@ outputs:
            return rec
          }
  
-baseCommand: [java, -Xmx4G, -jar, /mnt/SCRATCH/software/trimmomatic/Trimmomatic-0.36/trimmomatic-0.36.jar]
+baseCommand: [java, -Xmx4G, -jar, /opt/Trimmomatic-0.36/trimmomatic-0.36.jar]
 
 arguments:
   - valueFrom: |

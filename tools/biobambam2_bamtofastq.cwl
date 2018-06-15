@@ -19,104 +19,104 @@ requirements:
 class: CommandLineTool
 
 inputs:
-  - id: collate
+  collate:
     type: int
     default: 1
     inputBinding:
       prefix: collate=
       separate: false
 
-  - id: exclude
+  exclude:
     type: string
     default: QCFAIL,SECONDARY,SUPPLEMENTARY
     inputBinding:
       prefix: exclude=
       separate: false
 
-  - id: filename
+  filename:
     type: File
     inputBinding:
       prefix: filename=
       separate: false
 
-  - id: gz
+  gz:
     type: int
     default: 1
     inputBinding:
       prefix: gz=
       separate: false
 
-  - id: inputformat
+  inputformat:
     type: string
     default: "bam"
     inputBinding:
       prefix: inputformat=
       separate: false
 
-  - id: level
+  level:
     type: int
     default: 5
     inputBinding:
       prefix: level=
       separate: false
 
-  - id: outputdir
+  outputdir:
     type: string
     default: .
     inputBinding:
       prefix: outputdir=
       separate: false
 
-  - id: outputperreadgroup
+  outputperreadgroup:
     type: int
     default: 1
     inputBinding:
       prefix: outputperreadgroup=
       separate: false
 
-  - id: outputperreadgroupsuffixF
+  outputperreadgroupsuffixF:
     type: string
     default: _1.fq.gz
     inputBinding:
       prefix: outputperreadgroupsuffixF=
       separate: false
 
-  - id: outputperreadgroupsuffixF2
+  outputperreadgroupsuffixF2:
     type: string
     default: _2.fq.gz
     inputBinding:
       prefix: outputperreadgroupsuffixF2=
       separate: false
 
-  - id: outputperreadgroupsuffixO
+  outputperreadgroupsuffixO:
     type: string
     default: _o1.fq.gz
     inputBinding:
       prefix: outputperreadgroupsuffixO=
       separate: false
 
-  - id: outputperreadgroupsuffixO2
+  outputperreadgroupsuffixO2:
     type: string
     default: _o2.fq.gz
     inputBinding:
       prefix: outputperreadgroupsuffixO2=
       separate: false
 
-  - id: outputperreadgroupsuffixS
+  outputperreadgroupsuffixS:
     type: string
     default: _s.fq.gz
     inputBinding:
       prefix: outputperreadgroupsuffixS=
       separate: false
 
-  - id: tryoq
+  tryoq:
     type: int
     default: 1
     inputBinding:
       prefix: tryoq=
       separate: false
 
-  - id: T
+  T:
     type: string
     default: tempfq
     inputBinding:
@@ -124,7 +124,7 @@ inputs:
       separate: false
 
 outputs:
-  - id: output_fastq1
+  output_fastq1:
     type:
       type: array
       items: File
@@ -133,7 +133,7 @@ outputs:
       outputEval: |
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
-  - id: output_fastq2
+  output_fastq2:
     type:
       type: array
       items: File
@@ -142,7 +142,7 @@ outputs:
       outputEval: |
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
-  - id: output_fastq_o1
+  output_fastq_o1:
     type:
       type: array
       items: File
@@ -151,7 +151,7 @@ outputs:
       outputEval: |
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
-  - id: output_fastq_o2
+  output_fastq_o2:
     type:
       type: array
       items: File
@@ -160,7 +160,7 @@ outputs:
       outputEval: |
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
-  - id: output_fastq_s
+  output_fastq_s:
     type:
       type: array
       items: File

@@ -7,11 +7,14 @@
     } 
     return Math.ceil(total / divisor);
   } 
+
 - |
-  function file_size_multiplier(fobj, mult = 1) {
+  function file_size_multiplier(fobj, mult) {
+    mult = typeof mult !== 'undefined' ? mult : 1;
     var divisor = 1048576;
     return Math.ceil(mult * fobj.size / divisor);
   } 
+
 - |
   function star_size_est(inputs) {
     var divisor = 1048576;

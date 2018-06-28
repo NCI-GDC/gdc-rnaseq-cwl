@@ -11,8 +11,8 @@ requirements:
   - class: ResourceRequirement
     coresMin: "$(inputs.threads ? inputs.threads : 1)"
     ramMin: 1000
-    tmpdirMin: $(file_size_multiplier(inputs.sam, 1.5))
-    outdirMin: $(file_size_multiplier(inputs.sam, 1.5))
+    tmpdirMin: $(file_size_multiplier(inputs.input_sam, 1.5))
+    outdirMin: $(file_size_multiplier(inputs.input_sam, 1.5))
 
 class: CommandLineTool
 

@@ -119,6 +119,12 @@ steps:
       input_directory: [starAlign/star_pass1_genome, starAlign/star_pass1]
     out: [ output_archive ]
 
+  compressChimericJunctions:
+    run: ../../tools/gzip.cwl
+    in:
+      input_file: starAlign/chimeric_junctions
+    out: [ output_file ]
+
   makeStarOutputs:
     run:
       id: makeStarOutputObject
@@ -162,7 +168,7 @@ steps:
     in:
       star_stats_file: starAlign/log_final_out
       star_junctions_file: starAlign/junctions_out
-      star_chimeric_junctions_file: starAlign/chimeric_junctions
+      star_chimeric_junctions_file: compressChimericJunctions/output_file 
       star_gene_counts_file: starAlign/gene_counts
       star_genome_bam_file: genomicProcessedBam/processed_bam
       star_chimeric_bam_file: chimericProcessedBam/processed_bam

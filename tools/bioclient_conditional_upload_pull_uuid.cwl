@@ -7,6 +7,15 @@ requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/bio-client:latest
+  - class: InitialWorkDirRequirement
+    listing: |
+      ${
+         if ( inputs.input !== null ) {
+           return [{"entry": inputs.input, "entryname": inputs.filename}]
+         } else {
+           return [null]
+         }
+       }
   - class: ResourceRequirement
     coresMin: 1
     coresMax: 1
@@ -27,6 +36,9 @@ inputs:
 
   input:
     type: File?
+
+  filename:
+    type: string
 
 outputs:
   uuid:
@@ -67,7 +79,7 @@ arguments:
              cmd.push(inputs['upload-bucket'])
              cmd.push("--upload_key")
              cmd.push(inputs['upload-key'])
-             cmd.push(inputs.input)
+             cmd.push(inputs.filename)
          } else {
              cmd.push("true")
          }

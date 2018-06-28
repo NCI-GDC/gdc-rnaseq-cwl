@@ -15,8 +15,8 @@ requirements:
   - class: ResourceRequirement
     coresMin: 1
     ramMin: 1000
-    tmpdirMin: $(sum_file_array_size(inputs.input) + sum_file_array_size(inputs.bam) + sum_file_array_size(inputs.input_counts) + file_size_multiplier(inputs.input_db))
-    outdirMin: $(sum_file_array_size(inputs.input) + sum_file_array_size(inputs.bam) + sum_file_array_size(inputs.input_counts) + file_size_multiplier(inputs.input_db))
+    tmpdirMin: $(sum_file_array_size(inputs.bam) + sum_file_array_size(inputs.input_counts) + file_size_multiplier(inputs.input_db))
+    outdirMin: $(sum_file_array_size(inputs.bam) + sum_file_array_size(inputs.input_counts) + file_size_multiplier(inputs.input_db))
 
 class: CommandLineTool
 

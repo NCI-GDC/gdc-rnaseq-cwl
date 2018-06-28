@@ -154,7 +154,7 @@ steps:
            }
       output_bam_name:
         source: job_uuid
-        valueFrom: $(self + '.rna_seq.gdc_realn.bam')
+        valueFrom: $(self + '.rna_seq.genomic.gdc_realn.bam')
       threads: threads
     out: [ merged_bam ]
 

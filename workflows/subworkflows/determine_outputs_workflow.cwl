@@ -64,15 +64,24 @@ outputs:
     outputSource: upload_archive/uuid
 
 steps:
+  rename_sqlite:
+    run: ../../tools/rename_file.cwl
+    in:
+      input_file: metrics_db
+      output_filename:
+        source: job_uuid
+        valueFrom: $(self + '.rna_seq.harmonization_metrics.db')
+    out: [ out_file ]
+
   upload_sqlite:
     run: ../../tools/bioclient_upload_pull_uuid.cwl
     in:
       config-file: bioclient_config
       upload-bucket: upload_bucket
       upload-key:
-        source: job_uuid
-        valueFrom: $(self + '/' + self + '.rna_seq.harmonization_metrics.db')
-      input: metrics_db 
+        source: [ job_uuid, rename_sqlite/out_file ]
+        valueFrom: $(self[0] + '/' + self[1].basename)
+      input: rename_sqlite/out_file
     out: [ output, uuid ]
 
   upload_genome_bam:
@@ -81,8 +90,8 @@ steps:
       config-file: bioclient_config
       upload-bucket: upload_bucket
       upload-key:
-        source: job_uuid
-        valueFrom: $(self + '/' + self + '.rna_seq.genomic.gdc_realn.bam')
+        source: [ job_uuid, genome_bam ]
+        valueFrom: $(self[0] + '/' + self[1].basename)
       input: genome_bam 
     out: [ output, uuid ]
 
@@ -92,8 +101,8 @@ steps:
       config-file: bioclient_config
       upload-bucket: upload_bucket
       upload-key:
-        source: job_uuid
-        valueFrom: $(self + '/' + self + '.rna_seq.genomic.gdc_realn.bam.bai')
+        source: [ job_uuid, genome_bam ]
+        valueFrom: $(self[0] + '/' + self[1].secondaryFiles[0].basename)
       input:
         source: genome_bam
         valueFrom: $(self.secondaryFiles[0]) 
@@ -114,7 +123,7 @@ steps:
            }
       outfile:
         source: job_uuid
-        valueFrom: $(self + '.rna_seq.star_gene_counts.tsv')
+        valueFrom: $(self + '.rna_seq.star_gene_counts.tsv.gz')
     out: [ output ]
 
   upload_gene_counts:
@@ -123,8 +132,8 @@ steps:
       config-file: bioclient_config
       upload-bucket: upload_bucket
       upload-key:
-        source: job_uuid
-        valueFrom: $(self + '/' + self + '.rna_seq.star_gene_counts.tsv')
+        source: [ job_uuid, merge_gene_counts/output ]
+        valueFrom: $(self[0] + '/' + self[1].basename)
       input: merge_gene_counts/output 
     out: [ output, uuid ]
 
@@ -143,7 +152,7 @@ steps:
            }
       outfile:
         source: job_uuid
-        valueFrom: $(self + '.rna_seq.star_splice_junctions.tsv')
+        valueFrom: $(self + '.rna_seq.star_splice_junctions.tsv.gz')
     out: [ output ]
 
   upload_junctions:
@@ -152,8 +161,8 @@ steps:
       config-file: bioclient_config
       upload-bucket: upload_bucket
       upload-key:
-        source: job_uuid
-        valueFrom: $(self + '/' + self + '.rna_seq.star_splice_junctions.tsv')
+        source: [ job_uuid, merge_junctions/output ]
+        valueFrom: $(self[0] + '/' + self[1].basename)
       input: merge_junctions/output 
     out: [ output, uuid ]
 
@@ -187,8 +196,8 @@ steps:
       config-file: bioclient_config
       upload-bucket: upload_bucket
       upload-key:
-        source: job_uuid
-        valueFrom: $(self + '/' + self + '.rna_seq.harmonization_archive.tar.gz')
+        source: [ job_uuid, make_archive/output_archive ]
+        valueFrom: $(self[0] + '/' + self[1].basename)
       input: make_archive/output_archive 
     out: [ output, uuid ]
 
@@ -200,6 +209,9 @@ steps:
       upload-key:
         source: job_uuid
         valueFrom: $(self + '/' + self + '.rna_seq.transcriptome.gdc_realn.bam')
+      filename: 
+        source: job_uuid
+        valueFrom: $(self + '.rna_seq.transcriptome.gdc_realn.bam')
       input:
         source: star_results
         valueFrom: |
@@ -230,6 +242,9 @@ steps:
       upload-key:
         source: job_uuid
         valueFrom: $(self + '/' + self + '.rna_seq.chimeric.gdc_realn.bam')
+      filename: 
+        source: job_uuid
+        valueFrom: $(self + '.rna_seq.chimeric.gdc_realn.bam')
       input:
         source: star_results
         valueFrom: |
@@ -260,6 +275,9 @@ steps:
       upload-key:
         source: job_uuid
         valueFrom: $(self + '/' + self + '.rna_seq.chimeric.gdc_realn.bam.bai')
+      filename: 
+        source: job_uuid
+        valueFrom: $(self + '.rna_seq.chimeric.gdc_realn.bam.bai')
       input:
         source: star_results
         valueFrom: |
@@ -289,7 +307,10 @@ steps:
       upload-bucket: upload_bucket
       upload-key:
         source: job_uuid
-        valueFrom: $(self + '/' + self + '.rna_seq.star_chimeric_junctions.tsv')
+        valueFrom: $(self + '/' + self + '.rna_seq.star_chimeric_junctions.tsv.gz')
+      filename: 
+        source: job_uuid
+        valueFrom: $(self + '.rna_seq.star_chimeric_junctions.tsv.gz')
       input:
         source: star_results
         valueFrom: |

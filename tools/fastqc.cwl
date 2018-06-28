@@ -55,7 +55,7 @@ inputs:
       position: 99
 
   kmers:
-    type: File?
+    type: int?
     inputBinding:
       prefix: --kmers
 

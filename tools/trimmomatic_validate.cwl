@@ -84,7 +84,7 @@ outputs:
            return rec
          }
  
-baseCommand: [java, -Xmx4G, -jar, /opt/Trimmomatic-0.36/trimmomatic-0.36.jar]
+baseCommand: [java, -Xmx4G, -jar, /opt/Trimmomatic-0.38/trimmomatic-0.38.jar] 
 
 arguments:
   - valueFrom: |

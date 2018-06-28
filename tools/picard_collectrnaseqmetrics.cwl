@@ -108,4 +108,4 @@ arguments:
     prefix: CHART_OUTPUT=
     separate: false
 
-baseCommand: [java, =Xmx4G, -jar, /usr/local/bin/picard.jar, CollectRnaSeqMetrics]
+baseCommand: [java, -Xmx4G, -jar, /usr/local/bin/picard.jar, CollectRnaSeqMetrics]

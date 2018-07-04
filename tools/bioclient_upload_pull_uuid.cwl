@@ -6,6 +6,7 @@ class: CommandLineTool
 requirements:
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/bio-client:latest
+  - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1
     coresMax: 1

@@ -74,8 +74,7 @@ outputs:
                    rec.reverse_fastq = fdat
                  }
              } else {
-                 var idx = inputs.readgroup_fastq_file.forward_fastq.nameroot.lastIndexOf('.')
-                 var ofil = inputs.readgroup_fastq_file.forward_fastq.nameroot.slice(0, idx) + '_SE.fq.gz' 
+                 var ofil = fbase + '_SE.fq.gz'
                  if( fdat.basename == ofil ) {
                    rec.forward_fastq = fdat
                  }
@@ -129,8 +128,7 @@ arguments:
   - valueFrom: |
       ${
          if( inputs.readgroup_fastq_file.reverse_fastq === null) {
-           var idx = inputs.readgroup_fastq_file.forward_fastq.nameroot.lastIndexOf('.')
-           var ofil = inputs.readgroup_fastq_file.forward_fastq.nameroot.slice(0, idx) + '_SE.fq.gz' 
+           var ofil = inputs.readgroup_fastq_file.readgroup_meta.ID + '_SE.fq.gz'
            return ofil
          } else {
            return null

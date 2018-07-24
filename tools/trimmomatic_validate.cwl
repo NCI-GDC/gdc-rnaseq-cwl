@@ -8,7 +8,7 @@ requirements:
     types:
       - $import: readgroup.cwl
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/gdc-rnaseq-tool:8624027d35439737af7e6e001d6dafcab1cbf781
+    dockerPull: quay.io/ncigdc/gdc-rnaseq-tool:fb44241ba7e63753e54b89e3107f2a5cec06a9a8
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

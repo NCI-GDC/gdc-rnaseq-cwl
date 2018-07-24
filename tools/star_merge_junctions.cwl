@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/gdc-rnaseq-tool:17481d6377170bd3d5aab8209cce586145465be9
+    dockerPull: quay.io/ncigdc/gdc-rnaseq-tool:fb44241ba7e63753e54b89e3107f2a5cec06a9a8
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

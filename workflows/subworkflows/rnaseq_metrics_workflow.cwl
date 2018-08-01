@@ -140,6 +140,24 @@ steps:
       bam: genome_bam
     out: [ db ]
 
+  samtools_stats:
+    run: ../../tools/samtools_stats.cwl
+    in:
+      bam: genome_bam
+      bam_index:
+        source: genome_bam
+        valueFrom: $(self.secondaryFiles[0])
+    out: [ output ]
+
+  samtools_stats_db:
+    run: ../../tools/gdc_qc_tool.samtools_stats.cwl
+    in:
+      input: samtools_stats/output
+      job_uuid: job_uuid
+      input_db: idxstat_db/db 
+      bam: genome_bam
+    out: [ db ]
+
   picard_rnaseq_metrics:
     run: ../../tools/picard_collectrnaseqmetrics.cwl
     in:
@@ -157,6 +175,6 @@ steps:
         source: picard_rnaseq_metrics/OUTPUT
         valueFrom: $([self])
       job_uuid: job_uuid
-      input_db: idxstat_db/db 
+      input_db: samtools_stats_db/db 
       bam: genome_bam
     out: [ db ]

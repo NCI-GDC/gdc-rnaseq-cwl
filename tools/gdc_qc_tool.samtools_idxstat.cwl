@@ -9,7 +9,7 @@ requirements:
       - entry: $(inputs.input_db)
         writable: true
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/bio-qcmetrics-tool:b06eec26aa9f9763c1a25bf2e5e15193e27973ba
+    dockerPull: quay.io/ncigdc/bio-qcmetrics-tool:64e0be545e2a50a1978f34aab2ca3e3698fa7fa
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

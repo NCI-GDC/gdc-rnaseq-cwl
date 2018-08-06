@@ -17,6 +17,7 @@ inputs:
   fastqc_files: File[]
   genome_bam: File
   threads: int?
+  picard_mem: int
   star_results:
     type: 
       type: array
@@ -161,6 +162,7 @@ steps:
   picard_rnaseq_metrics:
     run: ../../tools/picard_collectrnaseqmetrics.cwl
     in:
+      java_mem: picard_mem
       INPUT: genome_bam
       REF_FLAT: ref_flat 
       RIBOSOMAL_INTERVALS: ribosome_intervals

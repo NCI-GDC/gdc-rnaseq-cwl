@@ -10,18 +10,23 @@ requirements:
       $import: ./util_lib.cwl
   - class: ResourceRequirement
     coresMin: 1
-    ramMin: 4000
+    ramMin: $(inputs.java_mem * 1000) 
     tmpdirMin: $(sum_file_array_size([inputs.INPUT, inputs.REF_FLAT]))
     outdirMin: $(sum_file_array_size([inputs.INPUT, inputs.REF_FLAT]))
 
 class: CommandLineTool
 
 inputs:
+  java_mem:
+    type: int
+    default: 4
+
   INPUT:
     type: File
     inputBinding:
       prefix: INPUT=
       separate: false
+      position: 4
     secondaryFiles:
       - ".bai"
 
@@ -30,12 +35,14 @@ inputs:
     inputBinding:
       prefix: REF_FLAT=
       separate: false
+      position: 4
 
   RIBOSOMAL_INTERVALS:
     type: File? 
     inputBinding:
       prefix: RIBOSOMAL_INTERVALS=
       separate: false
+      position: 4
 
   STRAND_SPECIFICITY:
     type: string?
@@ -43,6 +50,7 @@ inputs:
     inputBinding:
       prefix: STRAND_SPECIFICITY=
       separate: false
+      position: 4
 
   MINIMUM_LENGTH:
     type: int?
@@ -50,6 +58,7 @@ inputs:
     inputBinding:
       prefix: MINIMUM_LENGTH=
       separate: false
+      position: 4
 
   RRNA_FRAGMENT_PERCENTAGE:
     type: double?
@@ -57,6 +66,7 @@ inputs:
     inputBinding:
       prefix: RRNA_FRAGMENT_PERCENTAGE=
       separate: false
+      position: 4
 
   METRIC_ACCUMULATION_LEVEL:
     type:
@@ -66,6 +76,8 @@ inputs:
         prefix: METRIC_ACCUMULATION_LEVEL=
         separate: false 
     default: ["ALL_READS"]
+    inputBinding:
+      position: 4
 
   ASSUME_SORTED:
     type: string?
@@ -73,6 +85,7 @@ inputs:
     inputBinding:
       prefix: ASSUME_SORTED=
       separate: false
+      position: 4
 
   STOP_AFTER:
     type: int?
@@ -80,6 +93,7 @@ inputs:
     inputBinding:
       prefix: STOP_AFTER=
       separate: false
+      position: 4
 
   TMP_DIR:
     type: string?
@@ -87,6 +101,7 @@ inputs:
     inputBinding:
       prefix: TMP_DIR=
       separate: false
+      position: 4
 
 outputs:
   OUTPUT:
@@ -100,12 +115,27 @@ outputs:
       glob: $(inputs.INPUT.nameroot).pdf
 
 arguments:
+
+
+baseCommand: [java]
+
+arguments:
+  - valueFrom: $("-Xmx" + inputs.java_mem.toString() + "G")
+    position: 1
+
+  - valueFrom: $('/usr/local/bin/picard.jar')
+    position: 2
+    prefix: -jar
+
+  - valueFrom: $('CollectRnaSeqMetrics')
+    position: 3
+
   - valueFrom: $(inputs.INPUT.nameroot).metrics
     prefix: OUTPUT=
     separate: false
+    position: 5
 
   - valueFrom: $(inputs.INPUT.nameroot).pdf
     prefix: CHART_OUTPUT=
     separate: false
-
-baseCommand: [java, -Xmx4G, -jar, /usr/local/bin/picard.jar, CollectRnaSeqMetrics]
+    position: 5

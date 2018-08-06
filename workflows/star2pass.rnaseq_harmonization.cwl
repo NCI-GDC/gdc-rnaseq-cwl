@@ -28,6 +28,9 @@ inputs:
     type:
       type: array
       items: ../tools/readgroup.cwl#readgroup_bam_uuid
+  picard_java_mem:
+    type: int
+    default: 4
 
 outputs:
   harmonization_metrics_uuid:
@@ -164,6 +167,7 @@ steps:
       threads: threads
       ref_flat: stage_data/ref_flat
       ribosome_intervals: stage_data/ribosome_intervals
+      picard_mem: picard_java_mem
       fastqc_files:
         source: process_fastq_files/output_fastqc
         valueFrom: |

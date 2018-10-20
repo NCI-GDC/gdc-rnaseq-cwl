@@ -5,7 +5,7 @@ cwlVersion: v1.0
 requirements:
   - class: ShellCommandRequirement
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/star2@sha256:4fae62143d57ce66b768b4f654b4d5cf28dc116fa969974191eb75d43450ef0c
+    dockerPull: quay.io/ncigdc/star2:4fae62143d57ce66b768b4f654b4d5cf28dc116fa969974191eb75d43450ef0c
   - class: SchemaDefRequirement
     types:
       - $import: readgroup.cwl

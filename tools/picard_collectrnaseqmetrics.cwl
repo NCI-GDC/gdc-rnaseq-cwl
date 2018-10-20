@@ -4,7 +4,7 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/picard@sha256:ae136ea7771a13cae6a19e944a714ce4d0fe98cec6b62dc1d05f81c912bc0251
+    dockerPull: quay.io/ncigdc/picard:b4d47c60366e12f8cc3ffb264e510c1165801eae1d6329d94ef9e6c30e972991
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

@@ -4,8 +4,15 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/picard:latest
+    dockerPull: quay.io/ncigdc/picard:b4d47c60366e12f8cc3ffb264e510c1165801eae1d6329d94ef9e6c30e972991
   - class: InlineJavascriptRequirement
+    expressionLib:
+      $import: ./util_lib.cwl
+  - class: ResourceRequirement
+    coresMin: 1
+    ramMin: 4000
+    tmpdirMin: $(sum_file_array_size([inputs.INPUT, inputs.SEQUENCE_DICTIONARY])
+    outdirMin: $(sum_file_array_size([inputs.INPUT, inputs.SEQUENCE_DICTIONARY])
 
 class: CommandLineTool
 
@@ -49,4 +56,4 @@ outputs:
     outputBinding:
       glob: $(inputs.OUTPUT)
 
-baseCommand: [java, -jar, /usr/local/bin/picard.jar, BedToIntervalList]
+baseCommand: [java, -Xmx4G, -jar, /usr/local/bin/picard.jar, BedToIntervalList]

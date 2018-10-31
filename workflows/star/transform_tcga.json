@@ -1,8 +1,0 @@
-{
-    "input_bam": {
-        "class": "File",
-        "path": "/mnt/scratch/dl/G92910.TCGA-44-2666-01A-01R-A46X-36.2.bam"
-    },
-    "run_uuid": "71c61885-e97f-4a4e-ad11-50c4d0a7b835",
-    "thread_count": 8
-}

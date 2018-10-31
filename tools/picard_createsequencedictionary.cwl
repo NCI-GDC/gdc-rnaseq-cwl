@@ -4,8 +4,15 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/picard:latest
+    dockerPull: quay.io/ncigdc/picard:b4d47c60366e12f8cc3ffb264e510c1165801eae1d6329d94ef9e6c30e972991
   - class: InlineJavascriptRequirement
+    expressionLib:
+      $import: ./util_lib.cwl
+  - class: ResourceRequirement
+    coresMin: 1
+    ramMin: 1000
+    tmpdirMin: $(file_size_multiplier(inputs.REFERENCE))
+    outdirMin: $(file_size_multiplier(inputs.REFERENCE))
 
 class: CommandLineTool
 
@@ -44,4 +51,4 @@ arguments:
     prefix: OUTPUT=
     separate: false
 
-baseCommand: [java, -jar, /usr/local/bin/picard.jar, CreateSequenceDictionary]
+baseCommand: [java, -Xmx4G, -jar, /usr/local/bin/picard.jar, CreateSequenceDictionary]

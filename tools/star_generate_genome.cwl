@@ -4,45 +4,44 @@ cwlVersion: v1.0
 
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/star2:latest
+    dockerPull: quay.io/ncigdc/star2:4fae62143d57ce66b768b4f654b4d5cf28dc116fa969974191eb75d43450ef0c
   - class: InlineJavascriptRequirement
 
 class: CommandLineTool
 
 inputs:
-  - id: runMode
+  runMode:
     type: string
     default: "genomeGenerate"
     inputBinding:
       prefix: --runMode
 
-  - id: runThreadN
+  runThreadN:
     type: int
     default: 1
     inputBinding:
       prefix: --runThreadN
 
-  - id: genomeDir
+  genomeDir:
     type: string
     inputBinding:
       prefix: --genomeDir
 
-  - id: genomeFastaFiles
+  genomeFastaFiles:
     type: File
     inputBinding:
       prefix: --genomeFastaFiles
 
-  - id: sjdbGTFfile
+  sjdbGTFfile:
     type: File
     inputBinding:
       prefix: --sjdbGTFfile
 
-  - id: sjdbOverhang
+  sjdbOverhang:
     type: int
     default: 100
     inputBinding:
       prefix: --sjdbOverhang
-
 
 outputs:
   - id: chrLength_txt
@@ -125,4 +124,4 @@ outputs:
     outputBinding:
       glob: transcriptInfo.tab
 
-baseCommand: [/usr/local/bin/STAR]
+baseCommand: [STAR]

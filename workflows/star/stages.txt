@@ -1,9 +1,0 @@
-original
-pass_1
-generate_intermediate_genome
-pass_2
-#aligned_readgroup
-#sorted_readgroup
-#merged_readgroups
-#reheadered_readgroups
-#markduplicates_readgroups

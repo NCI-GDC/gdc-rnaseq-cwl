@@ -9,31 +9,36 @@ requirements:
     expressionLib:
       $import: ./util_lib.cwl
   - class: ResourceRequirement
-    coresMin: "$(inputs.threads ? inputs.threads : 1)" 
+    coresMin: "$(inputs.threads ? inputs.threads : 1)"
     ramMin: 1000
-    tmpdirMin: $(file_size_multiplier(inputs.bam))
-    outdirMin: $(file_size_multiplier(inputs.bam))
+    tmpdirMin: $(sum_file_array_size(inputs.input_bam))
+    outdirMin: $(sum_file_array_size(inputs.input_bam))
 
 class: CommandLineTool
 
 inputs:
-  bam:
-    type: File
+  input_bam:
+    type: File[]
+    inputBinding:
+      position: 2
+    secondaryFiles:
+      - ".bai"
+
+  output_bam:
+    type: string
     inputBinding:
       position: 1
 
   threads:
     type: int?
     inputBinding:
-      prefix: -@
       position: 0
+      prefix: -@
 
 outputs:
-  output:
+  bam:
     type: File
     outputBinding:
-      glob: $(inputs.bam.nameroot + ".flagstat")
+      glob: $(inputs.output_bam)
 
-stdout: $(inputs.bam.nameroot + ".flagstat")
-
-baseCommand: [samtools, flagstat]
+baseCommand: [samtools, merge, -c]

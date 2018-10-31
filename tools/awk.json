@@ -1,7 +1,0 @@
-{
-    "INPUT": {
-        "class": "File",
-        "path": "Escherichia_coli.HUSEC2011CHR1.32.gtf"
-    },
-    "EXPRESSION": "{if ($3 == \"transcript\") print $0;}"
-}

@@ -325,7 +325,14 @@ arguments:
              for(var j = 0; j < inputs.readgroup_keys.length; j++) {
                  var rgkey = inputs.readgroup_keys[j] 
                  if( val.readgroup_meta[rgkey] !== null ) {
-                     currRg.push(rgkey + ':' + val.readgroup_meta[rgkey]);
+                     var currVal = val.readgroup_meta[rgkey];
+                     var spcIdx = currVal.indexOf(" ");
+                     if( spcIdx != -1 ) {
+                         currRg.push('"' + rgkey + ':' + currVal + '"');
+                     }
+                     else {
+                         currRg.push(rgkey + ':' + currVal);
+                     }
                  }
              }
              rgs.push( currRg.join(" ") );

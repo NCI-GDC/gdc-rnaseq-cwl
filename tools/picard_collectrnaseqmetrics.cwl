@@ -110,7 +110,7 @@ outputs:
       glob: $(inputs.INPUT.nameroot).metrics
 
   CHART_OUTPUT:
-    type: File?
+    type: File
     outputBinding:
       glob: $(inputs.INPUT.nameroot).pdf
 

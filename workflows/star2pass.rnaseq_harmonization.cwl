@@ -85,112 +85,23 @@ steps:
       star_index_archive_uuid: star_index_archive_uuid
     out: [ ribosome_intervals, ref_flat, star_genome_dir, readgroup_fastq_file_list, readgroup_bam_file_list ]
     
-  process_bam_files:
-    run: ./subworkflows/input_bam_processing_workflow.cwl
-    scatter: readgroups_bam_file
+  run_rnaseq_workflow:
+    run: ./subworkflows/main_rnaseq_workflow.cwl
     in:
-      readgroups_bam_file: stage_data/readgroup_bam_file_list
-    out: [ pe_file_list, se_file_list, o1_file_list, o2_file_list ]
-
-  run_merge_fastq_array_workflow:
-    run: ./subworkflows/merge_fastq_arrays_workflow.cwl
-    in:
-      bam_pe_fastqs:
-        linkMerge: merge_flattened
-        source:
-          - process_bam_files/pe_file_list
-        valueFrom: $(self)
-      bam_se_fastqs:
-        linkMerge: merge_flattened
-        source:
-          - process_bam_files/se_file_list
-        valueFrom: $(self)
-      bam_o1_fastqs:
-        linkMerge: merge_flattened
-        source:
-          - process_bam_files/o1_file_list
-        valueFrom: $(self)
-      bam_o2_fastqs:
-        linkMerge: merge_flattened
-        source:
-          - process_bam_files/o2_file_list
-        valueFrom: $(self)
-      fastqs: stage_data/readgroup_fastq_file_list
-    out: [ fastq_array ]
-
-  process_fastq_files:
-    run: ./subworkflows/fastq_processing_workflow.cwl
-    in:
-      threads: threads
-      job_uuid: job_uuid
-      readgroup_fastq_file_list: run_merge_fastq_array_workflow/fastq_array
-    out: [ output_fq, output_fastqc ]
-
-  split_fastq_array:
-    run: ../tools/split_fastq_array.cwl
-    in:
-      fastq_list: process_fastq_files/output_fq
-    out: [ output ]
-
-  run_star2pass:
-    run: ./subworkflows/star_align_workflow.cwl
-    scatter: readgroup_fastq_file_list
-    in:
-      readgroup_fastq_file_list: split_fastq_array/output
-      genomeDir: stage_data/star_genome_dir
-      threads: threads
-      job_uuid: job_uuid
-    out: [ star_outputs ]
-
-  run_merge_genome_bams:
-    run: ./subworkflows/merge_and_index_workflow.cwl
-    in:
-      input_bam:
-        source: run_star2pass/star_outputs
-        valueFrom: |
-          ${
-             var res = [];
-             for(var i=0; i<self.length; i++) {
-                 res.push(self[i].star_genome_bam);
-             }
-             return res;
-           }
-      output_bam_name:
-        source: job_uuid
-        valueFrom: $(self + '.rna_seq.genomic.gdc_realn.bam')
-      threads: threads
-    out: [ merged_bam ]
-
-  run_collect_metrics:
-    run: ./subworkflows/rnaseq_metrics_workflow.cwl
-    in:
-      threads: threads
+      readgroup_bam_file_list: stage_data/readgroup_bam_file_list
+      readgroup_fastq_file_list: stage_data/readgroup_fastq_file_list
+      star_genome_dir: stage_data/star_genome_dir
       ref_flat: stage_data/ref_flat
       ribosome_intervals: stage_data/ribosome_intervals
-      picard_mem: picard_java_mem
-      fastqc_files:
-        source: process_fastq_files/output_fastqc
-        valueFrom: |
-          ${
-             var res = [];
-             for( var i = 0; i<self.length; i++) {
-                 for( var j = 0; j<self[i].length; j++) {
-                     res.push(self[i][j]);
-                 }
-             }
-             return res;
-           }
-      genome_bam: run_merge_genome_bams/merged_bam
-      star_results: run_star2pass/star_outputs
       job_uuid: job_uuid
-    out: [ metrics_db ]
+    out: [ out_metrics_db, out_star_result, out_genome_bam ]
 
   determine_outputs:
     run: ./subworkflows/determine_outputs_workflow.cwl
     in:
-      metrics_db: run_collect_metrics/metrics_db
-      star_results: run_star2pass/star_outputs
-      genome_bam: run_merge_genome_bams/merged_bam
+      metrics_db: run_rnaseq_workflow/out_metrics_db
+      star_results: run_rnaseq_workflow/out_star_result
+      genome_bam: run_rnaseq_workflow/out_genome_bam
       job_uuid: job_uuid
       bioclient_config: bioclient_config
       upload_bucket: upload_bucket

@@ -1,7 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: gdc_qc_tool_fastqc
 requirements:
   - class: InitialWorkDirRequirement
     listing:
@@ -17,8 +16,6 @@ requirements:
     ramMin: 1000
     tmpdirMin: $(sum_file_array_size(inputs.input) + file_size_multiplier(inputs.input_db))
     outdirMin: $(sum_file_array_size(inputs.input) + file_size_multiplier(inputs.input_db))
-
-class: CommandLineTool
 
 inputs:
   input: 

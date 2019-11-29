@@ -1,7 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: biobambam2_bamtofastq
 requirements:
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/biobambam:d4b3d1218df6d120aa4e04068e58efbdd4c9b3551f550744805b52eaa145bfbf
@@ -15,8 +14,6 @@ requirements:
     ramMax: 2000
     tmpdirMin: $(file_size_multiplier(inputs.filename))
     outdirMin: $(file_size_multiplier(inputs.filename))
-
-class: CommandLineTool
 
 inputs:
   collate:

@@ -1,10 +1,6 @@
 cwlVersion: v1.0
-
-doc: |
-    Renames the file
-
 class: CommandLineTool
-
+id: rename_file
 requirements:
   - class: InlineJavascriptRequirement
     expressionLib:
@@ -24,7 +20,8 @@ requirements:
         ];
         return ret_list
       }
-
+doc: |
+    Renames the file
 
 inputs:
   input_file:

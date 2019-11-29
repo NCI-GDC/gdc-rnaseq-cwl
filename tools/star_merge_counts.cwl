@@ -1,7 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: star_merge_counts
 requirements:
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/gdc-rnaseq-tool:4fd9fbe2eddbd9a8dab2b1ae8992efa41d811d81
@@ -13,8 +12,6 @@ requirements:
     ramMin: 1000
     tmpdirMin: $(sum_file_array_size(inputs.input))
     outdirMin: $(sum_file_array_size(inputs.input))
-
-class: CommandLineTool
 
 inputs:
   input: 

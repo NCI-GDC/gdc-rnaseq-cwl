@@ -1,11 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 class: CommandLineTool
-
 cwlVersion: v1.0
-doc: |
-    Creates a tar.gz archive of a directory
-
+id: archive_directory
 requirements:
   - class: DockerRequirement
     dockerPull: alpine 
@@ -15,6 +10,8 @@ requirements:
     coresMax: 1
     ramMin: 1000 
     ramMax: 1000 
+doc: |
+    Creates a tar.gz archive of a directory
 
 inputs:
   input_directory:

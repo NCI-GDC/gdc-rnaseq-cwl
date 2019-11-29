@@ -1,21 +1,18 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: bedops_gtf2bed
 requirements:
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/bedops:latest
   - class: InlineJavascriptRequirement
 
-class: CommandLineTool
-
 inputs:
-  - id: INPUT
+  INPUT:
     type: File
     format: "edam:format_2306"
 
 outputs:
-  - id: OUTPUT
+  OUTPUT:
     type: File
     outputBinding:
       glob: $(inputs.INPUT.nameroot).bed

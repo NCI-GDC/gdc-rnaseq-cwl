@@ -1,7 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: samtools_sam2bam
 requirements:
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/samtools:147bd4cc606a63c7435907d97fea6e94e9ea9ed58c18f390cab8bc40b1992df7
@@ -13,8 +12,6 @@ requirements:
     ramMin: 1000
     tmpdirMin: $(file_size_multiplier(inputs.input_sam, 1.5))
     outdirMin: $(file_size_multiplier(inputs.input_sam, 1.5))
-
-class: CommandLineTool
 
 inputs:
   input_sam:

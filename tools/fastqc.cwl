@@ -1,7 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: fastqc
 requirements:
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/fastqc:a285d4ab748fa11e6029ad1019ea645ed2b1657e5d49c850a322fdf4b402c1b9 
@@ -13,8 +12,6 @@ requirements:
     ramMin: 1000
     tmpdirMin: $(sum_file_array_size(inputs.INPUT))
     outdirMin: $(sum_file_array_size(inputs.INPUT))
-
-class: CommandLineTool
 
 inputs:
   adapters:

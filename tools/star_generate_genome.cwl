@@ -1,13 +1,10 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: star_generate_genome
 requirements:
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/star2:feat_2.7.0f
   - class: InlineJavascriptRequirement
-
-class: CommandLineTool
 
 inputs:
   runMode:

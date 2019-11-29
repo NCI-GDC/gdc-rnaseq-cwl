@@ -1,7 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: gdc_qc_tool_samtools_stats
 requirements:
   - class: InlineJavascriptRequirement
   - class: InitialWorkDirRequirement
@@ -18,8 +17,6 @@ requirements:
     ramMin: 1000
     tmpdirMin: $(sum_file_array_size(inputs.input) + sum_file_array_size([inputs.input_db, inputs.bam]))
     outdirMin: $(sum_file_array_size(inputs.input) + sum_file_array_size([inputs.input_db, inputs.bam]))
-
-class: CommandLineTool
 
 inputs:
   input: 

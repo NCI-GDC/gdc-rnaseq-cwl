@@ -1,8 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
 class: CommandLineTool
+id: trimmomatic_validate
 requirements:
   - class: SchemaDefRequirement
     types:

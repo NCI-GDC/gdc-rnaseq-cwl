@@ -1,28 +1,16 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: ExpressionTool
+id: decider_readgroup_expression
 requirements:
   - class: InlineJavascriptRequirement
 
-class: ExpressionTool
-
 inputs:
-  - id: fastq
-    type:
-      type: array
-      items: File
-
-  - id: readgroup_json
-    type:
-      type: array
-      items: File
+  fastq: File[]
+  readgroup_json: File[]
 
 outputs:
-  - id: output
-    type:
-      type: array
-      items: File
+  output:
+    type: File[]
 
 expression: |
    ${

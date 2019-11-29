@@ -1,14 +1,11 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: ExpressionTool
+id: emit_json_readgroup_meta
 requirements:
   - class: InlineJavascriptRequirement
   - class: SchemaDefRequirement
     types:
       - $import: readgroup.cwl
-
-class: ExpressionTool
 
 inputs:
   input:

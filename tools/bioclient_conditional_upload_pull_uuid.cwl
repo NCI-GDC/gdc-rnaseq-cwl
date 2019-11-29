@@ -1,8 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
 class: CommandLineTool
+id: bioclient_conditional_upload_pull_uuid
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement

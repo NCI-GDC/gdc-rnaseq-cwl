@@ -21,6 +21,33 @@ The entrypoint CWL workflow for external users is
 | `job_uuid` | `string` | string used as a prefix for all the output filenames |
 | `picard_java_mem` | `int` | amount of memory (Gb) to use for picard (default: 4) |
 
+**Custom Data Types**
+
+* `readgroup_bam_file` - contains a bam file and an array of `readgroup_meta` objects
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `bam` | `File` | input aligned or unaligned bam file |
+| `readgroup_meta_list` | `readgroup_meta[]` | array of `readgroup_meta` objects |
+
+* `readgroup_meta` - contains readgroup tags and values
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `CN` | `string?` | optional sequencing center |
+| `DS` | `string?` | optional description |
+| `DT` | `string?` | optional sequencing date |
+| `FO` | `string?` | optional `FO` |
+| `ID` | `string` | required read group ID |
+| `KS` | `string?` | optional `KS` |
+| `LB` | `string?` | optional library ID |
+| `PI` | `string?` | optional `PI` |
+| `PL` | `string` | required platform |
+| `PM` | `string?` | optional `PM` |
+| `PU` | `string?` | optional platform unit |
+| `SM` | `string` | required sample ID |
+
+
 ### Outputs
 
 | Name | Type | Description |

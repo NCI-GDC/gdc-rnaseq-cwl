@@ -63,6 +63,22 @@ The entrypoint CWL workflow for external users is
 | `out_star_result` | `star_results[]` | array of files output by STAR |
 | `out_genome_bam` | `File` | the final genome aligned bam |
 
+**Custom Data Types**
+
+* `star_results` - object containing files and metadata output by STAR
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `star_stats` | `File` | run statistics file output by STAR |
+| `star_junctions` | `File` | junction file |
+| `star_chimeric_junctions` | `File` | chimeric TSV file |
+| `star_gene_counts` | `File` | gene-level counts produced by STAR |
+| `star_genome_bam` | `File` | the RNA-Seq genome alignments |
+| `star_chimeric_bam` | `File` | the chimeric alignments |
+| `star_transcriptome_bam` | `File` | the RNA-Seq transcriptome alignments |
+| `archived_other_directories` | `File[]` | list of directory archives containing misc output files |
+| `is_paired` | `boolean` | whether the inputs were paired or not |
+
 ## GDC Users
 
 The entrypoint CWL workflow for GDC users is

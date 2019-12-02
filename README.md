@@ -36,17 +36,24 @@ The entrypoint CWL workflow for external users is
 | ---- | ---- | ----------- |
 | `CN` | `string?` | optional sequencing center |
 | `DS` | `string?` | optional description |
-| `DT` | `string?` | optional sequencing date |
-| `FO` | `string?` | optional `FO` |
+| `DT` | `string?` | optional ISO8601 sequencing date |
+| `FO` | `string?` | optional flow order array of nocleotide bases that corresponded to the nucleotides used for each flow of each read |
 | `ID` | `string` | required read group ID |
-| `KS` | `string?` | optional `KS` |
+| `KS` | `string?` | optional array of nucleotide bases that correspond to the key sequence of each read |
 | `LB` | `string?` | optional library ID |
-| `PI` | `string?` | optional `PI` |
+| `PI` | `string?` | optional predicted median insert size |
 | `PL` | `string` | required platform |
-| `PM` | `string?` | optional `PM` |
+| `PM` | `string?` | optional platform model |
 | `PU` | `string?` | optional platform unit |
 | `SM` | `string` | required sample ID |
 
+* `readgroup_fastq_file` - contains single or pair of fastq files and an array of `readgroup_meta` objects
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `forward_fastq` | `File` | read1 fastq file |
+| `reverse_fastq` | `File?` | optional read2 fastq file if paired library |
+| `readgroup_meta_list` | `readgroup_meta[]` | array of `readgroup_meta` objects |
 
 ### Outputs
 

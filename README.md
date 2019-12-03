@@ -60,24 +60,13 @@ The entrypoint CWL workflow for external users is
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | `out_metrics_db` | `File` | sqlite file containing metrics data |
-| `out_star_result` | `star_results[]` | array of files output by STAR |
-| `out_genome_bam` | `File` | the final genome aligned bam |
-
-**Custom Data Types**
-
-* `star_results` - object containing files and metadata output by STAR
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `star_stats` | `File` | run statistics file output by STAR |
-| `star_junctions` | `File` | junction file |
-| `star_chimeric_junctions` | `File` | chimeric TSV file |
-| `star_gene_counts` | `File` | gene-level counts produced by STAR |
-| `star_genome_bam` | `File` | the RNA-Seq genome alignments |
-| `star_chimeric_bam` | `File` | the chimeric alignments |
-| `star_transcriptome_bam` | `File` | the RNA-Seq transcriptome alignments |
-| `archived_other_directories` | `File[]` | list of directory archives containing misc output files |
-| `is_paired` | `boolean` | whether the inputs were paired or not |
+| `out_gene_counts_file` | `File` | gene-level counts as estimated by STAR |
+| `out_junctions_file` | `File` | TSV containing splice junctions detected by STAR |
+| `out_transcriptome_bam_file` | `File?` | If there are paired-end reads, the transcriptome alignments are provided in this unsorted bam file |
+| `out_chimeric_bam_file` | `File?` | If there are paired-end reads, the chimeric alignments (sorted and indexed) |
+| `out_chimeric_tsv_file` | `File?` | If there are paired-end reads, the TSV containing chimeric information for fusion detection |
+| `out_genome_bam` | `File` | the final genome aligned bam (sorted and indexed) |
+| `out_archive_file` | `File` | `tar.gz` archive containing other outputs from STAR |
 
 ## GDC Users
 

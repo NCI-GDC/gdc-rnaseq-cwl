@@ -16,7 +16,7 @@ requirements:
     outdirMax: 1
 
 inputs:
-  config-file
+  config-file:
     type: File
     inputBinding:
       prefix: --config-file

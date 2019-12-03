@@ -33,15 +33,28 @@ inputs:
 outputs:
   out_metrics_db:
     type: File
-    outputSource: run_collect_metrics/metrics_db
-  out_star_result:
-    type:
-      type: array
-      items: ../../tools/star_results.cwl#star_results
-    outputSource: run_star2pass/star_outputs
+    outputSource: run_extract_outputs/out_metrics_sqlite 
+  out_gene_counts_file: 
+    type: File
+    outputSource: run_extract_outputs/out_gene_counts
+  out_junctions_file: 
+    type: File
+    outputSource: run_extract_outputs/out_junctions
+  out_transcriptome_bam_file: 
+    type: File?
+    outputSource: run_extract_outputs/out_transcriptome_bam
+  out_chimeric_bam_file: 
+    type: File?
+    outputSource: run_extract_outputs/out_chimeric_bam
+  out_chimeric_tsv_file: 
+    type: File?
+    outputSource: run_extract_outputs/out_chimeric_tsv
   out_genome_bam:
     type: File
     outputSource: run_merge_genome_bams/merged_bam
+  out_archive_file:
+    type: File
+    outputSource: run_extract_outputs/out_star_archive
 
 steps:
   process_bam_files:
@@ -143,3 +156,13 @@ steps:
       star_results: run_star2pass/star_outputs
       job_uuid: job_uuid
     out: [ metrics_db ]
+
+  run_extract_outputs:
+    run: ./rnaseq_processing/make_final_outputs_workflow.cwl
+    in:
+      metrics_db: run_collect_metrics/metrics_db
+      star_results: run_star2pass/star_outputs
+      job_uuid: job_uuid
+    out: [ out_metrics_sqlite, out_gene_counts, out_junctions,
+           out_transcriptome_bam, out_chimeric_bam, out_chimeric_tsv,
+           out_star_archive ]

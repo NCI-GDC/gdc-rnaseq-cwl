@@ -6,7 +6,6 @@ requirements:
   - class: SchemaDefRequirement
     types:
       - $import: ../tools/readgroup.cwl
-      - $import: ../tools/star_results.cwl
 
 inputs:
   bioclient_config: File
@@ -31,43 +30,43 @@ inputs:
 outputs:
   harmonization_metrics_uuid:
     type: string
-    outputSource: determine_outputs/metrics_db_uuid 
+    outputSource: load_outputs/metrics_db_uuid 
 
   star_genomic_bam_uuid:
     type: string
-    outputSource: determine_outputs/genomic_bam_uuid 
+    outputSource: load_outputs/genomic_bam_uuid 
 
   star_genomic_bai_uuid:
     type: string
-    outputSource: determine_outputs/genomic_bai_uuid 
+    outputSource: load_outputs/genomic_bai_uuid 
 
   star_transcriptome_bam_uuid:
     type: string?
-    outputSource: determine_outputs/transcriptome_bam_uuid
+    outputSource: load_outputs/transcriptome_bam_uuid
 
   star_chimeric_bam_uuid:
     type: string?
-    outputSource: determine_outputs/chimeric_bam_uuid
+    outputSource: load_outputs/chimeric_bam_uuid
 
   star_chimeric_bai_uuid:
     type: string?
-    outputSource: determine_outputs/chimeric_bai_uuid
+    outputSource: load_outputs/chimeric_bai_uuid
 
   star_chimeric_tsv_uuid:
     type: string?
-    outputSource: determine_outputs/chimeric_tsv_uuid
+    outputSource: load_outputs/chimeric_tsv_uuid
 
   star_gene_counts_uuid:
     type: string
-    outputSource: determine_outputs/gene_counts_uuid
+    outputSource: load_outputs/gene_counts_uuid
 
   star_junctions_tsv_uuid:
     type: string
-    outputSource: determine_outputs/junctions_tsv_uuid
+    outputSource: load_outputs/junctions_tsv_uuid
 
   star_archive_uuid:
     type: string
-    outputSource: determine_outputs/archive_uuid
+    outputSource: load_outputs/archive_uuid
 
 steps:
   stage_data:
@@ -91,14 +90,20 @@ steps:
       ref_flat: stage_data/ref_flat
       ribosome_intervals: stage_data/ribosome_intervals
       job_uuid: job_uuid
-    out: [ out_metrics_db, out_star_result, out_genome_bam ]
+    out: [ out_metrics_db, out_gene_counts_file, out_junctions_file,
+           out_transcriptome_bam_file, out_chimeric_bam_file, out_chimeric_tsv_file,
+           out_genome_bam, out_archive_file ]
 
-  determine_outputs:
-    run: ./subworkflows/load/determine_outputs_workflow.cwl
+  load_outputs:
+    run: ./subworkflows/load/load_outputs_workflow.cwl
     in:
       metrics_db: run_rnaseq_workflow/out_metrics_db
-      star_results: run_rnaseq_workflow/out_star_result
+      gene_counts: run_rnaseq_workflow/out_gene_counts_file
+      junctions: run_rnaseq_workflow/out_junctions_file
+      transcriptome_bam: run_rnaseq_workflow/out_transcriptome_bam_file
+      chimeric_bam: run_rnaseq_workflow/out_chimeric_bam_file
       genome_bam: run_rnaseq_workflow/out_genome_bam
+      archive_file: run_rnaseq_workflow/out_archive_file
       job_uuid: job_uuid
       bioclient_config: bioclient_config
       upload_bucket: upload_bucket

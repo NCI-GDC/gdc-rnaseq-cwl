@@ -34,11 +34,11 @@ expression: |
      var cbam = [];
      var ctsv = [];
 
-     for(var i=0; i<self.inputs.star_results.length; i++) {
-       if(self[i].is_paired) {
-         tbam.push(self.inputs.star_results[i].star_transcriptome_bam);
-         cbam.push(self.inputs.star_results[i].star_chimeric_bam);
-         ctsv.push(self.inputs.star_results[i].star_chimeric_junctions);
+     for(var i=0; i<inputs.star_results.length; i++) {
+       if(inputs.star_results[i].is_paired) {
+         tbam.push(inputs.star_results[i].star_transcriptome_bam);
+         cbam.push(inputs.star_results[i].star_chimeric_bam);
+         ctsv.push(inputs.star_results[i].star_chimeric_junctions);
        }
      }
 

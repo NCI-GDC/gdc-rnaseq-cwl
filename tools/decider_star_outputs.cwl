@@ -45,7 +45,7 @@ expression: |
      var out = {
        "output_transcriptome_bam": extract_file_from_array(tbam),
        "output_chimeric_bam": extract_file_from_array(cbam),
-       "output_chimeric_juncstions": extract_file_from_array(ctsv)
+       "output_chimeric_junctions": extract_file_from_array(ctsv)
      }
      return out;
    }

@@ -44,21 +44,11 @@ steps:
         valueFrom: $(self.reverse_fastq_file_size)
     out: [ output ]
 
-  vendorfail_filter:
-    run: ../../../tools/fastq_vendor_fail_filter.cwl
-    in:
-      input_r1: extract_forward_fastq/output
-      input_r2: extract_reverse_fastq/output
-      output_prefix:
-        source: readgroup_fastq_uuid
-        valueFrom: $(self.readgroup_meta.ID + '_fqvendorfilter')
-    out: [ output_r1, output_r2 ]
-      
   emit_readgroup_fastq_file:
     run: ../../../tools/emit_readgroup_fastq_file.cwl
     in:
-      forward_fastq: vendorfail_filter/output_r1
-      reverse_fastq: vendorfail_filter/output_r2
+      forward_fastq: extract_forward_fastq/output
+      reverse_fastq: extract_reverse_fastq/output
       readgroup_meta:
         source: readgroup_fastq_uuid
         valueFrom: $(self.readgroup_meta)

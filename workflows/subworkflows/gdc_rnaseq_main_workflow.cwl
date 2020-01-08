@@ -57,6 +57,13 @@ outputs:
     outputSource: run_extract_outputs/out_star_archive
 
 steps:
+  vendorfail_filter_fastqs:
+    run: ./preprocessing/input_fastq_processing_workflow.cwl
+    scatter: readgroup_fastq_file
+    in:
+      readgroup_fastq_file: readgroup_fastq_file_list
+    out: [ output_vendor_filtered_fq ]
+
   process_bam_files:
     run: ./preprocessing/input_bam_processing_workflow.cwl
     scatter: readgroups_bam_file
@@ -87,7 +94,7 @@ steps:
         source:
           - process_bam_files/o2_file_list
         valueFrom: $(self)
-      fastqs: readgroup_fastq_file_list
+      fastqs: vendorfail_filter_fastqs/output_vendor_filtered_fq
     out: [ fastq_array ]
 
   process_fastq_files:

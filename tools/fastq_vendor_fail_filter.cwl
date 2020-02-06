@@ -3,7 +3,7 @@ class: CommandLineTool
 id: fastq_vendor_fail_filter
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/gdc-rnaseq-tool:4fd9fbe2eddbd9a8dab2b1ae8992efa41d811d81
+    dockerPull: quay.io/ncigdc/gdc-rnaseq-tool:76b8b50a80478003a31b7439479bb21a8e269804
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

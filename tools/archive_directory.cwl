@@ -1,5 +1,5 @@
-class: CommandLineTool
 cwlVersion: v1.0
+class: CommandLineTool
 id: archive_directory
 requirements:
   - class: DockerRequirement

@@ -11,7 +11,7 @@ requirements:
          if ( inputs.input !== null ) {
            return [{"entry": inputs.input, "entryname": inputs.filename}]
          } else {
-           return [null]
+           return []
          }
        }
   - class: ResourceRequirement

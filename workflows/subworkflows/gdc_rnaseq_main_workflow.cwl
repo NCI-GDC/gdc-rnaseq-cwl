@@ -34,19 +34,19 @@ outputs:
   out_metrics_db:
     type: File
     outputSource: run_extract_outputs/out_metrics_sqlite 
-  out_gene_counts_file: 
+  out_gene_counts_file:
     type: File
     outputSource: run_extract_outputs/out_gene_counts
-  out_junctions_file: 
+  out_junctions_file:
     type: File
     outputSource: run_extract_outputs/out_junctions
-  out_transcriptome_bam_file: 
+  out_transcriptome_bam_file:
     type: File?
     outputSource: run_extract_outputs/out_transcriptome_bam
-  out_chimeric_bam_file: 
+  out_chimeric_bam_file:
     type: File?
     outputSource: run_extract_outputs/out_chimeric_bam
-  out_chimeric_tsv_file: 
+  out_chimeric_tsv_file:
     type: File?
     outputSource: run_extract_outputs/out_chimeric_tsv
   out_genome_bam:

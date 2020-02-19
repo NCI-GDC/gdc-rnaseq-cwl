@@ -102,6 +102,7 @@ steps:
       junctions: run_rnaseq_workflow/out_junctions_file
       transcriptome_bam: run_rnaseq_workflow/out_transcriptome_bam_file
       chimeric_bam: run_rnaseq_workflow/out_chimeric_bam_file
+      chimeric_tsv: run_rnaseq_workflow/out_chimeric_tsv_file
       genome_bam: run_rnaseq_workflow/out_genome_bam
       archive_file: run_rnaseq_workflow/out_archive_file
       job_uuid: job_uuid

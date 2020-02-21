@@ -3,6 +3,8 @@
 This workflow takes a set of input RNA-Seq FASTQ/BAM files and generates
 multiple harmonized BAM files, gene counts, and other datasets.
 
+The docker images used in this workflow can be found in `current_docker_list.txt`.
+
 ## External Users 
 
 The entrypoint CWL workflow for external users is 

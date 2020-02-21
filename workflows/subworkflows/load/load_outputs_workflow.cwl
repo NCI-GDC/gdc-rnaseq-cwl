@@ -138,24 +138,16 @@ steps:
       config-file: bioclient_config
       upload-bucket: upload_bucket
       upload-key:
-        source: [ job_uuid, transcriptome_bam ]
+        source: job_uuid
         valueFrom: |
           ${
-             if( self[1] !== null ) {
-               return(self[0] + '/' + self[1].basename) 
-             } else {
-               return(self[0] + '/' + self[0] + '.rna_seq.transcriptome.gdc_realn.bam')
-             }
+             return(self + '/' + self + '.rna_seq.transcriptome.gdc_realn.bam')
            }
       filename: 
-        source: [ job_uuid, transcriptome_bam ]
+        source: job_uuid
         valueFrom: |
           ${
-             if( self[1] !== null ) {
-               return(self[1].basename) 
-             } else {
-               return(self[0] + '.rna_seq.transcriptome.gdc_realn.bam')
-             }
+             return(self + '.rna_seq.transcriptome.gdc_realn.bam')
            }
       input: transcriptome_bam
     out: [ uuid ]
@@ -166,24 +158,16 @@ steps:
       config-file: bioclient_config
       upload-bucket: upload_bucket
       upload-key:
-        source: [ job_uuid, chimeric_bam ]
+        source: job_uuid
         valueFrom: |
           ${
-             if( self[1] !== null ) {
-               return(self[0] + '/' + self[1].basename) 
-             } else {
-               return(self[0] + '/' + self[0] + '.rna_seq.chimeric.gdc_realn.bam')
-             }
+             return(self + '/' + self + '.rna_seq.chimeric.gdc_realn.bam')
            }
       filename: 
-        source: [ job_uuid, chimeric_bam ]
+        source: job_uuid
         valueFrom: |
           ${
-             if( self[1] !== null ) {
-               return(self[1].basename) 
-             } else {
-               return(self[0] + '.rna_seq.chimeric.gdc_realn.bam')
-             }
+             return(self + '.rna_seq.chimeric.gdc_realn.bam')
            }
       input: chimeric_bam
     out: [ uuid ]
@@ -194,30 +178,23 @@ steps:
       config-file: bioclient_config
       upload-bucket: upload_bucket
       upload-key:
-        source: [ job_uuid, chimeric_bam ]
+        source: job_uuid
         valueFrom: |
           ${
-             if( self[1] !== null ) {
-               return(self[0] + '/' + self[1].secondaryFiles[0].basename)
-             } else {
-               return(self[0] + '/' + self[0] + '.rna_seq.chimeric.gdc_realn.bam.bai')
-             }
+             return(self + '/' + self + '.rna_seq.chimeric.gdc_realn.bam.bai')
            }
       filename: 
-        source: [ job_uuid, chimeric_bam ]
+        source: job_uuid
         valueFrom: |
           ${
-             if( self[1] !== null ) {
-               return(self[1].secondaryFiles[0].basename) 
-             } else {
-               return(self[0] + '.rna_seq.chimeric.gdc_realn.bam.bai')
-             }
+             return(self + '.rna_seq.chimeric.gdc_realn.bam.bai')
            }
       input:
         source: chimeric_bam 
         valueFrom: |
           ${
-             self === null ? self : self.secondaryFiles[0]) 
+             var ret = self === null ? self : self.secondaryFiles[0]
+             return(ret)
            }
     out: [ uuid ]
 
@@ -227,24 +204,16 @@ steps:
       config-file: bioclient_config
       upload-bucket: upload_bucket
       upload-key:
-        source: [ job_uuid, chimeric_tsv ]
+        source: job_uuid
         valueFrom: |
           ${
-             if( self[1] !== null ) {
-               return(self[0] + '/' + self[1].basename)
-             } else {
-               return(self[0] + '/' + self[0] + '.rna_seq.star_chimeric_junctions.tsv.gz')
-             }
+             return(self + '/' + self + '.rna_seq.star_chimeric_junctions.tsv.gz')
            }
       filename: 
-        source: [ job_uuid, chimeric_tsv ]
+        source: job_uuid
         valueFrom: |
           ${
-             if( self[1] !== null ) {
-               return(self[1].basename) 
-             } else {
-               return(self[0] + '.rna_seq.star_chimeric_junctions.tsv.gz')
-             }
+             return(self + '.rna_seq.star_chimeric_junctions.tsv.gz')
            }
       input: chimeric_tsv
     out: [ uuid ]

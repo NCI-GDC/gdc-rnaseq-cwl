@@ -5,10 +5,12 @@ multiple harmonized BAM files, gene counts, and other datasets.
 
 The docker images used in this workflow can be found in `current_docker_list.txt`.
 
-## External Users 
+## External Users
 
-The entrypoint CWL workflow for external users is 
+The entrypoint CWL workflow for external users is
 `workflows/subworkflows/gdc_rnaseq_main_workflow.cwl`.
+
+The example input json in `example/main_workflow.example.input.json`.
 
 ### Inputs
 

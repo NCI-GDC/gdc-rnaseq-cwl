@@ -1,12 +1,9 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: grep
 requirements:
   - class: DockerRequirement
     dockerPull: fedora:26
-
-class: CommandLineTool
 
 inputs:
   - id: INPUT

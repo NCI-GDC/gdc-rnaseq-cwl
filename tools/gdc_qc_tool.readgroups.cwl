@@ -1,10 +1,9 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: gdc_qc_tool_readgroups
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/bio-qcmetrics-tool:b64e0be545e2a50a1978f34aab2ca3e3698fa7fa
+    dockerPull: quay.io/ncigdc/bio-qcmetrics-tool:1445a87a4ca0607898d82b25fb11254f05215584
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
@@ -13,8 +12,6 @@ requirements:
     ramMin: 1000
     tmpdirMin: $(sum_file_array_size(inputs.input) + file_size_multiplier(inputs.bam))
     outdirMin: $(sum_file_array_size(inputs.input) + file_size_multiplier(inputs.bam))
-
-class: CommandLineTool
 
 inputs:
   input: 

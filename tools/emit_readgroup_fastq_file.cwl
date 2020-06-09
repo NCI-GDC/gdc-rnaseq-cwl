@@ -1,14 +1,11 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: ExpressionTool
+id: emit_readgroup_fastq_file
 requirements:
   - class: SchemaDefRequirement
     types:
       - $import: readgroup.cwl
   - class: InlineJavascriptRequirement
-
-class: ExpressionTool
 
 inputs:
   forward_fastq:

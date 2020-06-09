@@ -1,7 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: star_align
 requirements:
   - class: ShellCommandRequirement
   - class: DockerRequirement
@@ -17,8 +16,6 @@ requirements:
     ramMin: 60000
     tmpdirMin: $(star_size_est(inputs))
     outdirMin: $(star_size_est(inputs))
-
-class: CommandLineTool
 
 inputs:
   readgroup_fastq_file_list:

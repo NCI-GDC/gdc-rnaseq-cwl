@@ -1,9 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
-doc: Untar archived directory 
-
+class: CommandLineTool
+id: untar_archive
 requirements:
   - class: DockerRequirement
     dockerPull: alpine
@@ -15,8 +12,7 @@ requirements:
     ramMin: 1000
     tmpdirMin: $(file_size_multiplier(inputs.input_tar, 1.8))
     outdirMin: $(file_size_multiplier(inputs.input_tar, 1.8))
-
-class: CommandLineTool
+doc: Untar archived directory 
 
 inputs:
   input_tar:

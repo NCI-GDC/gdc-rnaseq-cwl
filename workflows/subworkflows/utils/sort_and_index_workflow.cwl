@@ -1,32 +1,35 @@
 cwlVersion: v1.0
 class: Workflow
-
+id: gdc_rnaseq_sort_and_index_wf
 requirements:
   - class: InlineJavascriptRequirement
   - class: StepInputExpressionRequirement
 
 inputs:
-  input_bam: File[]
-  output_bam_name: string
+  input_bam: File
+  output_prefix: string
   threads: int?
 
 outputs:
-  merged_bam:
+  processed_bam:
     type: File
     outputSource: indexBam/output_bam
 
 steps:
-  mergeBam:
-    run: ../../tools/samtools_merge.cwl
+  sortBam:
+    run: ../../../tools/samtools_sort.cwl
     in:
       input_bam: input_bam
       threads: threads
-      output_bam: output_bam_name
+      output_bam:
+        source: output_prefix
+        valueFrom: "$(self + '.sorted.bam')"
     out: [ bam ]
 
   indexBam:
-    run: ../../tools/samtools_index.cwl
+    run: ../../../tools/samtools_index.cwl
     in:
-      input_bam: mergeBam/bam
+      input_bam: sortBam/bam
       threads: threads
     out: [ output_bam ]
+

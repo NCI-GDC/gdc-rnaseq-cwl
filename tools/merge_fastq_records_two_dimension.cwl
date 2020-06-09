@@ -1,14 +1,11 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: ExpressionTool
+id: merge_fastq_records_two_dimension
 requirements:
   - class: InlineJavascriptRequirement
   - class: SchemaDefRequirement
     types:
       - $import: readgroup.cwl
-
-class: ExpressionTool
 
 inputs:
   input:

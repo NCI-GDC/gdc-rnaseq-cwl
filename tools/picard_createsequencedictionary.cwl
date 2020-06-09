@@ -1,7 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: picard_createsequencedictionary
 requirements:
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/picard:b4d47c60366e12f8cc3ffb264e510c1165801eae1d6329d94ef9e6c30e972991
@@ -13,8 +12,6 @@ requirements:
     ramMin: 1000
     tmpdirMin: $(file_size_multiplier(inputs.REFERENCE))
     outdirMin: $(file_size_multiplier(inputs.REFERENCE))
-
-class: CommandLineTool
 
 inputs:
   - id: REFERENCE

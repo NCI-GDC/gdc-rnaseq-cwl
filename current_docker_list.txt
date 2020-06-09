@@ -1,0 +1,14 @@
+alpine
+alpine:latest
+fedora:26
+quay.io/ncigdc/bam_readgroup_to_json:685e4954df4d70f89315a256ecfb707a2dd80b9fcf0d8d10918398df938c6a28
+quay.io/ncigdc/bam_readgroup_to_json:75fdf4511a17a035aeeb67fcce26a815b6b824e56ee033c6bbd2d2d99dd8c558
+quay.io/ncigdc/bedops:latest
+quay.io/ncigdc/biobambam:d4b3d1218df6d120aa4e04068e58efbdd4c9b3551f550744805b52eaa145bfbf
+quay.io/ncigdc/bio-client:latest
+quay.io/ncigdc/bio-qcmetrics-tool:b64e0be545e2a50a1978f34aab2ca3e3698fa7fa
+quay.io/ncigdc/fastqc:a285d4ab748fa11e6029ad1019ea645ed2b1657e5d49c850a322fdf4b402c1b9
+quay.io/ncigdc/gdc-rnaseq-tool:c52fbf53552b9faea617dca86b0ce289cc3dafc8
+quay.io/ncigdc/picard:b4d47c60366e12f8cc3ffb264e510c1165801eae1d6329d94ef9e6c30e972991
+quay.io/ncigdc/samtools:147bd4cc606a63c7435907d97fea6e94e9ea9ed58c18f390cab8bc40b1992df7
+quay.io/ncigdc/star2:feat_2.7.0f

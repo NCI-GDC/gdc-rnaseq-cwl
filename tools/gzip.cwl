@@ -1,10 +1,6 @@
-#!/usr/bin/env cwl-runner
-
-class: CommandLineTool
 cwlVersion: v1.0
-doc: |
-    Gzips a file
-
+class: CommandLineTool
+id: gzip
 requirements:
   - class: DockerRequirement
     dockerPull: alpine:latest
@@ -16,6 +12,8 @@ requirements:
     ramMin: 1000
     tmpdirMin: $(file_size_multiplier(inputs.input_file, 1.5))
     outdirMin: $(file_size_multiplier(inputs.input_file, 1.5))
+doc: |
+    Gzips a file
 
 inputs:
   input_file:

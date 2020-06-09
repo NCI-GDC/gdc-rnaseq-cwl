@@ -1,7 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: picard_collectrnaseqmetrics
 requirements:
   - class: DockerRequirement
     dockerPull: quay.io/ncigdc/picard:b4d47c60366e12f8cc3ffb264e510c1165801eae1d6329d94ef9e6c30e972991
@@ -13,8 +12,6 @@ requirements:
     ramMin: $(inputs.java_mem * 1000) 
     tmpdirMin: $(sum_file_array_size([inputs.INPUT, inputs.REF_FLAT]))
     outdirMin: $(sum_file_array_size([inputs.INPUT, inputs.REF_FLAT]))
-
-class: CommandLineTool
 
 inputs:
   java_mem:

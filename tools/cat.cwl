@@ -1,29 +1,26 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: cat
 requirements:
   - class: DockerRequirement
     dockerPull: fedora:26
 
-class: CommandLineTool
-
 inputs:
-  - id: input1
+  input1:
     type: File
     inputBinding:
       position: 1
 
-  - id: input2
+  input2:
     type: File
     inputBinding:
       position: 2
 
-  - id: outfile
+  outfile:
     type: string
 
 outputs:
-  - id: OUTPUT
+  OUTPUT:
     type: File
     outputBinding:
       glob: $(inputs.outfile)

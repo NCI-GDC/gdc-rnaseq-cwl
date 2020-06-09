@@ -1,11 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 class: CommandLineTool
-
 cwlVersion: v1.0
-doc: |
-    Creates a tar.gz archive of a list of files
-
+id: archive_list
 requirements:
   - class: DockerRequirement
     dockerPull: alpine:latest
@@ -19,6 +14,8 @@ requirements:
     ramMin: 1000
     tmpdirMin: $(sum_file_array_size(inputs.input_files))
     outdirMin: $(sum_file_array_size(inputs.input_files))
+doc: |
+    Creates a tar.gz archive of a list of files
 
 inputs:
   input_files:

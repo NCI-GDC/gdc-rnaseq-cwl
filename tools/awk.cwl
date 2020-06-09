@@ -1,7 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: awk
 requirements:
   - class: DockerRequirement
     dockerPull: fedora:26
@@ -15,8 +14,6 @@ requirements:
     tmpdirMax: $(parseInt(inputs.INPUT.size / 1024 / 1024 * 2))
     outdirMin: $(parseInt(inputs.INPUT.size / 1024 / 1024))
     outdirMax: $(parseInt(inputs.INPUT.size / 1024 / 1024 * 2))
-
-class: CommandLineTool
 
 inputs:
   - id: INPUT

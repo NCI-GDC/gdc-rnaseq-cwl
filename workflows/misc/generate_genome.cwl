@@ -1,8 +1,8 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
 class: Workflow
+id: gdc_rnaseq_generate_genome
+requirements:
+  - class: StepInputExpressionRequirement
 
 inputs:
   - id: gtf
@@ -13,9 +13,6 @@ inputs:
     type: string
   - id: thread_count
     type: int
-
-requirements:
-  - class: StepInputExpressionRequirement
 
 outputs:
   - id: star_chrLength_txt

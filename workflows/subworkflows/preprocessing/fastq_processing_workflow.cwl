@@ -1,14 +1,13 @@
 cwlVersion: v1.0
 class: Workflow
-
+id: gdc_rnaseq_fastq_processing_wf
 requirements:
   - class: InlineJavascriptRequirement
   - class: StepInputExpressionRequirement
-  - class: MultipleInputFeatureRequirement
   - class: ScatterFeatureRequirement
   - class: SchemaDefRequirement
     types:
-      - $import: ../../tools/readgroup.cwl
+      - $import: ../../../tools/readgroup.cwl
 
 inputs:
   threads: int?
@@ -16,13 +15,13 @@ inputs:
   readgroup_fastq_file_list:
     type:
       type: array
-      items: ../../tools/readgroup.cwl#readgroup_fastq_file
+      items: ../../../tools/readgroup.cwl#readgroup_fastq_file
 
 outputs:
   output_fq:
     type:
       type: array
-      items: ../../tools/readgroup.cwl#readgroup_fastq_file
+      items: ../../../tools/readgroup.cwl#readgroup_fastq_file
     outputSource: trimmomatic_convert/output
 
   output_fastqc:
@@ -35,7 +34,7 @@ outputs:
 
 steps:
   trimmomatic_convert: 
-    run: ../../tools/trimmomatic_validate.cwl
+    run: ../../../tools/trimmomatic_validate.cwl
     scatter: readgroup_fastq_file
     in:
       readgroup_fastq_file: readgroup_fastq_file_list
@@ -45,7 +44,7 @@ steps:
     out: [ output ]
 
   run_fastqc:
-    run: ../../tools/fastqc.cwl
+    run: ../../../tools/fastqc.cwl
     scatter: INPUT 
     in:
       INPUT:

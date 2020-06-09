@@ -1,8 +1,6 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
 class: CommandLineTool
+id: bioclient_conditional_upload_pull_uuid
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
@@ -13,7 +11,7 @@ requirements:
          if ( inputs.input !== null ) {
            return [{"entry": inputs.input, "entryname": inputs.filename}]
          } else {
-           return [null]
+           return []
          }
        }
   - class: ResourceRequirement

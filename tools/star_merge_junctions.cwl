@@ -1,10 +1,9 @@
-#!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
-
+class: CommandLineTool
+id: star_merge_junctions
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/gdc-rnaseq-tool:4fd9fbe2eddbd9a8dab2b1ae8992efa41d811d81
+    dockerPull: quay.io/ncigdc/gdc-rnaseq-tool:c52fbf53552b9faea617dca86b0ce289cc3dafc8
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
@@ -13,8 +12,6 @@ requirements:
     ramMin: 1000
     tmpdirMin: $(sum_file_array_size(inputs.input))
     outdirMin: $(sum_file_array_size(inputs.input))
-
-class: CommandLineTool
 
 inputs:
   input: 
@@ -35,4 +32,4 @@ outputs:
     outputBinding:
       glob: $(inputs.outfile)
 
-baseCommand: [python3, /opt/gdc-rnaseq-tool/merge_star_junctions.py]
+baseCommand: [gdc-rnaseq-tools, merge_star_junctions]

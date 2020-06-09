@@ -1,15 +1,13 @@
 cwlVersion: v1.0
 class: Workflow
-
+id: gdc_rnaseq_metrics_wf
 requirements:
   - class: InlineJavascriptRequirement
   - class: StepInputExpressionRequirement
   - class: MultipleInputFeatureRequirement
-  - class: SubworkflowFeatureRequirement
-  - class: ScatterFeatureRequirement
   - class: SchemaDefRequirement
     types:
-      - $import: ../../tools/star_results.cwl
+      - $import: ../../../tools/star_results.cwl
 
 inputs:
   ref_flat: File
@@ -21,7 +19,7 @@ inputs:
   star_results:
     type: 
       type: array
-      items: ../../tools/star_results.cwl#star_results
+      items: ../../../tools/star_results.cwl#star_results
   job_uuid: string
 
 outputs:
@@ -31,7 +29,7 @@ outputs:
 
 steps:
   get_readgroup_json:
-    run: ../../tools/bam_readgroup_to_json.cwl
+    run: ../../../tools/bam_readgroup_to_json.cwl
     in:
       INPUT: genome_bam
       MODE:
@@ -39,7 +37,7 @@ steps:
     out: [ OUTPUT, log ]
 
   initialize_db:
-    run: ../../tools/gdc_qc_tool.readgroups.cwl
+    run: ../../../tools/gdc_qc_tool.readgroups.cwl
     in:
       input: get_readgroup_json/OUTPUT
       job_uuid: job_uuid
@@ -47,7 +45,7 @@ steps:
     out: [ db ]
 
   fastqc_db:
-    run: ../../tools/gdc_qc_tool.fastqc.cwl
+    run: ../../../tools/gdc_qc_tool.fastqc.cwl
     in:
       input: fastqc_files 
       job_uuid: job_uuid
@@ -55,7 +53,7 @@ steps:
     out: [ db ]
 
   star_db:
-    run: ../../tools/gdc_qc_tool.star.cwl
+    run: ../../../tools/gdc_qc_tool.star.cwl
     in:
       job_uuid: job_uuid
       input_db: fastqc_db/db
@@ -104,14 +102,14 @@ steps:
     out: [ db ]
 
   samtools_flagstats:
-    run: ../../tools/samtools_flagstat.cwl
+    run: ../../../tools/samtools_flagstat.cwl
     in:
       bam: genome_bam
       threads: threads
     out: [ output ]
 
   flagstat_db:
-    run: ../../tools/gdc_qc_tool.samtools_flagstat.cwl
+    run: ../../../tools/gdc_qc_tool.samtools_flagstat.cwl
     in:
       input:
         source: samtools_flagstats/output 
@@ -122,7 +120,7 @@ steps:
     out: [ db ]
 
   samtools_idxstats:
-    run: ../../tools/samtools_idxstat.cwl
+    run: ../../../tools/samtools_idxstat.cwl
     in:
       bam: genome_bam
       bam_index:
@@ -131,7 +129,7 @@ steps:
     out: [ output ]
 
   idxstat_db:
-    run: ../../tools/gdc_qc_tool.samtools_idxstat.cwl
+    run: ../../../tools/gdc_qc_tool.samtools_idxstat.cwl
     in:
       input:
         source: samtools_idxstats/output 
@@ -142,7 +140,7 @@ steps:
     out: [ db ]
 
   samtools_stats:
-    run: ../../tools/samtools_stats.cwl
+    run: ../../../tools/samtools_stats.cwl
     in:
       bam: genome_bam
       bam_index:
@@ -151,7 +149,7 @@ steps:
     out: [ output ]
 
   samtools_stats_db:
-    run: ../../tools/gdc_qc_tool.samtools_stats.cwl
+    run: ../../../tools/gdc_qc_tool.samtools_stats.cwl
     in:
       input: samtools_stats/output
       job_uuid: job_uuid
@@ -160,7 +158,7 @@ steps:
     out: [ db ]
 
   picard_rnaseq_metrics:
-    run: ../../tools/picard_collectrnaseqmetrics.cwl
+    run: ../../../tools/picard_collectrnaseqmetrics.cwl
     in:
       java_mem: picard_mem
       INPUT: genome_bam
@@ -171,7 +169,7 @@ steps:
     out: [ OUTPUT, CHART_OUTPUT ]
 
   picard_db:
-    run: ../../tools/gdc_qc_tool.picard.cwl
+    run: ../../../tools/gdc_qc_tool.picard.cwl
     in:
       input: 
         source: picard_rnaseq_metrics/OUTPUT

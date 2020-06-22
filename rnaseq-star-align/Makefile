@@ -1,6 +1,6 @@
 WORKFLOW_NAME?=harmonization
 VERSION := $(shell date -u +"%Y%m%dT%H%MZ")
-REPO = gdc-rnaseq-harmonization-cwl
+REPO = rnaseq-star-align
 
 GIT_SHORT_HASH:=$(shell git rev-parse --short HEAD)
 COMMIT_HASH:=$(shell git rev-parse HEAD)

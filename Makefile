@@ -47,16 +47,20 @@ clean:
 	rm -rf ./dist/
 	rm -rf ./*.egg-info/
 
-.PHONY: pack
+.PHONY: pack pack-%
 pack:
 	@python -m cwltool --pack "${ENTRY_WF}"
+
+pack-%:
+	@make --quiet -C $* run
+
 
 run:
 	@docker run --rm ${DOCKER_IMAGE_LATEST} pack ENTRY_WF=${ENTRY_WF}
 
 .PHONY: build build-*
 
-build: build-docker
+build: build-docker build-%
 
 build-docker:
 	@echo
@@ -66,6 +70,11 @@ build-docker:
 		-t "${DOCKER_IMAGE_COMMIT}" \
 		-t "${DOCKER_IMAGE}" \
 		-t "${DOCKER_IMAGE_LATEST}"
+
+build-%:
+	@echo
+	@echo -- Building docker --
+	@make -C $* build-docker WORKFLOW_NAME=$*
 
 .PHONY: test test-*
 test: lint test-unit

@@ -1,15 +1,14 @@
 FROM python:3.6-alpine
 
-
 ARG WORKFLOW
+RUN apk add make
 
 COPY ./${WORKFLOW} /opt 
-COPY ./tools /tools
-COPY ./scripts /scripts
-COPY ./rnaseq/ /opt
 
-RUN apk add make
 RUN make -C /opt init-pip
+
+COPY tools scripts /
+COPY rnaseq/ /opt
 
 WORKDIR /opt
 

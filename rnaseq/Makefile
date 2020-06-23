@@ -1,6 +1,6 @@
 WORKFLOW_NAME?=rnaseq
 VERSION := $(shell date -u +"%Y%m%dT%H%MZ")
-REPO = gdc-rnaseq-cwl
+REPO = gdc-rnaseq
 
 GIT_SHORT_HASH:=$(shell git rev-parse --short HEAD)
 COMMIT_HASH:=$(shell git rev-parse HEAD)
@@ -38,10 +38,18 @@ init-pip:
 
 .PHONY: pack pack-%
 pack:
-	@python -m cwltool --pack "/opt/${ENTRY_CWL}"
+	@python -m cwltool --pack "${ENTRY_CWL}"
 
 run:
 	@docker run --rm ${DOCKER_IMAGE_LATEST} pack ENTRY_CWL=/opt/${ENTRY_CWL}
+
+.PHONY: validate validate-*
+
+validate:
+	@python -m cwltool --validate "${ENTRY_CWL}"
+
+validate-docker:
+	@docker run --rm ${DOCKER_IMAGE_LATEST} validate ENTRY_CWL=/opt/${ENTRY_CWL}
 
 .PHONY: build build-*
 

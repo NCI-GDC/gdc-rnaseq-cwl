@@ -1,15 +1,10 @@
-language: python
-
-python:
-  - "3.6"
-
 services:
   - docker
 
 install:
-  - make build-docker
+  - make build
 
-script: make run-docker
+script: make validate
 
 env:
   global:

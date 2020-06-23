@@ -51,6 +51,7 @@ build-docker:
 	@echo
 	@echo -- Building docker --
 	docker build .. \
+		--no-cache \
 		--file ./Dockerfile \
 		--build-arg WORKFLOW=${WORKFLOW_NAME} \
 		-t "${DOCKER_IMAGE_COMMIT}" \

@@ -1,4 +1,4 @@
-WORKFLOW_NAME?=harmonization
+WORKFLOW_NAME?=rnaseq-star-align
 VERSION := $(shell date -u +"%Y%m%dT%H%MZ")
 REPO = rnaseq-star-align
 

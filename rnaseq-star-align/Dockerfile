@@ -7,7 +7,9 @@ COPY ./${WORKFLOW} /opt
 
 RUN make -C /opt init-pip
 
-COPY tools scripts /
+COPY tools/ /tools
+COPY scripts/ /scripts
+
 COPY rnaseq/ /opt
 
 WORKDIR /opt

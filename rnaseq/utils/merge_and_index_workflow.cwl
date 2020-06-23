@@ -14,7 +14,7 @@ outputs:
 
 steps:
   mergeBam:
-    run: ../../../tools/samtools_merge.cwl
+    run: /tools/samtools_merge.cwl
     in:
       input_bam: input_bam
       threads: threads
@@ -22,7 +22,7 @@ steps:
     out: [ bam ]
 
   indexBam:
-    run: ../../../tools/samtools_index.cwl
+    run: /tools/samtools_index.cwl
     in:
       input_bam: mergeBam/bam
       threads: threads

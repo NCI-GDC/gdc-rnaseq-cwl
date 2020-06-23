@@ -9,18 +9,18 @@ requirements:
   - class: ScatterFeatureRequirement
   - class: SchemaDefRequirement
     types:
-      - $import: ../../tools/readgroup.cwl
-      - $import: ../../tools/star_results.cwl
+      - $import: /tools/readgroup.cwl
+      - $import: /tools/star_results.cwl
 
 inputs:
   readgroup_bam_file_list:
     type:
       type: array
-      items: ../../tools/readgroup.cwl#readgroup_bam_file
+      items: /tools/readgroup.cwl#readgroup_bam_file
   readgroup_fastq_file_list:
     type:
       type: array
-      items: ../../tools/readgroup.cwl#readgroup_fastq_file
+      items: /tools/readgroup.cwl#readgroup_fastq_file
   ref_flat: File
   ribosome_intervals: File
   star_genome_dir: Directory
@@ -106,7 +106,7 @@ steps:
     out: [ output_fq, output_fastqc ]
 
   split_fastq_array:
-    run: ../../tools/split_fastq_array.cwl
+    run: /tools/split_fastq_array.cwl
     in:
       fastq_list: process_fastq_files/output_fq
     out: [ output ]

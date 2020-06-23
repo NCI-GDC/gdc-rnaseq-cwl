@@ -17,7 +17,7 @@ outputs:
 
 steps:
   sortBam:
-    run: ../../../tools/samtools_sort.cwl
+    run: /tools/samtools_sort.cwl
     in:
       input_bam: input_bam
       threads: threads
@@ -27,7 +27,7 @@ steps:
     out: [ bam ]
 
   indexBam:
-    run: ../../../tools/samtools_index.cwl
+    run: /tools/samtools_index.cwl
     in:
       input_bam: sortBam/bam
       threads: threads

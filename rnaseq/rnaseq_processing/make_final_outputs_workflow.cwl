@@ -7,14 +7,14 @@ requirements:
   - class: MultipleInputFeatureRequirement
   - class: SchemaDefRequirement
     types:
-      - $import: ../../../tools/star_results.cwl
+      - $import: /tools/star_results.cwl
 
 inputs:
   metrics_db: File
   star_results:
     type:
       type: array
-      items: ../../../tools/star_results.cwl#star_results
+      items: /tools/star_results.cwl#star_results
   job_uuid: string
 
 outputs:
@@ -42,7 +42,7 @@ outputs:
 
 steps:
   rename_sqlite:
-    run: ../../../tools/rename_file.cwl
+    run: /tools/rename_file.cwl
     in:
       input_file: metrics_db
       output_filename:
@@ -51,7 +51,7 @@ steps:
     out: [ out_file ]
 
   merge_gene_counts:
-    run: ../../../tools/star_merge_counts.cwl
+    run: /tools/star_merge_counts.cwl
     in:
       input:
         source: star_results
@@ -69,7 +69,7 @@ steps:
     out: [ output ]
 
   merge_junctions:
-    run: ../../../tools/star_merge_junctions.cwl
+    run: /tools/star_merge_junctions.cwl
     in:
       input:
         source: star_results
@@ -87,13 +87,13 @@ steps:
     out: [ output ]
 
   extract_other_star_outputs:
-    run: ../../../tools/decider_star_outputs.cwl
+    run: /tools/decider_star_outputs.cwl
     in:
       star_results: star_results
     out: [ output_transcriptome_bam, output_chimeric_bam, output_chimeric_junctions ]
 
   make_archive:
-    run: ../../../tools/archive_list.cwl
+    run: /tools/archive_list.cwl
     in:
       input_files:
         source: star_results

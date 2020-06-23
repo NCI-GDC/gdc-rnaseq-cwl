@@ -9,21 +9,21 @@ requirements:
   - class: ScatterFeatureRequirement
   - class: SchemaDefRequirement
     types:
-      - $import: ../../../tools/readgroup.cwl
-      - $import: ../../../tools/star_results.cwl
+      - $import: /tools/readgroup.cwl
+      - $import: /tools/star_results.cwl
 
 inputs:
   readgroup_fastq_file_list:
     type:
       type: array
-      items: ../../../tools/readgroup.cwl#readgroup_fastq_file
+      items: /tools/readgroup.cwl#readgroup_fastq_file
   genomeDir: Directory
   threads: int?
   job_uuid: string
 
 outputs:
   star_outputs:
-    type: ../../../tools/star_results.cwl#star_results
+    type: /tools/star_results.cwl#star_results
     outputSource: makeStarOutputs/output
 
 steps:
@@ -36,7 +36,7 @@ steps:
         fastq_list:
           type: 
             type: array
-            items: ../../../tools/readgroup.cwl#readgroup_fastq_file
+            items: /tools/readgroup.cwl#readgroup_fastq_file
       outputs:
         output: string
         is_paired: boolean
@@ -59,7 +59,7 @@ steps:
     out: [ output, is_paired ]
 
   starAlign:
-    run: ../../../tools/star_align.cwl
+    run: /tools/star_align.cwl
     in:
       readgroup_fastq_file_list: readgroup_fastq_file_list
       genomeDir: genomeDir
@@ -83,7 +83,7 @@ steps:
       - star_pass1
 
   chimericSamToBam:
-    run: ../../../tools/samtools_sam2bam.cwl
+    run: /tools/samtools_sam2bam.cwl
     in:
       input_sam: starAlign/chimeric_sam_out
       output_filename:
@@ -93,7 +93,7 @@ steps:
     out: [ bam ]
 
   chimericProcessedBam:
-    run: ../utils/sort_and_index_workflow.cwl
+    run: ./sort_and_index_workflow.cwl
     in:
       input_bam: chimericSamToBam/bam
       output_prefix:
@@ -103,7 +103,7 @@ steps:
     out: [ processed_bam ]
 
   genomicProcessedBam:
-    run: ../utils/sort_and_index_workflow.cwl
+    run: ./sort_and_index_workflow.cwl
     in:
       input_bam: starAlign/genomic_bam_out
       output_prefix:
@@ -113,14 +113,14 @@ steps:
     out: [ processed_bam ]
 
   archiveDirectories:
-    run: ../../../tools/archive_directory.cwl
+    run: /tools/archive_directory.cwl
     scatter: input_directory
     in:
       input_directory: [starAlign/star_pass1_genome, starAlign/star_pass1]
     out: [ output_archive ]
 
   compressChimericJunctions:
-    run: ../../../tools/gzip.cwl
+    run: /tools/gzip.cwl
     in:
       input_file: starAlign/chimeric_junctions
     out: [ output_file ]
@@ -149,7 +149,7 @@ steps:
         is_paired_bool:
           type: boolean 
       outputs:
-        output: ../../../tools/star_results.cwl#star_results 
+        output: /tools/star_results.cwl#star_results 
       expression: |
         ${
            var data = {

@@ -6,20 +6,20 @@ requirements:
   - class: StepInputExpressionRequirement
   - class: SchemaDefRequirement
     types:
-      - $import: ../../../tools/readgroup.cwl
+      - $import: /tools/readgroup.cwl
 
 inputs:
   readgroup_fastq_file:
-    type: ../../../tools/readgroup.cwl#readgroup_fastq_file
+    type: /tools/readgroup.cwl#readgroup_fastq_file
 
 outputs:
   output_vendor_filtered_fq:
-    type: ../../../tools/readgroup.cwl#readgroup_fastq_file
+    type: /tools/readgroup.cwl#readgroup_fastq_file
     outputSource: emit_readgroup_fastq_file/output
 
 steps:
   vendorfail_filter:
-    run: ../../../tools/fastq_vendor_fail_filter.cwl
+    run: /tools/fastq_vendor_fail_filter.cwl
     in:
       input_r1:
         source: readgroup_fastq_file
@@ -33,7 +33,7 @@ steps:
     out: [ output_r1, output_r2 ]
 
   emit_readgroup_fastq_file:
-    run: ../../../tools/emit_readgroup_fastq_file.cwl
+    run: /tools/emit_readgroup_fastq_file.cwl
     in:
       forward_fastq: vendorfail_filter/output_r1
       reverse_fastq: vendorfail_filter/output_r2

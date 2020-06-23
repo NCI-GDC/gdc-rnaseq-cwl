@@ -7,7 +7,7 @@ requirements:
   - class: MultipleInputFeatureRequirement
   - class: SchemaDefRequirement
     types:
-      - $import: ../../../tools/star_results.cwl
+      - $import: /tools/star_results.cwl
 
 inputs:
   metrics_db: File
@@ -65,7 +65,7 @@ outputs:
 
 steps:
   upload_sqlite:
-    run: ../../../tools/bioclient_upload_pull_uuid.cwl
+    run: /tools/bioclient_upload_pull_uuid.cwl
     in:
       config-file: bioclient_config
       upload-bucket: upload_bucket
@@ -76,7 +76,7 @@ steps:
     out: [ output, uuid ]
 
   upload_genome_bam:
-    run: ../../../tools/bioclient_upload_pull_uuid.cwl
+    run: /tools/bioclient_upload_pull_uuid.cwl
     in:
       config-file: bioclient_config
       upload-bucket: upload_bucket
@@ -87,7 +87,7 @@ steps:
     out: [ output, uuid ]
 
   upload_genome_bai:
-    run: ../../../tools/bioclient_upload_pull_uuid.cwl
+    run: /tools/bioclient_upload_pull_uuid.cwl
     in:
       config-file: bioclient_config
       upload-bucket: upload_bucket
@@ -100,7 +100,7 @@ steps:
     out: [ output, uuid ]
 
   upload_gene_counts:
-    run: ../../../tools/bioclient_upload_pull_uuid.cwl
+    run: /tools/bioclient_upload_pull_uuid.cwl
     in:
       config-file: bioclient_config
       upload-bucket: upload_bucket
@@ -111,7 +111,7 @@ steps:
     out: [ output, uuid ]
 
   upload_junctions:
-    run: ../../../tools/bioclient_upload_pull_uuid.cwl
+    run: /tools/bioclient_upload_pull_uuid.cwl
     in:
       config-file: bioclient_config
       upload-bucket: upload_bucket
@@ -122,7 +122,7 @@ steps:
     out: [ output, uuid ]
 
   upload_archive:
-    run: ../../../tools/bioclient_upload_pull_uuid.cwl
+    run: /tools/bioclient_upload_pull_uuid.cwl
     in:
       config-file: bioclient_config
       upload-bucket: upload_bucket
@@ -133,7 +133,7 @@ steps:
     out: [ output, uuid ]
 
   upload_transcriptome_bam:
-    run: ../../../tools/bioclient_conditional_upload_pull_uuid.cwl
+    run: /tools/bioclient_conditional_upload_pull_uuid.cwl
     in:
       config-file: bioclient_config
       upload-bucket: upload_bucket
@@ -153,7 +153,7 @@ steps:
     out: [ uuid ]
 
   upload_chimeric_bam:
-    run: ../../../tools/bioclient_conditional_upload_pull_uuid.cwl
+    run: /tools/bioclient_conditional_upload_pull_uuid.cwl
     in:
       config-file: bioclient_config
       upload-bucket: upload_bucket
@@ -173,7 +173,7 @@ steps:
     out: [ uuid ]
 
   upload_chimeric_bai:
-    run: ../../../tools/bioclient_conditional_upload_pull_uuid.cwl
+    run: /tools/bioclient_conditional_upload_pull_uuid.cwl
     in:
       config-file: bioclient_config
       upload-bucket: upload_bucket
@@ -199,7 +199,7 @@ steps:
     out: [ uuid ]
 
   upload_chimeric_tsv:
-    run: ../../../tools/bioclient_conditional_upload_pull_uuid.cwl
+    run: /tools/bioclient_conditional_upload_pull_uuid.cwl
     in:
       config-file: bioclient_config
       upload-bucket: upload_bucket

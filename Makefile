@@ -54,6 +54,9 @@ pack:
 pack-%:
 	@make --quiet -C $* run
 
+.PHONY: validate validate-%
+validate-%:
+	@make --quiet -C $* validate-docker
 
 run:
 	@docker run --rm ${DOCKER_IMAGE_LATEST} pack ENTRY_WF=${ENTRY_WF}

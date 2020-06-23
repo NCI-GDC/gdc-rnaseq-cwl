@@ -40,8 +40,16 @@ init-pip:
 pack:
 	@python -m cwltool --pack "${ENTRY_CWL}"
 
+.PHONY: run
 run:
 	@docker run --rm ${DOCKER_IMAGE_LATEST} pack ENTRY_CWL=${ENTRY_CWL}
+
+.PHONY: validate validate-docker
+validate:
+	@python -m cwltool --validate "${ENTRY_CWL}"
+
+validate-docker:
+	@docker run --rm ${DOCKER_IMAGE_LATEST} validate ENTRY_CWL=${ENTRY_CWL}
 
 .PHONY: build build-*
 

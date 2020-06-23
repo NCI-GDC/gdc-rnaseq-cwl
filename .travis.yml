@@ -5,10 +5,10 @@ jobs:
   include:
     - stage: build
       script: make build-rnaseq-star-align
-      script: make build-rnaseq
+      script: make build-gdc-rnaseq
     - stage: validate
       script: make validate-rnaseq-star-align
-      script: make validate-rnaseq
+      script: make validate-gdc-rnaseq
 
 env:
   global:

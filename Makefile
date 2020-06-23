@@ -55,7 +55,7 @@ pack-%:
 	@make --quiet -C $* run
 
 .PHONY: validate validate-%
-validate: validate-rnaseq-star-align validate-rnaseq
+validate: validate-rnaseq-star-align validate-gdc-rnaseq
 
 validate-%:
 	@make --quiet -C $* validate-docker
@@ -65,7 +65,7 @@ run:
 
 .PHONY: build build-*
 
-build: build-rnaseq-star-align build-rnaseq
+build: build-rnaseq-star-align build-gdc-rnaseq
 
 build-docker:
 	@echo

@@ -1,4 +1,4 @@
-WORKFLOW_NAME?=rnaseq
+WORKFLOW_NAME?=gdc-rnaseq
 VERSION := $(shell date -u +"%Y%m%dT%H%MZ")
 REPO = gdc-rnaseq
 

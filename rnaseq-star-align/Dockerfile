@@ -3,14 +3,14 @@ FROM python:3.6-alpine
 ARG WORKFLOW
 RUN apk add make
 
+# Copy subworkflow first so Makefile/Dockerfile not overwritten
+COPY rnaseq/ /opt 
 COPY ./${WORKFLOW} /opt 
 
 RUN make -C /opt init-pip
 
 COPY tools/ /tools
 COPY scripts/ /scripts
-
-COPY rnaseq/ /opt
 
 WORKDIR /opt
 

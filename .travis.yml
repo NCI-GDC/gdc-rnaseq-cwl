@@ -1,10 +1,14 @@
 services:
   - docker
 
-install:
-  - make build
-
-script: make validate
+jobs:
+  include:
+    - stage: build
+      script: make build-rnaseq-star-align
+      script: make build-rnaseq
+    - stage: validate
+      script: make validate-rnaseq-star-align
+      script: make validate-rnaseq
 
 env:
   global:

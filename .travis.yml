@@ -12,11 +12,13 @@ jobs:
     - stage: deploy-production
       if: branch = master
         - docker login -u="$QUAY_USERNAME" -p="$QUAY_PASSWORD quay.io
+        - make docker-build
         - make docker-publish
   exclude:
     - stage: deploy-staging
       if: branch = master
         - docker login -u="$QUAY_USERNAME" -p="$QUAY_PASSWORD quay.io
+        - make docker-build
         - make docker-publish-staging
 env:
   global:

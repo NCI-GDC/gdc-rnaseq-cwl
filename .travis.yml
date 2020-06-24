@@ -23,7 +23,7 @@ jobs:
      - make validate-rnaseq-star-align
    - stage: publish-staging
      name: "Publish staging image"
-     script: make publish--rnaseq-star-align
+     script: make publish-rnaseq-star-align
    - stage: publish
      name: "Publish production image"
      script: make publish-release-rnaseq-star-align

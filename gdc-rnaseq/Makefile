@@ -8,6 +8,7 @@ COMMIT_HASH:=$(shell git rev-parse HEAD)
 DOCKER_REPO := quay.io/repository/ncigdc
 DOCKER_IMAGE_COMMIT := ${DOCKER_REPO}/${REPO}:${COMMIT_HASH}
 DOCKER_IMAGE_LATEST := ${DOCKER_REPO}/${REPO}:latest
+DOCKER_IMAGE_STAGING := ${DOCKER_REPO}/${REPO}:staging
 DOCKER_IMAGE := ${DOCKER_REPO}/${REPO}:${VERSION}
 
 ENTRY_CWL = "gdc_rnaseq_main_workflow.cwl"
@@ -15,7 +16,7 @@ ENTRY_CWL = "gdc_rnaseq_main_workflow.cwl"
 .PHONY: docker-*
 docker-login:
 	@echo
-	$(shell docker login -u="${SQUAY_USERNAME}" -p="${SQUAY_PASSWORD}" quay.io)
+	docker login -u="${QUAY_USERNAME}" -p="${QUAY_PASSWORD}" quay.io
 
 .PHONY: version version-* name
 name:
@@ -65,3 +66,11 @@ build-docker:
 		-t "${DOCKER_IMAGE}" \
 		-t "${DOCKER_IMAGE_LATEST}"
 
+.PHONY: publish publish-staging
+
+publish: docker-login
+	docker push ${DOCKER_IMAGE_LATEST}
+
+publish-staging: docker-login
+	docker tag ${DOCKER_IMAGE_COMMIT} ${DOCKER_IMAGE_STAGING}
+	docker push ${DOCKER_IMAGE_STAGING}

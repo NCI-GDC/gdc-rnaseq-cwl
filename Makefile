@@ -15,7 +15,7 @@ ENTRY_WF = "./workflows/subworkflows/gdc_rnaseq_main_workflow.cwl"
 .PHONY: docker-*
 docker-login:
 	@echo
-	$(shell docker login -u="${SQUAY_USERNAME}" -p="${SQUAY_PASSWORD}" quay.io)
+	docker login -u="${QUAY_USERNAME}" -p="${QUAY_PASSWORD}" quay.io
 
 .PHONY: version version-*
 version:
@@ -89,3 +89,16 @@ test-docker:
 	@echo -- Running Docker Test --
 	docker run --rm ${DOCKER_IMAGE_LATEST} test
 
+.PHONY: publish publish-% publish-staging publish-staging-%
+
+publish: publish-rnaseq-star-align publish-gdc-rnaseq
+
+publish-%:
+	@echo
+	@make -C $* publish
+
+publish-staging: publish-staging-rnaseq-star-align publish-staging-gdc-rnaseq
+
+publish-staging%:
+	@echo
+	@make -C $* publish-staging

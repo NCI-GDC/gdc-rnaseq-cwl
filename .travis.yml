@@ -3,11 +3,11 @@ services:
 
 jobs:
   include:
-    - stage: build
+    - stage: rnaseq-star-align
       script: make build-rnaseq-star-align
-      script: make build-gdc-rnaseq
-    - stage: validate
       script: make validate-rnaseq-star-align
+    - stage: gdc-rnaseq
+      script: make build-gdc-rnaseq
       script: make validate-gdc-rnaseq
 
 env:

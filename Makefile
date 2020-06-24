@@ -5,7 +5,7 @@ BRANCH_NAME?=unknown
 GIT_SHORT_HASH:=$(shell git rev-parse --short HEAD)
 COMMIT_HASH:=$(shell git rev-parse HEAD)
 
-DOCKER_REPO := quay.io/repository/ncigdc
+DOCKER_REPO := quay.io/ncigdc
 DOCKER_IMAGE_COMMIT := ${DOCKER_REPO}/${REPO}:${COMMIT_HASH}
 DOCKER_IMAGE_LATEST := ${DOCKER_REPO}/${REPO}:latest
 DOCKER_IMAGE := ${DOCKER_REPO}/${REPO}:${VERSION}
@@ -99,6 +99,6 @@ publish-%:
 
 publish-staging: publish-staging-rnaseq-star-align publish-staging-gdc-rnaseq
 
-publish-staging%:
+publish-staging-%:
 	@echo
 	@make -C $* publish-staging

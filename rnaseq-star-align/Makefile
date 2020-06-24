@@ -5,7 +5,7 @@ REPO = rnaseq-star-align
 GIT_SHORT_HASH:=$(shell git rev-parse --short HEAD)
 COMMIT_HASH:=$(shell git rev-parse HEAD)
 
-DOCKER_REPO := quay.io/repository/ncigdc
+DOCKER_REPO := quay.io/ncigdc
 DOCKER_IMAGE_COMMIT := ${DOCKER_REPO}/${REPO}:${COMMIT_HASH}
 DOCKER_IMAGE_LATEST := ${DOCKER_REPO}/${REPO}:latest
 DOCKER_IMAGE_STAGING := ${DOCKER_REPO}/${REPO}:staging

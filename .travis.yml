@@ -7,6 +7,17 @@ script:
  - make validate-rnaseq-star-align
  - make validate-gdc-rnaseq
 
+jobs:
+  include:
+    - stage: deploy-production
+      if: branch = master
+        - docker login -u="$QUAY_USERNAME" -p="$QUAY_PASSWORD quay.io
+        - make docker-publish
+  exclude:
+    - stage: deploy-staging
+      if: branch = master
+        - docker login -u="$QUAY_USERNAME" -p="$QUAY_PASSWORD quay.io
+        - make docker-publish-staging
 env:
   global:
 

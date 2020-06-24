@@ -89,7 +89,7 @@ test-docker:
 	@echo -- Running Docker Test --
 	docker run --rm ${DOCKER_IMAGE_LATEST} test
 
-.PHONY: publish publish-% publish-staging publish-staging-%
+.PHONY: publish publish-% publish-release publish-release-%
 
 publish: publish-rnaseq-star-align publish-gdc-rnaseq
 

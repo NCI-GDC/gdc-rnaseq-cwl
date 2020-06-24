@@ -9,6 +9,7 @@ DOCKER_REPO := quay.io/ncigdc
 DOCKER_IMAGE_COMMIT := ${DOCKER_REPO}/${REPO}:${COMMIT_HASH}
 DOCKER_IMAGE_LATEST := ${DOCKER_REPO}/${REPO}:latest
 DOCKER_IMAGE_STAGING := ${DOCKER_REPO}/${REPO}:staging
+DOCKER_IMAGE_RELEASE := ${DOCKER_REPO}/${REPO}:release
 DOCKER_IMAGE := ${DOCKER_REPO}/${REPO}:${VERSION}
 
 ENTRY_CWL = "star2pass.rnaseq_harmonization.cwl"
@@ -74,7 +75,7 @@ publish: docker-login
 	docker push ${DOCKER_IMAGE_COMMIT}
 	docker push ${DOCKER_IMAGE}
 
-publish-staging: docker-login
-	docker tag ${DOCKER_IMAGE_LATEST} ${DOCKER_IMAGE_STAGING}
-	docker push ${DOCKER_IMAGE_STAGING}
+publish-release: docker-login
+	docker tag ${DOCKER_IMAGE_LATEST} ${DOCKER_IMAGE_RELEASE}
+	docker push ${DOCKER_IMAGE_RELEASE}
 

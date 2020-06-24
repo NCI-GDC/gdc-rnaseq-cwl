@@ -8,8 +8,6 @@ script:
  - make validate-gdc-rnaseq
 
 stages:
- - build
- - test
  - name: publish
    if: branch = master
  - name: publish-staging
@@ -17,17 +15,14 @@ stages:
 
 jobs:
   include:
-   - stage: build
-     script: make build-rnaseq-star-align
+   - script: make build-rnaseq-star-align
+   - script: make validate-rnaseq-star-align
    - stage: publish-staging
      name: "Publish staging image"
      script: make publish--rnaseq-star-align
    - stage: publish
      name: "Publish production image"
      script: make publish-release-rnaseq-star-align
-   - stage: test
-     name: "Validate CWL"
-     script: make validate-rnaseq-star-align
 
 env:
   global:

@@ -71,8 +71,10 @@ build-docker:
 
 publish: docker-login
 	docker push ${DOCKER_IMAGE_LATEST}
+	docker push ${DOCKER_IMAGE_COMMIT}
+	docker push ${DOCKER_IMAGE}
 
 publish-staging: docker-login
-	docker tag ${DOCKER_IMAGE_COMMIT} ${DOCKER_IMAGE_STAGING}
+	docker tag ${DOCKER_IMAGE_LATEST} ${DOCKER_IMAGE_STAGING}
 	docker push ${DOCKER_IMAGE_STAGING}
 

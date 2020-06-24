@@ -97,8 +97,8 @@ publish-%:
 	@echo
 	@make -C $* publish
 
-publish-staging: publish-staging-rnaseq-star-align publish-staging-gdc-rnaseq
+publish-release: publish-release-rnaseq-star-align publish-release-gdc-rnaseq
 
-publish-staging-%:
+publish-release-%:
 	@echo
-	@make -C $* publish-staging
+	@make -C $* publish-release

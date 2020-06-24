@@ -9,11 +9,11 @@ script:
 
 stages:
  - build
+ - test
  - name: publish
    if: branch = master
  - name: publish-staging
    if: branch != master
- - test
 
 jobs:
   include:

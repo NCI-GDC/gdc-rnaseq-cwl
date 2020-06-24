@@ -1,28 +1,32 @@
 services:
   - docker
 
-stages:
- - name: test
- - name: publish
-   if: branch = master
- - name: publish-staging
-   if: branch != master
+script:
+ - make build-rnaseq-star-align
+ - make build-gdc-rnaseq
+ - make validate-rnaseq-star-align
+ - make validate-gdc-rnaseq
 
+stages:
+- name: test
+- name: publish
+  if: branch = master
+- name: publish-staging
+  if: branch != master
 jobs:
   include:
-   - stage: test
-     name: "Build and test rnaseq-star-align"
-     script: 
-     - make build-rnaseq-star-align
-     - make validate-rnaseq-star-align
-   - stage: publish-staging
-     name: "Publish staging image"
-     script: make publish-rnaseq-star-align
-   - stage: publish
-     name: "Publish production image"
-     script: make publish-release-rnaseq-star-align
-
+  - stage: test
+    name: Build and test rnaseq-star-align
+    script:
+    - make build-rnaseq-star-align
+    - make validate-rnaseq-star-align
+  - stage: publish-staging
+    name: Publish staging image
+    script: make publish-rnaseq-star-align
+  - stage: publish
+    name: Publish production image
+    script: make publish-release-rnaseq-star-align
 env:
   global:
-
-
+  - secure: NGJqR/iT75FDeQkIhD0EYquBeXH6bMa+JZ9eYyvy2BETOsBNbr5VjTQlZvSa3poySP3Rb/6IeMZ0gaY8eH8smh12KGeV7S6hTNNLkiwQnqrEZiRgdHEFQCTyj6spRfftqRjBcPiKQtyzbvVNlXBQEedb/zlymRDxOuOXQfDb1pL9NA+OtKBOlTdw4FeuMDBTHeWBNrLSr0knYJ3I+Uw1JcTreCNINPcAaUduyCGb2baRFsraUeBz1nTy7+1cabV4FNyRNGZRSMLFzJOk+SvjiO7V8hFaDeuhqCkt6oazaqHAKlmWf0d4UWkAbbFhOh5UnGWzhXhGvDTuFHssfRjQtD8nDjzaB4OAFCQyGGHvq3NutwhczGcMOmcd9Iwpx8agixZ4+oyEeFRpuXfDHfT14KAMYI3PfvqAk5RlLFxXclF4k7AZYMrJxJjBVe7pK+grDELyqhGA2xUTRkj8Au9YE48OzaFAEy5xRdbUUaEvCEhwPwALc/hj2RS1ph/Sd0Ilw4f2K6sU2eNBSvdMhShzIfayr1GF0ax04mtBNBXHXc0EIZ3K/+ztIKmjDz0HReFaRr+snT+4HA6+69jx1yKgErfhhfF2l/bxyPEhA2Si/GfTdpF7fbBw3gPNrJqXUgfHzT9bqcvFFVxGF3JyTmYI9ip7asQg6wXkiGdL5+amQxg=
+  - secure: EWZeBz2pnSfqEcCDJB0B2tbO3TYcpDUK9QBInIXZBfv42s6Xxvmaf7DSb41Smn+m7l9Oz3yTIYlVzVVTpicz3IOo+b0fa0snx8lfSmny7X4Dqc7dVwfF559uCkCh5+14YPDWROhyrlbiXf7M0sQFoCNA7ar+tYvxiXYfOStH79uJ03DWOFd3/VqdFuCovyKdR8Zpf5QBpiUI/2Dshy9HFySQzDXhe2TpBJtq3Jj2Lxg7M7dfCL4Yu99TApBZ4M3pW680b0liEEWrmqv3AdcdCRKsOLZFRLYZdimdyd4YkTd0oPOYPfA5+lWsU+59vYHnHdk/jgVfDQauw/anvXo2/J2p8/AywgGwgCEwWcEkwAoAqAd0wJgYsHx2nIcKPjJcchPn18PtXFon4SGteagT73QMeuO2NLdFyDrJzoDYoXtccQHxd016BOUVLwITFOMpSkZUb4gcRhwbyrLlrKvywlLuGjDt1LWZl4DNz9uJykha9qZ9O/0NHZmHBYQdNtLMG1Ip+Ci2VLllCkovOvMwPNdoSrDDzthGw8GnpxPaHhQf0497nvJ/mm+t+Y6Fd+n7kpkJdYLOIhnRgFI99uN+USVWiDApFwu04uJeOydQvEL9AhkV2WCtONntR9V+GRr3HXNCB+5CQkDTQf5WtARCNZMUzfaKmHqb7vdTGYut7bU=

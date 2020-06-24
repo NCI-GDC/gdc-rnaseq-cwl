@@ -17,17 +17,18 @@ stages:
 
 jobs:
   include:
+  - name: "RNASeq Star Align"
    - stage: build
      script: make build-rnaseq-star-align
    - stage: publish-staging
      name: "Publish staging image"
-     script: publish-staging-rnaseq-star-align
+     script: make publish--rnaseq-star-align
    - stage: publish
      name: "Publish production image"
-     script: publish-rnaseq-star-align
+     script: make publish-release-rnaseq-star-align
    - stage: test
      name: "Validate CWL"
-     script: validate-rnaseq-star-align
+     script: make validate-rnaseq-star-align
 
 env:
   global:

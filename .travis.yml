@@ -17,7 +17,6 @@ stages:
 
 jobs:
   include:
-  - name: "RNASeq Star Align"
    - stage: build
      script: make build-rnaseq-star-align
    - stage: publish-staging

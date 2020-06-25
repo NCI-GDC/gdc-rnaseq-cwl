@@ -69,7 +69,8 @@ build-docker:
 
 .PHONY: publish publish-release
 
-publish: docker-login
+#publish: docker-login
+publish:
 	docker tag ${DOCKER_IMAGE_LATEST} ${DOCKER_IMAGE_STAGING}
 	docker push ${DOCKER_IMAGE_LATEST}
 	docker push ${DOCKER_IMAGE_COMMIT}

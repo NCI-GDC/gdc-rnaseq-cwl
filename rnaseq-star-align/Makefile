@@ -76,7 +76,8 @@ publish: docker-login
 	docker push ${DOCKER_IMAGE_COMMIT}
 	docker push ${DOCKER_IMAGE_STAGING}
 
-publish-release: docker-login
+#publish-release: docker-login
+publish-release:
 	docker tag ${DOCKER_IMAGE_LATEST} ${DOCKER_IMAGE_RELEASE}
 	docker push ${DOCKER_IMAGE_RELEASE}
 	docker push ${DOCKER_IMAGE}

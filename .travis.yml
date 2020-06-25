@@ -22,7 +22,9 @@ jobs:
     - make validate
   - stage: publish-staging
     name: Publish staging image
-    script: make publish
+    script:
+    - docker login -u="$QUAY_USERNAME" -p="$QUAY_PASSWORD" quay.io
+    - make publish
   - stage: publish
     name: Publish production image
     script: make publish-release

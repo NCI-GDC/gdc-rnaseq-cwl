@@ -17,7 +17,7 @@ ENTRY_CWL = "star2pass.rnaseq_harmonization.cwl"
 .PHONY: docker-*
 docker-login:
 	@echo
-	docker login -u="${QUAY_USERNAME}" -p="${QUAY_PASSWORD}" quay.io
+	docker login -u=${QUAY_USERNAME} -p=${QUAY_PASSWORD} quay.io
 
 .PHONY: version version-* name
 name:
@@ -68,14 +68,16 @@ build-docker:
 		-t "${DOCKER_IMAGE}" \
 		-t "${DOCKER_IMAGE_LATEST}"
 
-.PHONY: publish publish-staging
+.PHONY: publish publish-release
 
 publish: docker-login
+	docker tag ${DOCKER_IMAGE_LATEST} ${DOCKER_IMAGE_STAGING}
 	docker push ${DOCKER_IMAGE_LATEST}
 	docker push ${DOCKER_IMAGE_COMMIT}
-	docker push ${DOCKER_IMAGE}
+	docker push ${DOCKER_IMAGE_STAGING}
 
 publish-release: docker-login
 	docker tag ${DOCKER_IMAGE_LATEST} ${DOCKER_IMAGE_RELEASE}
 	docker push ${DOCKER_IMAGE_RELEASE}
+	docker push ${DOCKER_IMAGE}
 

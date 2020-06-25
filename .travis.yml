@@ -16,6 +16,11 @@ stages:
 jobs:
   include:
   - stage: test
+    name: Build and test gdc-rnaseq
+    script:
+    - make build-gdc-rnaseq
+    - make validate-gdc-rnaseq
+  - stage: test
     name: Build and test rnaseq-star-align
     script:
     - make build-rnaseq-star-align

@@ -18,6 +18,7 @@ jobs:
     name: Publish staging image
     script:
     - docker login -u="$QUAY_USERNAME" -p="$QUAY_PASSWORD" quay.io
+    - make build
     - make publish
   - stage: publish
     name: Publish production image

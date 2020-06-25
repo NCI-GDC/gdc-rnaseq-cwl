@@ -1,12 +1,6 @@
 services:
   - docker
 
-script:
- - make build-rnaseq-star-align
- - make build-gdc-rnaseq
- - make validate-rnaseq-star-align
- - make validate-gdc-rnaseq
-
 stages:
  - name: test
  - name: publish

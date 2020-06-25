@@ -1,6 +1,5 @@
 VERSION := $(shell date -u +"%Y%m%dT%H%MZ")
 REPO = gdc-rnaseq-cwl
-BRANCH_NAME?=unknown
 
 GIT_SHORT_HASH:=$(shell git rev-parse --short HEAD)
 COMMIT_HASH:=$(shell git rev-parse HEAD)
@@ -9,8 +8,6 @@ DOCKER_REPO := quay.io/ncigdc
 DOCKER_IMAGE_COMMIT := ${DOCKER_REPO}/${REPO}:${COMMIT_HASH}
 DOCKER_IMAGE_LATEST := ${DOCKER_REPO}/${REPO}:latest
 DOCKER_IMAGE := ${DOCKER_REPO}/${REPO}:${VERSION}
-
-ENTRY_WF = "./workflows/subworkflows/gdc_rnaseq_main_workflow.cwl"
 
 .PHONY: docker-*
 docker-login:
@@ -65,7 +62,7 @@ run:
 
 .PHONY: build build-*
 
-build: build-rnaseq-star-align build-gdc-rnaseq
+build: build-gdc-rnaseq build-rnaseq-star-align
 
 build-docker:
 	@echo
@@ -91,13 +88,13 @@ test-docker:
 
 .PHONY: publish publish-% publish-release publish-release-%
 
-publish: publish-rnaseq-star-align publish-gdc-rnaseq
+publish: publish-gdc-rnaseq publish-rnaseq-star-align 
 
 publish-%:
 	@echo
 	@make -C $* publish
 
-publish-release: publish-release-rnaseq-star-align publish-release-gdc-rnaseq
+publish-release: publish-release-gdc-rnaseq publish-release-rnaseq-star-align
 
 publish-release-%:
 	@echo

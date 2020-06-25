@@ -9,7 +9,6 @@ script:
 
 stages:
 - name: build
-- name: test
 - name: publish
   if: branch = master
 - name: publish-staging
@@ -17,21 +16,16 @@ stages:
 jobs:
   include:
   - stage: build
-    name: Build images
+    name: Build
     script:
-    - make build-gdc-rnaseq
-    - make build-rnaseq-star-align
-  - stage: test
-    name: Test gdc-rnaseq and rnaseq-star-align
-    script:
-    - make validate-gdc-rnaseq
-    - make validate-rnaseq-star-align
+    - make build
+    - make validate
   - stage: publish-staging
     name: Publish staging image
-    script: make publish-rnaseq-star-align
+    script: make publish
   - stage: publish
     name: Publish production image
-    script: make publish-release-rnaseq-star-align
+    script: make publish-release
 env:
   global:
   - secure: NGJqR/iT75FDeQkIhD0EYquBeXH6bMa+JZ9eYyvy2BETOsBNbr5VjTQlZvSa3poySP3Rb/6IeMZ0gaY8eH8smh12KGeV7S6hTNNLkiwQnqrEZiRgdHEFQCTyj6spRfftqRjBcPiKQtyzbvVNlXBQEedb/zlymRDxOuOXQfDb1pL9NA+OtKBOlTdw4FeuMDBTHeWBNrLSr0knYJ3I+Uw1JcTreCNINPcAaUduyCGb2baRFsraUeBz1nTy7+1cabV4FNyRNGZRSMLFzJOk+SvjiO7V8hFaDeuhqCkt6oazaqHAKlmWf0d4UWkAbbFhOh5UnGWzhXhGvDTuFHssfRjQtD8nDjzaB4OAFCQyGGHvq3NutwhczGcMOmcd9Iwpx8agixZ4+oyEeFRpuXfDHfT14KAMYI3PfvqAk5RlLFxXclF4k7AZYMrJxJjBVe7pK+grDELyqhGA2xUTRkj8Au9YE48OzaFAEy5xRdbUUaEvCEhwPwALc/hj2RS1ph/Sd0Ilw4f2K6sU2eNBSvdMhShzIfayr1GF0ax04mtBNBXHXc0EIZ3K/+ztIKmjDz0HReFaRr+snT+4HA6+69jx1yKgErfhhfF2l/bxyPEhA2Si/GfTdpF7fbBw3gPNrJqXUgfHzT9bqcvFFVxGF3JyTmYI9ip7asQg6wXkiGdL5+amQxg=

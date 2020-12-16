@@ -4,6 +4,7 @@ id: gdc_rnaseq_stage_data_wf
 requirements:
   - class: SubworkflowFeatureRequirement
   - class: ScatterFeatureRequirement
+  - class: MultipleInputFeatureRequirement
   - class: SchemaDefRequirement
     types:
       - $import: ../../../tools/readgroup.cwl
@@ -18,6 +19,10 @@ inputs:
     type:
       type: array
       items: ../../../tools/readgroup.cwl#readgroup_bam_uuid
+  sample_tarball_uuid_list:
+    type:
+      type: array
+      items: ../../../tools/readgroup.cwl#sample_tarball_uuid
   ribosome_intervals_uuid: string
   ref_flat_uuid: string
   star_index_archive_uuid: string
@@ -39,7 +44,10 @@ outputs:
     type:
       type: array
       items: ../../../tools/readgroup.cwl#readgroup_fastq_file
-    outputSource: extract_fastqs/output
+    outputSource: 
+      - extract_fastqs/output
+      - condition_tarball_output/output
+    linkMerge: merge_flattened
 
   readgroup_bam_file_list:
     type:
@@ -47,7 +55,22 @@ outputs:
       items: ../../../tools/readgroup.cwl#readgroup_bam_file
     outputSource: extract_bams/output
 
+
 steps:
+  extract_ribosome:
+    run: ../../../tools/bioclient_download.cwl
+    in:
+      config-file: bioclient_config
+      download_handle: ribosome_intervals_uuid
+    out: [ output ]
+
+  extract_ref_flat:
+    run: ../../../tools/bioclient_download.cwl
+    in:
+      config-file: bioclient_config
+      download_handle: ref_flat_uuid
+    out: [ output ]
+
   extract_fastqs:
     run: ./extract_readgroup_fastq_workflow.cwl
     scatter: readgroup_fastq_uuid
@@ -62,21 +85,25 @@ steps:
     in:
       readgroup_bam_uuid: readgroup_bam_uuid_list
       bioclient_config: bioclient_config
-    out: [ output ] 
-
-  extract_ribosome:
-    run: ../../../tools/bioclient_download.cwl
-    in:
-      config-file: bioclient_config
-      download_handle: ribosome_intervals_uuid
     out: [ output ]
 
-  extract_ref_flat:
-    run: ../../../tools/bioclient_download.cwl
+  extract_tarballs:
+    run: ./extract_readgroup_tarball_workflow.cwl
+    scatter: sample_tarball_uuid
     in:
-      config-file: bioclient_config
-      download_handle: ref_flat_uuid
+      sample_tarball_uuid: sample_tarball_uuid_list
+      bioclient_config: bioclient_config
     out: [ output ]
+
+  condition_tarball_output:
+    run: ../../../tools/merge_fastq_records_two_dimension.cwl
+    in:
+      input: extract_tarballs/output
+    out: [ output ]
+
+  # merge_fastq_file_outputs
+
+
 
   extract_star_index:
     run: ../../../tools/bioclient_download.cwl

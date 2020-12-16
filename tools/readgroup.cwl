@@ -45,7 +45,7 @@
         type:
           type: array
           items: readgroup_meta
- 
+
   - name: readgroup_fastq_uuid
     type: record
     fields:
@@ -71,3 +71,13 @@
         type:
           type: array
           items: readgroup_meta
+
+  - name: sample_tarball_uuid
+    type: record
+    fields:
+      - name: tarball_uuid
+        type: string
+      - name: tarball_file_size
+        type: long
+      - name: sample_uuid
+        type: string

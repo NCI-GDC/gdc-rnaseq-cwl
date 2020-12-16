@@ -12,3 +12,4 @@ quay.io/ncigdc/gdc-rnaseq-tool:c52fbf53552b9faea617dca86b0ce289cc3dafc8
 quay.io/ncigdc/picard:b4d47c60366e12f8cc3ffb264e510c1165801eae1d6329d94ef9e6c30e972991
 quay.io/ncigdc/samtools:147bd4cc606a63c7435907d97fea6e94e9ea9ed58c18f390cab8bc40b1992df7
 quay.io/ncigdc/star2:feat_2.7.0f
+quay.io/ncigdc/bio-tarball-to-fastqgz:1.0.0

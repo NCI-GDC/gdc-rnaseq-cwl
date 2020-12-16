@@ -23,6 +23,10 @@ inputs:
     type:
       type: array
       items: ../tools/readgroup.cwl#readgroup_bam_uuid
+  sample_tarball_uuid_list:
+    type:
+      type: array
+      items: ../tools/readgroup.cwl#sample_tarball_uuid
   picard_java_mem:
     type: int
     default: 4
@@ -75,6 +79,7 @@ steps:
       bioclient_config: bioclient_config
       readgroup_fastq_uuid_list: readgroup_fastq_uuid_list
       readgroup_bam_uuid_list: readgroup_bam_uuid_list
+      sample_tarball_uuid_list: sample_tarball_uuid_list
       ribosome_intervals_uuid: ribosome_intervals_uuid
       ref_flat_uuid: ref_flat_uuid
       star_index_archive_uuid: star_index_archive_uuid

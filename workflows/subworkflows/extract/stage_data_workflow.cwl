@@ -55,7 +55,6 @@ outputs:
       items: ../../../tools/readgroup.cwl#readgroup_bam_file
     outputSource: extract_bams/output
 
-
 steps:
   extract_ribosome:
     run: ../../../tools/bioclient_download.cwl
@@ -100,10 +99,6 @@ steps:
     in:
       input: extract_tarballs/output
     out: [ output ]
-
-  # merge_fastq_file_outputs
-
-
 
   extract_star_index:
     run: ../../../tools/bioclient_download.cwl

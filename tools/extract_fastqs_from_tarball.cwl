@@ -3,7 +3,6 @@ class: CommandLineTool
 id: extract_fastqs_from_tarball
 requirements:
   - class: DockerRequirement
-    # dockerPull: quay.io/ncigdc/bio-tarball-to-fastqgz:latest
     dockerPull: quay.io/ncigdc/bio-tarball-to-fastqgz:1.0.0
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
@@ -32,12 +31,6 @@ inputs:
       position: 2
 
 outputs:
-  # fastqgz:
-  #   type:
-  #     type: array
-  #     items: File
-  #   outputBinding:
-  #     glob: "*.fastq.gz"
   readgroup_fastq_file_list:
     type: 
       type: array
@@ -63,8 +56,3 @@ outputs:
           console.log(updated)
           return updated
         }
-
-# baseCommand: 
-#  - /mnt/dev/BINF-369_tcga_rnaseq_tarball/venv/bin/python
-#  - /home/ubuntu/dev/BINF-369_tcga_rnaseq_tarball/bio-tarball-to-fastqgz/tarball_to_fastqgz/main.py
-

@@ -5,6 +5,17 @@ multiple harmonized BAM files, gene counts, and other datasets.
 
 The docker images used in this workflow can be found in `current_docker_list.txt`.
 
+## Repository Structure
+
+This repository contains two entrypoint CWL workflows:
+
+1. gdc-rnaseq: This workflow should be used by external users
+2. rnaseq-star-align: This workflow is used within GPAS
+
+The CICD process automatically generates Docker images for every commit. The main entrypoint of each image will return the packed worflow.
+
+Since the main build artifact of this repository is the Docker image, the workflows will not be valid if run outside the Docker.
+
 ## External Users
 
 The entrypoint CWL workflow for external users is

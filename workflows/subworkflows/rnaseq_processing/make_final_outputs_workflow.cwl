@@ -16,6 +16,7 @@ inputs:
       type: array
       items: ../../../tools/star_results.cwl#star_results
   job_uuid: string
+  gencode_version: string
 
 outputs:
   out_metrics_sqlite:
@@ -66,6 +67,20 @@ steps:
       outfile:
         source: job_uuid
         valueFrom: $(self + '.rna_seq.star_gene_counts.tsv.gz')
+    out: [ output ]
+  
+  augment_gene_counts:
+    run: ../../../tools/gdc_rnaseq_tool_augment_star_counts.cwl
+    in:
+      counts:
+        source: merge_gene_counts/output
+      output:
+        source: job_uuid
+        valueFrom: $(self + 'rna_seq.augmented_star_gene_counts.tsv.gz')
+      gencode_version:
+        source: gencode_version
+      gene_info:
+        source: gene_info
     out: [ output ]
 
   merge_junctions:

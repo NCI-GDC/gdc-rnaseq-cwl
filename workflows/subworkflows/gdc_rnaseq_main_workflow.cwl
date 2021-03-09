@@ -29,6 +29,9 @@ inputs:
   picard_java_mem:
     type: int
     default: 4
+  gencode_version:
+    type: int
+    default: 22
 
 outputs:
   out_metrics_db:
@@ -170,6 +173,7 @@ steps:
       metrics_db: run_collect_metrics/metrics_db
       star_results: run_star2pass/star_outputs
       job_uuid: job_uuid
+      gencode_version: gencode_version
     out: [ out_metrics_sqlite, out_gene_counts, out_junctions,
            out_transcriptome_bam, out_chimeric_bam, out_chimeric_tsv,
            out_star_archive ]

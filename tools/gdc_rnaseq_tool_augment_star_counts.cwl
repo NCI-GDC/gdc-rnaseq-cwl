@@ -3,15 +3,25 @@ class: CommandLineTool
 id: augment_star_counts
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/gdc-rnaseq-tool:1.0.0-44.9862ddb
+    dockerPull: quay.io/ncigdc/gdc-rnaseq-tool:1.0.0-46.6fa41cd
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
   - class: ResourceRequirement
     coresMin: 1
     ramMin: 1000
-    tmpdirMin: $(sum_file_array_size([inputs.counts, inputs.gene_info]))
-    outdirMin: $(sum_file_array_size([inputs.counts, inputs.gene_info]))
+    tmpdirMin: ${
+      if (inputs.gene_info){
+        return sum_file_array_size([inputs.counts, inputs.gene_info])
+      } else {
+        return sum_file_array_size([inputs.counts])
+      }}
+    outdirMin: ${
+      if (inputs.gene_info){
+        return sum_file_array_size([inputs.counts, inputs.gene_info])
+      } else {
+        return sum_file_array_size([inputs.counts])
+      }}
 
 inputs:
   counts:
@@ -25,8 +35,7 @@ inputs:
   gencode_version:
     type: int
     inputBinding:
-      prefix: --pragma-line
-      valueFrom: $( "# gencode_version GENCODE v" + self )
+      prefix: --gencode-version
   output:
     type: string
     inputBinding:
@@ -38,4 +47,4 @@ outputs:
     outputBinding:
       glob: $(inputs.output)
 
-baseCommand: [augment_star_counts]
+baseCommand: [ augment_star_counts ]

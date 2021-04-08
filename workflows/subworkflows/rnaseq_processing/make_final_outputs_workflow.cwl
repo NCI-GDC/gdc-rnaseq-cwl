@@ -16,7 +16,8 @@ inputs:
       type: array
       items: ../../../tools/star_results.cwl#star_results
   job_uuid: string
-  gencode_version: string
+  gencode_version: int
+  gene_info: File
 
 outputs:
   out_metrics_sqlite:
@@ -24,7 +25,7 @@ outputs:
     outputSource: rename_sqlite/out_file
   out_gene_counts:
     type: File
-    outputSource: merge_gene_counts/output
+    outputSource: augment_gene_counts/output
   out_junctions:
     type: File
     outputSource: merge_junctions/output

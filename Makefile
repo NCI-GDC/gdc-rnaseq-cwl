@@ -1,6 +1,6 @@
 REPO = gdc-rnaseq-cwl
 
-.PHONY: build build-* init init-*
+.PHONY: build build-* init init-* requirements
 init: init-hooks init-secrets
 
 init-hooks:
@@ -8,10 +8,17 @@ init-hooks:
 	@echo -- Installing Precommit Hooks --
 	pre-commit install
 
+init-pip:
+	pip3 install -r requirements.txt
+
 init-secrets:
 	@echo
 	detect-secrets scan --update .secrets.baseline
 	detect-secrets audit .secrets.baseline
+
+requirements:
+	@pip3 install pip-tools
+	pip-compile -o requirements.txt requirements.in
 
 .PHONY: build
 build:

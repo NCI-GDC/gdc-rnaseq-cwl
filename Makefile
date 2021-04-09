@@ -1,5 +1,4 @@
-# TODO: Update me with Github repo name
-REPO = bio-cwl-template
+REPO = gdc-rnaseq-cwl
 
 .PHONY: build build-* init init-*
 init: init-hooks init-secrets

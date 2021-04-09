@@ -1,7 +1,7 @@
 # Makefile to manage an individual CWL Docker image
 VERSION := $(shell date -u +"%Y%m%dT%H%MZ")
 
-REPO = star2pass_rnaseq
+REPO = rnaseq-star-align
 
 COMMIT_HASH:=$(shell git rev-parse HEAD)
 

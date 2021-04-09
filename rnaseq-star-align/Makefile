@@ -19,6 +19,7 @@ version:
 	@echo --- VERSION: ${VERSION} ---
 
 version-docker:
+	@echo
 	@echo ${DOCKER_IMAGE_COMMIT}
 	@echo ${DOCKER_IMAGE}
 
@@ -51,7 +52,7 @@ validate-docker:
 	@docker run --rm ${DOCKER_IMAGE_COMMIT} validate ENTRY_CWL=/opt/${ENTRY_CWL}
 
 .PHONY: build build-*
-build: build-docker
+build: build-docker version-docker
 
 build-docker: docker-login
 	@echo

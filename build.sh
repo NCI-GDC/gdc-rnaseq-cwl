@@ -3,7 +3,7 @@
 set -eo pipefail
 
 function build {
-	make -C "$1" build-docker WORKFLOW_NAME="$1"
+	make -C "$1" build WORKFLOW_NAME="$1"
 }
 
 function publish-staging {

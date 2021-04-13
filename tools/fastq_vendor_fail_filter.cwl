@@ -3,7 +3,7 @@ class: CommandLineTool
 id: fastq_vendor_fail_filter
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/gdc-rnaseq-tool:c52fbf53552b9faea617dca86b0ce289cc3dafc8
+    dockerPull: quay.io/ncigdc/fqvendorfail:1.0.0
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
@@ -49,4 +49,4 @@ outputs:
     outputBinding:
       glob: $(inputs.output_prefix + '_R2.fq.gz')
  
-baseCommand: [/opt/fqvendorfail/fqvendorfail]
+baseCommand: []

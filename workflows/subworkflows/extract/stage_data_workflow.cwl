@@ -57,7 +57,7 @@ outputs:
     outputSource: extract_bams/output
   
   gene_info:
-    type: File?
+    type: File
     outputSource: extract_gene_info/output 
 
 steps:

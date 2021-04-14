@@ -36,7 +36,7 @@ inputs:
     type: int
     inputBinding:
       prefix: --gencode-version
-  output:
+  output_prefix:
     type: string
     inputBinding:
       prefix: --output
@@ -45,6 +45,6 @@ outputs:
   output: 
     type: File
     outputBinding:
-      glob: $(inputs.output)
+      glob: $(inputs.output_prefix)
 
 baseCommand: [ augment_star_counts ]

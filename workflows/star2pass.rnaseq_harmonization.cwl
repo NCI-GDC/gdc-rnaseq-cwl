@@ -95,6 +95,7 @@ steps:
       ref_flat: stage_data/ref_flat
       ribosome_intervals: stage_data/ribosome_intervals
       job_uuid: job_uuid
+      picard_java_mem: picard_java_mem
     out: [ out_metrics_db, out_gene_counts_file, out_junctions_file,
            out_transcriptome_bam_file, out_chimeric_bam_file, out_chimeric_tsv_file,
            out_genome_bam, out_archive_file ]

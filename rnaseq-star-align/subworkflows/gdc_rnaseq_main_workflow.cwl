@@ -29,13 +29,13 @@ inputs:
   picard_java_mem:
     type: int
     default: 4
-  gencode_version: int
+  gencode_version: string
   gene_info: File
 
 outputs:
   out_metrics_db:
     type: File
-    outputSource: run_extract_outputs/out_metrics_sqlite 
+    outputSource: run_extract_outputs/out_metrics_sqlite
   out_gene_counts_file:
     type: File
     outputSource: run_extract_outputs/out_gene_counts

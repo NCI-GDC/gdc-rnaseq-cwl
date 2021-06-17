@@ -3,7 +3,7 @@ class: CommandLineTool
 id: augment_star_counts
 requirements:
   - class: DockerRequirement
-    dockerPull:  quay.io/ncigdc/gdc-rnaseq-tool:1.0.0-49.1813f60
+    dockerPull:  quay.io/ncigdc/gdc-rnaseq-tool:1.0.0-49.b7277f1
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
@@ -33,7 +33,7 @@ inputs:
     inputBinding:
       prefix: --gene-info
   gencode_version:
-    type: int
+    type: string
     inputBinding:
       prefix: --gencode-version
   output_prefix:
@@ -42,7 +42,7 @@ inputs:
       prefix: --output
 
 outputs:
-  output: 
+  output:
     type: File
     outputBinding:
       glob: $(inputs.output_prefix)

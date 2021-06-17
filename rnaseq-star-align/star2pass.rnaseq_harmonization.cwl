@@ -31,21 +31,21 @@ inputs:
   picard_java_mem:
     type: int
     default: 4
-  gencode_version: int
+  gencode_version: string
   gene_info_uuid: string
 
 outputs:
   harmonization_metrics_uuid:
     type: string
-    outputSource: load_outputs/metrics_db_uuid 
+    outputSource: load_outputs/metrics_db_uuid
 
   star_genomic_bam_uuid:
     type: string
-    outputSource: load_outputs/genomic_bam_uuid 
+    outputSource: load_outputs/genomic_bam_uuid
 
   star_genomic_bai_uuid:
     type: string
-    outputSource: load_outputs/genomic_bai_uuid 
+    outputSource: load_outputs/genomic_bai_uuid
 
   star_transcriptome_bam_uuid:
     type: string?
@@ -89,7 +89,7 @@ steps:
       gene_info_uuid: gene_info_uuid
     out: [ ribosome_intervals, ref_flat, star_genome_dir,
            readgroup_fastq_file_list, readgroup_bam_file_list, gene_info ]
-    
+
   run_rnaseq_workflow:
     run: ./subworkflows/gdc_rnaseq_main_workflow.cwl
     in:

@@ -27,6 +27,7 @@ inputs:
     type:
       type: array
       items: ../tools/readgroup.cwl#sample_tarball_uuid
+    default: []
   picard_java_mem:
     type: int
     default: 4
@@ -100,6 +101,8 @@ steps:
       job_uuid: job_uuid
       gencode_version: gencode_version
       gene_info: stage_data/gene_info
+      picard_java_mem: picard_java_mem
+      threads: threads
     out: [ out_metrics_db, out_gene_counts_file, out_junctions_file,
            out_transcriptome_bam_file, out_chimeric_bam_file, out_chimeric_tsv_file,
            out_genome_bam, out_archive_file ]

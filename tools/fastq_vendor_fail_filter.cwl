@@ -8,8 +8,8 @@ requirements:
     expressionLib:
       $import: ./util_lib.cwl
   - class: ResourceRequirement
-    coresMin: 1 
-    ramMin: 4500 
+    coresMin: 1
+    ramMin: 4500
     tmpdirMin: |
       ${
          var f2 = inputs.input_r2 ? file_size_multiplier(inputs.input_r2) : 0;
@@ -21,9 +21,11 @@ requirements:
          return file_size_multiplier(inputs.input_r1) + f2;
        }
   - class: InitialWorkDirRequirement
-    listing:
-    - entry: $(inputs.input_r1)
-    - entry: $(inputs.input_r2)
+    listing: |
+      ${
+        if (inputs.input_r2){ return [inputs.input_r1, inputs.input_r2] }
+        else { return [inputs.input_r1] }
+      }
 
 inputs:
   input_r1:
@@ -41,7 +43,7 @@ inputs:
     inputBinding:
       position: 0
       prefix: -o
-  
+
 outputs:
   output_r1:
     type: File
@@ -52,5 +54,5 @@ outputs:
     type: File?
     outputBinding:
       glob: $(inputs.output_prefix + '_R2.fq.gz')
- 
+
 baseCommand: []

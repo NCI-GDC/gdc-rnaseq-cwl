@@ -3,7 +3,7 @@ class: CommandLineTool
 id: extract_fastqs_from_tarball
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/bio-tarball-to-fastqgz:0.1.0-6-gb75a128
+    dockerPull: quay.io/ncigdc/bio-tarball-to-fastqgz:b75a128ffeeebac8e7f44014f22634bc03e143b2
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1
@@ -48,7 +48,9 @@ outputs:
           var re = /^\//i
           var expand_path = function(item){
             item.forward_fastq.location = location + item.forward_fastq.location.replace(re, '')
-            item.reverse_fastq.location = location + item.reverse_fastq.location.replace(re, '')
+            if ('reverse_fastq' in item) {
+              item.reverse_fastq.location = location + item.reverse_fastq.location.replace(re, '')
+            }
             return item
           }
           var updated = res.map(expand_path)

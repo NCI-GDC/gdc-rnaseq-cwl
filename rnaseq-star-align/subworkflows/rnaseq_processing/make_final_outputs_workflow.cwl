@@ -77,7 +77,7 @@ steps:
         source: merge_gene_counts/output
       output_prefix:
         source: job_uuid
-        valueFrom: $(self + 'rna_seq.augmented_star_gene_counts.tsv.gz')
+        valueFrom: $(self + '.rna_seq.augmented_star_gene_counts.tsv')
       gencode_version:
         source: gencode_version
       gene_info:

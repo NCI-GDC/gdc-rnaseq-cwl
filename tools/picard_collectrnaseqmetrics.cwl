@@ -3,13 +3,13 @@ class: CommandLineTool
 id: picard_collectrnaseqmetrics
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/picard:b4d47c60366e12f8cc3ffb264e510c1165801eae1d6329d94ef9e6c30e972991
+    dockerPull: quay.io/ncigdc/picard:2.26.9
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
   - class: ResourceRequirement
     coresMin: 1
-    ramMin: $(inputs.java_mem * 1000) 
+    ramMin: $(inputs.java_mem * 1000)
     tmpdirMin: $(sum_file_array_size([inputs.INPUT, inputs.REF_FLAT]))
     outdirMin: $(sum_file_array_size([inputs.INPUT, inputs.REF_FLAT]))
 
@@ -35,7 +35,7 @@ inputs:
       position: 4
 
   RIBOSOMAL_INTERVALS:
-    type: File? 
+    type: File?
     inputBinding:
       prefix: RIBOSOMAL_INTERVALS=
       separate: false
@@ -71,7 +71,7 @@ inputs:
       items: string
       inputBinding:
         prefix: METRIC_ACCUMULATION_LEVEL=
-        separate: false 
+        separate: false
     default: ["ALL_READS"]
     inputBinding:
       position: 4

@@ -54,5 +54,4 @@ outputs:
     type: File?
     outputBinding:
       glob: $(inputs.output_prefix + '_R2.fq.gz')
-
 baseCommand: []

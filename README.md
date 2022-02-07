@@ -1,16 +1,18 @@
+![Version badge](https://img.shields.io/badge/star-2.7.5c-green.svg)
+![Version badge](https://img.shields.io/badge/picard-2.26.10-green.svg)
+
 # GDC RNA-Seq Alignment Workflow
 
-This workflow takes a set of input RNA-Seq FASTQ/BAM files and generates
-multiple harmonized BAM files, gene counts, and other datasets.
-
-The docker images used in this workflow can be found in `current_docker_list.txt`.
+This workflow takes a set of input RNA-Seq short read data as  FASTQ or BAM
+files and generates multiple harmonized BAM files, gene counts, and other
+datasets.
 
 ## External Users
 
 The entrypoint CWL workflow for external users is
-`workflows/subworkflows/gdc_rnaseq_main_workflow.cwl`.
+`rnaseq-star-align/subworkflows/gdc_rnaseq_main_workflow.cwl`.
 
-The example input json in `example/main_workflow.example.input.json`.
+The example input json in `rnaseq-star-align/example/main_workflow.example.input.json`.
 
 ### Inputs
 
@@ -21,9 +23,11 @@ The example input json in `example/main_workflow.example.input.json`.
 | `ref_flat` | `File` | ref flat annotation file |
 | `ribosome_intervals` | `File` | interval file containing rRNA locations |
 | `star_genome_dir` | `Directory` | the directory containing the STAR index files |
+| `gene_info` | `File` | tab-separated file relating gene symbol, biotype, and other info to gene ID |
 | `threads` | `int?` | the number of threads to use for multi-threaded tools |
 | `job_uuid` | `string` | string used as a prefix for all the output filenames |
 | `picard_java_mem` | `int` | amount of memory (Gb) to use for picard (default: 4) |
+| `gencode_version` | `string` | string indicating gencode annotation version (default: `v36`) |
 
 **Custom Data Types**
 
@@ -75,4 +79,4 @@ The example input json in `example/main_workflow.example.input.json`.
 ## GDC Users
 
 The entrypoint CWL workflow for GDC users is
-`workflows/star2pass.rnaseq_harmonization.cwl`.
+`rnaseq-star-align/star2pass.rnaseq_harmonization.cwl`. Additionally as a special case can handle a limited set of tar files.

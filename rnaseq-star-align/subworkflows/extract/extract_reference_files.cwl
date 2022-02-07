@@ -23,21 +23,21 @@ outputs:
 
 steps:
   extract_ribosome:
-    run: ../../../tools/bio_client_download.cwl
+    run: ../../../tools/bioclient_download.cwl
     in:
       config-file: bioclient_config
       download_handle: ribosome_intervals_uuid
     out: [ output ]
 
   extract_ref_flat:
-    run: ../../../tools/bio_client_download.cwl
+    run: ../../../tools/bioclient_download.cwl
     in:
       config-file: bioclient_config
       download_handle: ref_flat_uuid
     out: [ output ]
 
   extract_star_index:
-    run: ../../../tools/bio_client_download.cwl
+    run: ../../../tools/bioclient_download.cwl
     in:
       config-file: bioclient_config
       download_handle: star_index_archive_uuid

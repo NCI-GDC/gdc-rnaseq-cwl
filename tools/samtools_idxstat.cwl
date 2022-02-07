@@ -3,7 +3,7 @@ class: CommandLineTool
 id: samtools_idxstat
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/samtools:147bd4cc606a63c7435907d97fea6e94e9ea9ed58c18f390cab8bc40b1992df7 
+    dockerPull: quay.io/ncigdc/samtools:147bd4cc606a63c7435907d97fea6e94e9ea9ed58c18f390cab8bc40b1992df7
   - class: InitialWorkDirRequirement
     listing:
       - $(inputs.bam)
@@ -12,7 +12,7 @@ requirements:
     expressionLib:
       $import: ./util_lib.cwl
   - class: ResourceRequirement
-    coresMin: 1 
+    coresMin: 1
     ramMin: 1000
     tmpdirMin: $(file_size_multiplier(inputs.bam))
     outdirMin: $(file_size_multiplier(inputs.bam))

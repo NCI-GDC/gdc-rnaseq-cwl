@@ -26,6 +26,7 @@ inputs:
   ribosome_intervals_uuid: string
   ref_flat_uuid: string
   star_index_archive_uuid: string
+  gene_info_uuid: string
 
 outputs:
   ribosome_intervals:
@@ -54,6 +55,10 @@ outputs:
       type: array
       items: ../../../tools/readgroup.cwl#readgroup_bam_file
     outputSource: extract_bams/output
+  
+  gene_info:
+    type: File
+    outputSource: extract_gene_info/output 
 
 steps:
   extract_ribosome:
@@ -112,3 +117,10 @@ steps:
     in:
       input_tar: extract_star_index/output
     out: [ out_directory ]
+  
+  extract_gene_info:
+    run: ../../../tools/bioclient_download.cwl
+    in:
+      config-file: bioclient_config
+      download_handle: gene_info_uuid
+    out: [ output ]

@@ -3,12 +3,12 @@ class: CommandLineTool
 id: fastqc
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/fastqc:a285d4ab748fa11e6029ad1019ea645ed2b1657e5d49c850a322fdf4b402c1b9 
+    dockerPull: quay.io/ncigdc/fastqc:a285d4ab748fa11e6029ad1019ea645ed2b1657e5d49c850a322fdf4b402c1b9
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
   - class: ResourceRequirement
-    coresMin: "$(inputs.threads ? inputs.threads : 1)" 
+    coresMin: "$(inputs.threads ? inputs.threads : 1)"
     ramMin: 1000
     tmpdirMin: $(sum_file_array_size(inputs.INPUT))
     outdirMin: $(sum_file_array_size(inputs.INPUT))
@@ -25,7 +25,7 @@ inputs:
       prefix: --casava
 
   contaminants:
-    type: File? 
+    type: File?
     inputBinding:
       prefix: --contaminants
 
@@ -102,6 +102,6 @@ outputs:
   OUTPUT:
     type: File[]
     outputBinding:
-      glob: $('*_fastqc.zip') 
+      glob: $('*_fastqc.zip')
 
 baseCommand: [/usr/local/FastQC/fastqc]

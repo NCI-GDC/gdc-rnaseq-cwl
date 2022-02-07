@@ -28,11 +28,15 @@ outputs:
     outputBinding:
       glob: |
         ${
-           var idx = inputs.input_tar.basename.lastIndexOf('.tar.gz')
-           if(idx == -1) {
-             throw("Unexpected name extension! Must be .tar.gz")
-           }
-           return inputs.input_tar.basename.slice(0, idx)
-         } 
+          var idxarr = ['.tar.gz', '.tgz'].filter(
+            function(end){
+              return inputs.input_tar.basename.lastIndexOf(end) != -1
+              })
+          if(idxarr.length != 1) {
+            throw("Unexpected name extension! Must be one of .tar.gz or .tgz")
+          }
+          var idx = inputs.input_tar.basename.lastIndexOf(idxarr[0])
+          return inputs.input_tar.basename.slice(0, idx)
+        } 
 
 baseCommand: [/bin/tar, -xz]

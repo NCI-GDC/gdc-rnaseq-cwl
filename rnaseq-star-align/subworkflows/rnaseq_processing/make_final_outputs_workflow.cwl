@@ -16,6 +16,8 @@ inputs:
       type: array
       items: ../../../tools/star_results.cwl#star_results
   job_uuid: string
+  gencode_version: string
+  gene_info: File
 
 outputs:
   out_metrics_sqlite:
@@ -23,7 +25,7 @@ outputs:
     outputSource: rename_sqlite/out_file
   out_gene_counts:
     type: File
-    outputSource: merge_gene_counts/output
+    outputSource: augment_gene_counts/output
   out_junctions:
     type: File
     outputSource: merge_junctions/output
@@ -38,7 +40,7 @@ outputs:
     outputSource: extract_other_star_outputs/output_chimeric_junctions
   out_star_archive:
     type: File
-    outputSource: make_archive/output_archive 
+    outputSource: make_archive/output_archive
 
 steps:
   rename_sqlite:
@@ -66,6 +68,20 @@ steps:
       outfile:
         source: job_uuid
         valueFrom: $(self + '.rna_seq.star_gene_counts.tsv.gz')
+    out: [ output ]
+
+  augment_gene_counts:
+    run: ../../../tools/gdc_rnaseq_tool_augment_star_counts.cwl
+    in:
+      counts:
+        source: merge_gene_counts/output
+      output_prefix:
+        source: job_uuid
+        valueFrom: $(self + '.rna_seq.augmented_star_gene_counts.tsv')
+      gencode_version:
+        source: gencode_version
+      gene_info:
+        source: gene_info
     out: [ output ]
 
   merge_junctions:

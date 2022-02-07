@@ -12,7 +12,7 @@ datasets.
 The entrypoint CWL workflow for external users is
 `rnaseq-star-align/subworkflows/gdc_rnaseq_main_workflow.cwl`.
 
-The example input json in `example/main_workflow.example.input.json`.
+The example input json in `rnaseq-star-align/example/main_workflow.example.input.json`.
 
 ### Inputs
 

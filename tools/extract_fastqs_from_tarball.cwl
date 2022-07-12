@@ -3,7 +3,7 @@ class: CommandLineTool
 id: extract_fastqs_from_tarball
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/bio-tarball-to-fastqgz:0.1.0-8-gc710d20
+    dockerPull: quay.io/ncigdc/bio-tarball-to-fastqgz:0.2.0
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1
@@ -40,8 +40,6 @@ outputs:
       loadContents: true
       outputEval: |
         ${
-          console.log("matched json object")
-          console.log(self[0])
           var res = JSON.parse(self[0].contents)
           var location = self[0].location.replace(self[0].basename, '')
           location = location.replace('file://', '')
@@ -54,7 +52,5 @@ outputs:
             return item
           }
           var updated = res.map(expand_path)
-          console.log("UPDATED:")
-          console.log(updated)
           return updated
         }

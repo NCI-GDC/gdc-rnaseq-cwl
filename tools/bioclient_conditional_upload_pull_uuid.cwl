@@ -21,8 +21,18 @@ requirements:
     ramMax: 1000
     tmpdirMin: 1
     outdirMin: 1
+  - class: EnvVarRequirement
+    envDef:
+    - envName: "REQUESTS_CA_BUNDLE"
+      envValue: $(inputs.cert.path)
 
 inputs:
+  cert:
+      type: File
+      default:
+        class: File
+        location: /etc/ssl/certs/ca-certificates.crt
+
   config-file:
     type: File?
 

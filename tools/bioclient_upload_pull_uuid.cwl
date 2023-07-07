@@ -1,10 +1,10 @@
 cwlVersion: v1.0
 class: CommandLineTool
-id: bioclient_upload_pull_uuid
+id: bio_client_upload_pull_uuid
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/bio-client:latest
-  - class: InlineJavascriptRequirement
+    dockerPull: "{{ docker_repo }}/bio-client:{{ bio_client }}"
+    
   - class: ResourceRequirement
     coresMin: 1
     coresMax: 1
@@ -14,8 +14,18 @@ requirements:
     tmpdirMax: 1
     outdirMin: 1
     outdirMax: 1
+  - class: EnvVarRequirement
+    envDef:
+    - envName: "REQUESTS_CA_BUNDLE"
+      envValue: $(inputs.cert.path)
 
 inputs:
+  cert:
+      type: File
+      default:
+        class: File
+        location: /etc/ssl/certs/ca-certificates.crt
+
   config-file:
     type: File
     inputBinding:
@@ -49,8 +59,8 @@ outputs:
   output:
     type: File
     outputBinding:
-      glob: "*_upload.json"      
-
+      glob: "*_upload.json"
+  
   uuid:
     type: string 
     outputBinding:
@@ -61,4 +71,5 @@ outputs:
            var data = JSON.parse(self[0].contents);
            return(data["did"]);
          }
+
 baseCommand: [/usr/local/bin/bio_client.py]

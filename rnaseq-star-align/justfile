@@ -3,7 +3,8 @@ ENTRY_CWL := "star2pass.rnaseq_harmonization.cwl"
 # Pack and apply Jinja templating. Creates cwl.json file
 # Should be runnable in built docker container
 pack:
-    #!/bin/sh
+    #!/usr/bin/env  bash
+    set -euxo pipefail
     if [ ! -f cwl.json ]; then
         just _validate_entry
         just _cwltool-pack > tmp.json
@@ -14,7 +15,7 @@ pack:
 
 # Ensures CWL entrypoint script exists
 _validate_entry:
-    #!/bin/sh
+    #!/usr/bin/env  bash
     if [ ! -f {{ENTRY_CWL}} ]; then
         echo "No entry CWL file found!"
         echo {{ENTRY_CWL}}

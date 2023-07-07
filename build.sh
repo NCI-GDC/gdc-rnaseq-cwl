@@ -1,5 +1,5 @@
 #!/bin/bash -x
-set -o pipefail
+set -eo pipefail
 
 while getopts b:n:t: option; do
 	case "${option}" in

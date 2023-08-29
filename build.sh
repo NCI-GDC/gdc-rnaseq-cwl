@@ -1,5 +1,5 @@
 #!/bin/bash -x
-set -eo pipefail
+set -o pipefail
 
 while getopts b:n:t: option; do
 	case "${option}" in
@@ -17,7 +17,6 @@ export BUILDKIT_STEP_LOG_MAX_SPEED=1048576
 BASE_CONTAINER_REGISTRY=${BASE_CONTAINER_REGISTRY:-docker.osdc.io}
 PROXY=${PROXY:-}
 BRANCH="${BRANCH-}"
-GIT_DESCRIBE=$(git describe --tags --always)
 GIT_SHORT_HASH=$(git rev-parse --short HEAD)
 BUILD_ROOT_DIR=$(pwd)
 
@@ -26,7 +25,7 @@ LOWERCASE_BRANCH_NAME="$(tr "[:upper:]" "[:lower:]" <<<"$CLEAN_BRANCH_NAME")"
 CURRENT_VERSION="${LOWERCASE_BRANCH_NAME}-${BUILDNUMBER}"
 
 # As what versions (i.e., "...:version") to tag the build images.
-TAG_VERSIONS=("${CURRENT_VERSION}" "${GIT_DESCRIBE}" "${GIT_SHORT_HASH}")
+TAG_VERSIONS=("${CURRENT_VERSION}" "${GIT_SHORT_HASH}")
 
 # Initialize Registry array
 REGISTRIES=()

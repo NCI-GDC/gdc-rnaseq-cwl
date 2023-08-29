@@ -107,3 +107,6 @@ ENV/
 
 # VSCode
 .vscode/
+
+# Ignore cwl.json file
+cwl.json

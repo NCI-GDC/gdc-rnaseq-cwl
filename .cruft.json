@@ -1,11 +1,11 @@
 {
     "template": "git@github.com:NCI-GDC/bio-cwl-template.git",
-    "commit": "4c4dc8f96cf93774e2ec33852876004f7d0058ef",
+    "commit": "89c6da5892ba45e8eb5779073b524567d70c11bc",
     "context": {
       "cookiecutter": {
         "repository_name": "gdc-rnaseq-cwl",
         "workflow_name": "rnaseq-star-align",
-        "commit": "4c4dc8f96cf93774e2ec33852876004f7d0058ef",
+        "commit": "89c6da5892ba45e8eb5779073b524567d70c11bc",
         "_template": "git@github.com:NCI-GDC/bio-cwl-template.git"
       }
     },

@@ -6,6 +6,7 @@ requirements:
   - class: SchemaDefRequirement
     types:
       - $import: ../tools/readgroup.cwl
+      - $import: ../tools/star_results.cwl
 
 inputs:
   bioclient_config: File

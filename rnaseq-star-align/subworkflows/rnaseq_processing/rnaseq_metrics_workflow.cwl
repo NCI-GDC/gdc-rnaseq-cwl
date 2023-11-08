@@ -166,7 +166,7 @@ steps:
       RIBOSOMAL_INTERVALS: ribosome_intervals
       METRIC_ACCUMULATION_LEVEL: 
         default: ["ALL_READS", "READ_GROUP"]
-    out: [ OUTPUT, CHART_OUTPUT ]
+    out: [ OUTPUT ]
 
   picard_db:
     run: ../../../tools/gdc_qc_tool.picard.cwl

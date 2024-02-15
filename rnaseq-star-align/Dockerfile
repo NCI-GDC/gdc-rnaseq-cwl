@@ -8,7 +8,7 @@ COPY ./tools /tools
 
 WORKDIR /opt
 
-RUN apk add bash && just validate && just pack 
+RUN just validate pack
 
 FROM ${REGISTRY}/ncigdc/bio-alpine:just
 

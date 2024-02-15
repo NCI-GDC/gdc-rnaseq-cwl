@@ -106,11 +106,6 @@ outputs:
     outputBinding:
       glob: $(inputs.INPUT.nameroot).metrics
 
-  CHART_OUTPUT:
-    type: File
-    outputBinding:
-      glob: $(inputs.INPUT.nameroot).pdf
-
 baseCommand: [java]
 
 arguments:
@@ -126,10 +121,5 @@ arguments:
 
   - valueFrom: $(inputs.INPUT.nameroot).metrics
     prefix: OUTPUT=
-    separate: false
-    position: 5
-
-  - valueFrom: $(inputs.INPUT.nameroot).pdf
-    prefix: CHART_OUTPUT=
     separate: false
     position: 5

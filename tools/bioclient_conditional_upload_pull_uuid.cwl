@@ -4,7 +4,7 @@ id: bioclient_conditional_upload_pull_uuid
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/bio-client:latest
+    dockerPull: docker.osdc.io/ncigdc/bio-client:latest
   - class: InitialWorkDirRequirement
     listing: |
       ${
@@ -28,10 +28,10 @@ requirements:
 
 inputs:
   cert:
-      type: File
-      default:
-        class: File
-        location: /etc/ssl/certs/ca-certificates.crt
+    type: File
+    default:
+      class: File
+      location: /etc/ssl/certs/ca-certificates.crt
 
   config-file:
     type: File?

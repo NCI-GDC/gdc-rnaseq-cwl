@@ -8,8 +8,8 @@ requirements:
   - class: ResourceRequirement
     coresMin: 16
     coresMax: 16
-    ramMin: 9250000
-    ramMax: 9250000
+    ramMin: 50000
+    ramMax: 50000
     tmpdirMin: $(parseInt(inputs.INPUT.size / 1024 / 1024))
     tmpdirMax: $(parseInt(inputs.INPUT.size / 1024 / 1024 * 2))
     outdirMin: $(parseInt(inputs.INPUT.size / 1024 / 1024))

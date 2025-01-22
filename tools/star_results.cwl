@@ -1,4 +1,4 @@
-cwlVersion: v1.2
+cwlVersion: v1.0
 $graph:
   - name: star_results
     type: record

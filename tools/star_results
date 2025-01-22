@@ -1,21 +1,21 @@
-name: star_results
-type: record
-fields:
-  - name: star_stats
-    type: File
-  - name: star_junctions
-    type: File
-  - name: star_chimeric_junctions
-    type: File
-  - name: star_gene_counts
-    type: File
-  - name: star_genome_bam
-    type: File
-  - name: star_chimeric_bam
-    type: File
-  - name: star_transcriptome_bam
-    type: File
-  - name: archived_other_directories
-    type: File[]
-  - name: is_paired
-    type: boolean
+  - name: star_results
+    type: record
+    fields:
+      - name: star_stats
+        type: File
+      - name: star_junctions
+        type: File
+      - name: star_chimeric_junctions
+        type: File
+      - name: star_gene_counts
+        type: File
+      - name: star_genome_bam
+        type: File
+      - name: star_chimeric_bam
+        type: File
+      - name: star_transcriptome_bam
+        type: File
+      - name: archived_other_directories
+        type: File[]
+      - name: is_paired
+        type: boolean

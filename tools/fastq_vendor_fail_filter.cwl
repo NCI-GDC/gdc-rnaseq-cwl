@@ -3,7 +3,7 @@ class: CommandLineTool
 id: fastq_vendor_fail_filter
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/gdc-vendorfail:1.1.0
+    dockerPull: docker.osdc.io/ncigdc/gdc-vendorfail:1.1.0
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

@@ -3,7 +3,7 @@ class: CommandLineTool
 id: bedops_gtf2bed
 requirements:
   - class: DockerRequirement
-    dockerPull: docker.osdc.io/ncigdc/bedops:latest
+    dockerPull: {{ docker_repository }}/bedops:latest
   - class: InlineJavascriptRequirement
 
 inputs:

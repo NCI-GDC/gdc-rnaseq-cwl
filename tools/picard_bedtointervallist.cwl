@@ -3,7 +3,7 @@ class: CommandLineTool
 id: picard_bedtointervallist
 requirements:
   - class: DockerRequirement
-    dockerPull: docker.osdc.io/ncigdc/picard:2.26.10
+    dockerPull: {{ docker_repository }}/picard:2.26.10
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

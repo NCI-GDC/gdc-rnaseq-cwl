@@ -4,7 +4,7 @@ id: bioclient_conditional_upload_pull_uuid
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
-    dockerPull: docker.osdc.io/ncigdc/bio-client:latest
+    dockerPull: {{ docker_repository }}/bio-client:latest
   - class: InitialWorkDirRequirement
     listing: |
       ${

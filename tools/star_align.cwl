@@ -4,7 +4,7 @@ id: star_align
 requirements:
   - class: ShellCommandRequirement
   - class: DockerRequirement
-    dockerPull: docker.osdc.io/ncigdc/star2:2.7.5c
+    dockerPull: {{ docker_repository }}/star2:2.7.5c
   - class: SchemaDefRequirement
     types:
       - $import: readgroup.cwl

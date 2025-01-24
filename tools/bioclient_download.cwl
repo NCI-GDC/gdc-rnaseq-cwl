@@ -3,7 +3,7 @@ class: CommandLineTool
 id: bio_client_download
 requirements:
   - class: DockerRequirement
-    dockerPull: docker.osdc.io/ncigdc/bio-client:latest
+    dockerPull: {{ docker_repository }}/bio-client:latest
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1

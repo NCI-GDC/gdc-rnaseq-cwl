@@ -3,7 +3,7 @@ class: CommandLineTool
 id: star_generate_genome
 requirements:
   - class: DockerRequirement
-    dockerPull: docker.osdc.io/ncigdc/star2:feat_2.7.0f
+    dockerPull: {{ docker_repository }}/star2:feat_2.7.0f
   - class: InlineJavascriptRequirement
 
 inputs:

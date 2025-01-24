@@ -3,7 +3,7 @@ class: CommandLineTool
 id: gdc_qc_tool_readgroups
 requirements:
   - class: DockerRequirement
-    dockerPull: docker.osdc.io/ncigdc/bio-qcmetrics-tool:1445a87a4ca0607898d82b25fb11254f05215584
+    dockerPull: {{ docker_repository }}/bio-qcmetrics-tool:1445a87a4ca0607898d82b25fb11254f05215584
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

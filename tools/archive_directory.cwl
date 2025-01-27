@@ -3,7 +3,7 @@ class: CommandLineTool
 id: archive_directory
 requirements:
   - class: DockerRequirement
-    dockerPull: alpine 
+    dockerPull: alpine:{{ alpine }} 
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1

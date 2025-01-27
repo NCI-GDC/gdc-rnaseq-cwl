@@ -3,7 +3,7 @@ class: CommandLineTool
 id: gzip
 requirements:
   - class: DockerRequirement
-    dockerPull: alpine:latest
+    dockerPull: alpine:{{ alpine }}
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

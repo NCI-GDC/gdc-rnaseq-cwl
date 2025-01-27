@@ -3,7 +3,7 @@ class: CommandLineTool
 id: samtools_merge
 requirements:
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/samtools:{{ samtools }}
+    dockerPull: "{{ docker_repository }}/samtools:{{ samtools }}"
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

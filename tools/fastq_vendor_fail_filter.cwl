@@ -3,7 +3,7 @@ class: CommandLineTool
 id: fastq_vendor_fail_filter
 requirements:
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/gdc-vendorfail:{{ gdc-vendorfail }}
+    dockerPull: "{{ docker_repository }}/gdc-vendorfail:{{ gdc-vendorfail }}"
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

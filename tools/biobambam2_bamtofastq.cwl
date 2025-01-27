@@ -3,7 +3,7 @@ class: CommandLineTool
 id: biobambam2_bamtofastq
 requirements:
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/biobambam:{{ biobambam }}
+    dockerPull: "{{ docker_repository }}/biobambam:{{ biobambam }}"
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

@@ -6,7 +6,7 @@ requirements:
     expressionLib:
       $import: ./util_lib.cwl
   - class: DockerRequirement
-    dockerPull: alpine:{{ alpine }}
+    dockerPull: "alpine:{{ alpine }}"
   - class: ResourceRequirement
     coresMin: 1
     ramMin: 1000

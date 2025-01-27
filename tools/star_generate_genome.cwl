@@ -3,7 +3,7 @@ class: CommandLineTool
 id: star_generate_genome
 requirements:
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/star2:{{ star2 }}
+    dockerPull: "{{ docker_repository }}/star2:{{ star2 }}"
   - class: InlineJavascriptRequirement
 
 inputs:

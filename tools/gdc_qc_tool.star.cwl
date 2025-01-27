@@ -7,7 +7,7 @@ requirements:
       - entry: $(inputs.input_db)
         writable: true
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/bio-qcmetrics-tool:{{ bio-qcmetrics-tool }}
+    dockerPull: "{{ docker_repository }}/bio-qcmetrics-tool:{{ bio-qcmetrics-tool }}"
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

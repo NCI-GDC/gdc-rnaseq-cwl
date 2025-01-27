@@ -3,7 +3,7 @@ class: CommandLineTool
 id: picard_createsequencedictionary
 requirements:
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/picard:{{ picard }}
+    dockerPull: "{{ docker_repository }}/picard:{{ picard }}"
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

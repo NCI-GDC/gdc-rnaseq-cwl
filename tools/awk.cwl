@@ -3,7 +3,7 @@ class: CommandLineTool
 id: awk
 requirements:
   - class: DockerRequirement
-    dockerPull: fedora:{{ fedora }}
+    dockerPull: "fedora:{{ fedora }}"
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 16

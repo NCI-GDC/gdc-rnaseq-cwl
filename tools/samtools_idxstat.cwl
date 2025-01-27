@@ -3,7 +3,7 @@ class: CommandLineTool
 id: samtools_idxstat
 requirements:
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/samtools:{{ samtools }}
+    dockerPull: "{{ docker_repository }}/samtools:{{ samtools }}"
   - class: InitialWorkDirRequirement
     listing:
       - $(inputs.bam)

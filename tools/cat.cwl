@@ -3,7 +3,7 @@ class: CommandLineTool
 id: cat
 requirements:
   - class: DockerRequirement
-    dockerPull: fedora:26
+    dockerPull: "fedora:26"
 
 inputs:
   input1:

@@ -4,7 +4,7 @@ id: bioclient_conditional_upload_pull_uuid
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
-    dockerPull: "{{ docker_repository }}/bio-client:{{ bio-client }}"
+    dockerPull: "{{ docker_repository }}/bio-client:{{ bio_client }}"
   - class: InitialWorkDirRequirement
     listing: |
       ${

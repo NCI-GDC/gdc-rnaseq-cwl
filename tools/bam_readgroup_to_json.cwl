@@ -3,7 +3,7 @@ class: CommandLineTool
 id: bam_readgroup_to_json
 requirements:
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/bam_readgroup_to_json:75fdf4511a17a035aeeb67fcce26a815b6b824e56ee033c6bbd2d2d99dd8c558 
+    dockerPull: {{ docker_repository }}/bam_readgroup_to_json:{{ bam_readgroup_to_json }}
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1

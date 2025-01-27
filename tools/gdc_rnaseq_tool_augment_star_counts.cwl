@@ -3,7 +3,7 @@ class: CommandLineTool
 id: augment_star_counts
 requirements:
   - class: DockerRequirement
-    dockerPull:  {{ docker_repository }}/gdc-rnaseq-tool:1.0.0-49.b7277f1
+    dockerPull:  {{ docker_repository }}/gdc-rnaseq-tool:{{ gdc-rnaseq-tool }}
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

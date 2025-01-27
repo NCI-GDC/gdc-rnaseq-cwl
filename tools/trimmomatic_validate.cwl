@@ -6,7 +6,7 @@ requirements:
     types:
       - $import: readgroup.cwl
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/trimmomatic:0.38
+    dockerPull: {{ docker_repository }}/trimmomatic:{{ trimmomatic }}
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

@@ -3,7 +3,7 @@ class: CommandLineTool
 id: bioclient_conditional_download
 requirements:
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/bio-client:latest
+    dockerPull: {{ docker_repository }}/bio-client:{{ bio-client }}
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1

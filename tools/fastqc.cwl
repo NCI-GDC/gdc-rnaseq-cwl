@@ -3,7 +3,7 @@ class: CommandLineTool
 id: fastqc
 requirements:
   - class: DockerRequirement
-    dockerPull: {{ docker_repository }}/fastqc:a285d4ab748fa11e6029ad1019ea645ed2b1657e5d49c850a322fdf4b402c1b9
+    dockerPull: {{ docker_repository }}/fastqc:{{ fastqc }}
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

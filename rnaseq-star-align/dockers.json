@@ -2,7 +2,7 @@
     "docker_repository": "docker.osdc.io/ncigdc",
     "bam_readgroup_to_json": "685e4954df4d70f89315a256ecfb707a2dd80b9fcf0d8d10918398df938c6a28", 
     "bedops": "latest",
-    "biobambam": "d4b3d1218df6d120aa4e04068e58efbdd4c9b3551f550744805b52eaa145bfbf",
+    "biobambam": "2.0.95-e069a11",
     "bio_client": "latest",
     "bio_tarball_to_fastqgz": "0.2.0",
     "gdc_vendorfail": "1.1.0",

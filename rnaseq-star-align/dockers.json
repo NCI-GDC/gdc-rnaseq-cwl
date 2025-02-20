@@ -14,5 +14,5 @@
     "star2": "2.7.5c",
     "trimmomatic": "0.38",
     "fedora": "26",
-    "alpine": "latest"
+    "bio_alpine": "latest"
 }

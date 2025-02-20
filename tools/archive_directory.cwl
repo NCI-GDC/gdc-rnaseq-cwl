@@ -3,7 +3,7 @@ class: CommandLineTool
 id: archive_directory
 requirements:
   - class: DockerRequirement
-    dockerPull: "alpine:{{ alpine }} "
+    dockerPull: "{{ docker_repository }}/bio-alpine:{{ bio_alpine }}"
   - class: InlineJavascriptRequirement
   - class: ResourceRequirement
     coresMin: 1

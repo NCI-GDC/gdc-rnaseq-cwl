@@ -7,11 +7,6 @@ requirements:
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
-  - class: ResourceRequirement
-    coresMin: "$(inputs.threads ? inputs.threads : 1)"
-    ramMin: 10000
-    tmpdirMin: $(file_size_multiplier(inputs.input_bam, 1.8))
-    outdirMin: $(file_size_multiplier(inputs.input_bam, 1.8))
 
 inputs:
   input_bam:

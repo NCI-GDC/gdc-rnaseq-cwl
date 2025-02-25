@@ -42,4 +42,5 @@ outputs:
     outputBinding:
       glob: "output.log"
 
-baseCommand: [bam_readgroup_to_json]
+baseCommand: []
+#use baseCommand: [bam_readgroup_to_json] after remove the entrypoints

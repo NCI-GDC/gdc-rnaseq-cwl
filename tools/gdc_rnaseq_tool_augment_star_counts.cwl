@@ -47,4 +47,4 @@ outputs:
     outputBinding:
       glob: $(inputs.output_prefix)
 
-baseCommand: [ augment_star_counts ]
+baseCommand: [ 'gdc_rnaseq_tools', 'augment_star_counts' ]

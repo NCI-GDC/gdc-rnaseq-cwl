@@ -8,7 +8,7 @@
     "gdc_vendorfail": "1.1.0",
     "fastqc": "0.11.7-bee93a3",
     "bio_qcmetrics_tool": "0.3.0-5-g379aa9d",
-    "gdc_rnaseq_tool": "8e41b06",
+    "gdc_rnaseq_tool": "420103f",
     "picard": "2.26.10",
     "samtools": "1.9-0bce9a0",  
     "star2": "2.7.5c",

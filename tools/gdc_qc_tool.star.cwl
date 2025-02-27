@@ -7,7 +7,7 @@ requirements:
       - entry: $(inputs.input_db)
         writable: true
   - class: DockerRequirement
-    dockerPull: "{{ docker_repository }}/bio-qcmetrics-tool:{{ bio_qcmetrics_tool }}"
+    dockerPull: "{{ docker_repository }}/bio_qcmetrics_tool:{{ bio_qcmetrics_tool }}"
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
@@ -63,6 +63,6 @@ outputs:
       glob: $(inputs.input_db.basename)
 
 baseCommand:
-  - bio-qcmetrics-tool 
+  - bio_qcmetrics_tool 
   - export 
   - starstats

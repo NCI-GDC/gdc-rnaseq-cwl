@@ -32,4 +32,4 @@ outputs:
     outputBinding:
       glob: $(inputs.outfile)
 
-baseCommand: [ 'gdc_rnaseq_tools', 'merge_star_gene_counts']
+baseCommand: [merge_star_gene_counts]

@@ -6,7 +6,7 @@ requirements:
     expressionLib:
       $import: ./util_lib.cwl
   - class: DockerRequirement
-    dockerPull: "alpine:{{ alpine }}"
+    dockerPull: "{{ docker_repository }}/bio-alpine:{{ bio_alpine }}"
   - class: ResourceRequirement
     coresMin: 1
     ramMin: 1000

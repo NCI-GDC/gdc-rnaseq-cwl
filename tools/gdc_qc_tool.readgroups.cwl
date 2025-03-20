@@ -3,7 +3,7 @@ class: CommandLineTool
 id: gdc_qc_tool_readgroups
 requirements:
   - class: DockerRequirement
-    dockerPull: "{{ docker_repository }}/bio_qcmetrics_tool:{{ bio_qcmetrics_tool }}"
+    dockerPull: "{{ docker_repository }}/bio-qcmetrics-tool:{{ bio_qcmetrics_tool }}"
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
@@ -44,7 +44,7 @@ outputs:
       glob: $(inputs.job_uuid + '.rnaseq_metrics.db')
 
 baseCommand:
-  - bio_qcmetrics_tool 
+  - bio-qcmetrics-tool 
   - export 
   - readgroup
 

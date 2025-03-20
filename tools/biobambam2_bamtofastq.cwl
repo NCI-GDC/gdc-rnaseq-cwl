@@ -3,7 +3,7 @@ class: CommandLineTool
 id: biobambam2_bamtofastq
 requirements:
   - class: DockerRequirement
-    dockerPull: "{{ docker_repository }}/biobambam2:{{ biobambam }}"
+    dockerPull: "{{ docker_repository }}/biobambam:{{ biobambam }}"
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
@@ -166,4 +166,4 @@ outputs:
       outputEval: |
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
-baseCommand: [bamtofastq]
+baseCommand: [/usr/local/bin/bamtofastq]

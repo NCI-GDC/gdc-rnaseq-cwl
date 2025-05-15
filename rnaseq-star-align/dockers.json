@@ -12,7 +12,7 @@
     "picard": "2.26.10",
     "samtools": "1.9-0bce9a0",  
     "star2": "2.7.5c",
-    "trimmomatic": "0.38-1b69e93",
+    "trimmomatic": "0.38-e3eef70",
     "fedora": "26",
     "bio_alpine": "latest"
 }

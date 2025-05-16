@@ -37,9 +37,4 @@ outputs:
       outputEval: |
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
-  log:
-    type: File
-    outputBinding:
-      glob: "output.log"
-
 baseCommand: [bam_readgroup_to_json]

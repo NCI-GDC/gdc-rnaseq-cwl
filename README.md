@@ -1,4 +1,5 @@
 ![Version badge](https://img.shields.io/badge/star-2.7.5c-green.svg)
+
 ![Version badge](https://img.shields.io/badge/picard-2.26.10-green.svg)
 
 # GDC RNA-Seq Alignment Workflow

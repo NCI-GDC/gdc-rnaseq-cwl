@@ -6,7 +6,7 @@ requirements:
     types:
       - $import: readgroup.cwl
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/trimmomatic:0.38
+    dockerPull: "{{ docker_repository }}/trimmomatic:{{ trimmomatic }}"
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
@@ -81,7 +81,7 @@ outputs:
            return rec
          }
  
-baseCommand: [-Xmx4G, -jar, /bin/trimmomatic.jar] 
+baseCommand: [java, -Xmx4G, -jar, /bin/trimmomatic.jar] 
 
 arguments:
   - valueFrom: |

@@ -3,7 +3,7 @@ class: CommandLineTool
 id: augment_star_counts
 requirements:
   - class: DockerRequirement
-    dockerPull:  quay.io/ncigdc/gdc-rnaseq-tool:1.0.0-49.b7277f1
+    dockerPull: "{{ docker_repository }}/gdc-rnaseq-tool:{{ gdc_rnaseq_tool }}"
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
@@ -47,4 +47,4 @@ outputs:
     outputBinding:
       glob: $(inputs.output_prefix)
 
-baseCommand: [ augment_star_counts ]
+baseCommand: [ 'gdc_rnaseq_tools', 'augment_star_counts' ]

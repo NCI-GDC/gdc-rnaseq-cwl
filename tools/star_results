@@ -7,7 +7,7 @@
         type: File
       - name: star_chimeric_junctions
         type: File
-      - name: star_gene_counts 
+      - name: star_gene_counts
         type: File
       - name: star_genome_bam
         type: File

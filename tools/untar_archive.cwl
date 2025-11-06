@@ -3,7 +3,7 @@ class: CommandLineTool
 id: untar_archive
 requirements:
   - class: DockerRequirement
-    dockerPull: alpine
+    dockerPull: "{{ docker_repository }}/bio-alpine:{{ bio_alpine }}"
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

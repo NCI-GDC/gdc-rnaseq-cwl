@@ -3,7 +3,7 @@ cwlVersion: v1.0
 id: archive_list
 requirements:
   - class: DockerRequirement
-    dockerPull: alpine:latest
+    dockerPull: "{{ docker_repository }}/bio-alpine:{{ bio_alpine }}"
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl

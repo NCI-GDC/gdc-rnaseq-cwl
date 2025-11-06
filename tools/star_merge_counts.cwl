@@ -3,7 +3,7 @@ class: CommandLineTool
 id: star_merge_counts
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/gdc-rnaseq-tool:1.0.0
+    dockerPull: "{{ docker_repository }}/gdc-rnaseq-tool:{{ gdc_rnaseq_tool }}"
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
@@ -32,4 +32,4 @@ outputs:
     outputBinding:
       glob: $(inputs.outfile)
 
-baseCommand: [merge_star_gene_counts]
+baseCommand: [ 'gdc_rnaseq_tools', 'merge_star_gene_counts']

@@ -34,7 +34,7 @@ steps:
       INPUT: genome_bam
       MODE:
         default: "lenient"
-    out: [ OUTPUT, log ]
+    out: [ OUTPUT ]
 
   initialize_db:
     run: ../../../tools/gdc_qc_tool.readgroups.cwl

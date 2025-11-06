@@ -8,7 +8,7 @@ requirements:
       - entry: $(inputs.input_db)
         writable: true
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/bio-qcmetrics-tool:1445a87a4ca0607898d82b25fb11254f05215584
+    dockerPull: "{{ docker_repository }}/bio_qcmetrics_tool:{{ bio_qcmetrics_tool }}"
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
@@ -53,6 +53,6 @@ outputs:
       glob: $(inputs.input_db.basename)
 
 baseCommand:
-  - bio-qcmetrics-tool 
+  - bio_qcmetrics_tool 
   - export
   - samtoolsstats 

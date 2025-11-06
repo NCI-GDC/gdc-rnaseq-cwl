@@ -3,7 +3,7 @@ class: CommandLineTool
 id: fastq_vendor_fail_filter
 requirements:
   - class: DockerRequirement
-    dockerPull: quay.io/ncigdc/gdc-vendorfail:1.1.0
+    dockerPull: "{{ docker_repository }}/gdc-vendorfail:{{ gdc_vendorfail }}"
   - class: InlineJavascriptRequirement
     expressionLib:
       $import: ./util_lib.cwl
@@ -31,17 +31,17 @@ inputs:
   input_r1:
     type: File
     inputBinding:
-      position: 1
+      position: 2
 
   input_r2:
     type: File?
     inputBinding:
-      position: 2
+      position: 3
 
   output_prefix:
     type: string
     inputBinding:
-      position: 0
+      position: 1
       prefix: -o
 
 outputs:
@@ -54,4 +54,5 @@ outputs:
     type: File?
     outputBinding:
       glob: $(inputs.output_prefix + '_R2.fq.gz')
-baseCommand: []
+
+baseCommand: [fqvendorfail]

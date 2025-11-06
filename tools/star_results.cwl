@@ -1,3 +1,5 @@
+cwlVersion: v1.0
+$graph:
   - name: star_results
     type: record
     fields:
@@ -7,7 +9,7 @@
         type: File
       - name: star_chimeric_junctions
         type: File
-      - name: star_gene_counts 
+      - name: star_gene_counts
         type: File
       - name: star_genome_bam
         type: File

@@ -3,7 +3,7 @@ class: CommandLineTool
 id: grep
 requirements:
   - class: DockerRequirement
-    dockerPull: fedora:26
+    dockerPull: "fedora:{{ fedora }}"
 
 inputs:
   - id: INPUT

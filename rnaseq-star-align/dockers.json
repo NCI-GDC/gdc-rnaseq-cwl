@@ -5,7 +5,7 @@
     "biobambam": "2.0.95-e069a11",
     "bio_client": "latest",
     "bio_tarball_to_fastqgz": "0.2.0",
-    "gdc_vendorfail": "build-31-85a7ab5a",
+    "gdc_vendorfail": "build-45-810a503c",
     "fastqc": "0.11.7-181d296",
     "bio_qcmetrics_tool": "build-31-403c0743",
     "gdc_rnaseq_tool": "1.0.0-2-g1e4705d",

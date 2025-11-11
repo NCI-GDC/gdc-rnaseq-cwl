@@ -81,3 +81,4 @@ The example input json in `rnaseq-star-align/example/main_workflow.example.input
 
 The entrypoint CWL workflow for GDC users is
 `rnaseq-star-align/star2pass.rnaseq_harmonization.cwl`. Additionally as a special case can handle a limited set of tar files.
+

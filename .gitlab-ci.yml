@@ -10,17 +10,22 @@ include:
     file:
       - templates/global/full.yaml
 
-build_dockers:
-  stage: build
-  services:
-    - docker:${DOCKER_VERSION}-dind
-  tags:
-    - dind
-  image: docker:${DOCKER_VERSION}-dind
-  before_script:
-    - docker info
-    - apk add --no-cache bash moreutils git go curl just
-  variables:
-    BASE_CONTAINER_REGISTRY: "docker.osdc.io"
-  script:
-    - /bin/bash build.sh -b "$CI_COMMIT_BRANCH" -n "$CI_COMMIT_SHORT_SHA"
+variables:
+  BASE_CONTAINER_VERSION: 3.5.0
+  PRE_COMMIT_DOCKER_IMAGE: ${BASE_CONTAINER_REGISTRY}/python3.13-builder:${BASE_CONTAINER_VERSION}
+  PRE_COMMIT_VERSION: 4.3.0
+
+# build_dockers:
+#   stage: build
+#   services:
+#     - docker:${DOCKER_VERSION}-dind
+#   tags:
+#     - dind
+#   image: docker:${DOCKER_VERSION}-dind
+#   before_script:
+#     - docker info
+#     - apk add --no-cache bash moreutils git go curl just
+#   variables:
+#     BASE_CONTAINER_REGISTRY: "docker.osdc.io"
+#   script:
+#     - /bin/bash build.sh -b "$CI_COMMIT_BRANCH" -n "$CI_COMMIT_SHORT_SHA"

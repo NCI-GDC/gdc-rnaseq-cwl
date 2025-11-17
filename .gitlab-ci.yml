@@ -3,9 +3,10 @@
 # https://docs.gitlab.com/ee/development/cicd/templates.html
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Python.gitlab-ci.yml
+# comment for testing
 include:
   - project: nci-gdc/gitlab-templates
-    ref: master
+    ref: 0.0.1
     file:
       - templates/global/full.yaml
 

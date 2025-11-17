@@ -10,11 +10,6 @@ include:
     file:
       - templates/global/full.yaml
 
-variables:
-  BASE_CONTAINER_VERSION: 3.5.0
-  PRE_COMMIT_DOCKER_IMAGE: ${BASE_CONTAINER_REGISTRY}/python3.13-builder:${BASE_CONTAINER_VERSION}
-  PRE_COMMIT_VERSION: 4.3.0
-
 build_dockers:
   stage: build
   services:

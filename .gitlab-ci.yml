@@ -6,7 +6,7 @@
 # comment for testing
 include:
   - project: nci-gdc/gitlab-templates
-    ref: 0.5.1
+    ref: 0.0.1
     file:
       - templates/global/full.yaml
 

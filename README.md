@@ -4,7 +4,7 @@
 
 # GDC RNA-Seq Alignment Workflow
 
-This workflow takes a set of input RNA-Seq short read data as  FASTQ or BAM
+This workflow takes a set of input RNA-Seq short read data as FASTQ or BAM
 files and generates multiple harmonized BAM files, gene counts, and other
 datasets.
 

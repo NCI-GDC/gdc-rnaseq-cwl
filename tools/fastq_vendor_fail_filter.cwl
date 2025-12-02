@@ -55,4 +55,4 @@ outputs:
     outputBinding:
       glob: $(inputs.output_prefix + '_R2.fq.gz')
 
-baseCommand: [fqvendorfail]
+#baseCommand: [fqvendorfail]

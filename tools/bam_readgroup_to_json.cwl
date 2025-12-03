@@ -37,4 +37,4 @@ outputs:
       outputEval: |
         ${ return self.sort(function(a,b) { return a.location > b.location ? 1 : (a.location < b.location ? -1 : 0) }) }
 
-baseCommand: [bam_readgroup_to_json]
+baseCommand: []

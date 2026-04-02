@@ -1,6 +1,6 @@
 {
     "docker_repository": "docker.osdc.io/ncigdc",
-    "bam_readgroup_to_json": "2.0.0", 
+    "bam_readgroup_to_json": "1.0.1", 
     "bedops_docker": "2.4.26-c1560c9",
     "biobambam": "2.0.95-e069a11",
     "bio_client": "latest",
